@@ -1,0 +1,584 @@
+/* ============================================================
+   QCHAIN — SHARED STYLESHEET
+   Rebuilt around fluid, physical, Apple-style interaction:
+   translucent materials, spring-approximating motion,
+   size-specific typography, and reduced-motion-first a11y.
+   Palette (teal on slate) and content are preserved.
+   ============================================================ */
+
+/* ----------------------------------------------------------
+   1. FONTS
+   ---------------------------------------------------------- */
+@font-face {
+    font-family: 'Formula1';
+    src: url('assets/Formula1-Regular.woff2') format('woff2'),
+         url('assets/Formula1-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Formula1';
+    src: url('assets/Formula1-Bold.woff2') format('woff2'),
+         url('assets/Formula1-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-display: swap;
+}
+
+/* ----------------------------------------------------------
+   2. DESIGN TOKENS
+   Colours are semantic and adapt across light / dark so that
+   nothing is hard-coded per component (Craft).
+   ---------------------------------------------------------- */
+:root {
+    /* surfaces & text */
+    --bg:            #f5f7fa;
+    --bg-tint:       #eef2f7;
+    --surface:       #ffffff;
+    --surface-2:     #f1f5f9;
+    --text:          #0b1220;
+    --text-muted:    #5a6b82;
+    --text-subtle:   #8a99ad;
+
+    /* lines */
+    --border:        rgba(15, 23, 42, 0.08);
+    --border-strong: rgba(15, 23, 42, 0.14);
+
+    /* brand */
+    --accent:        #0d9488;
+    --accent-bright: #14b8a6;
+    --accent-ink:    #0f766e;
+    --accent-soft:   rgba(20, 184, 166, 0.12);
+
+    /* translucent chrome */
+    --nav-bg:        rgba(255, 255, 255, 0.68);
+    --nav-edge:      rgba(255, 255, 255, 0.75);
+    --glass-blur:    22px;
+
+    /* elevation — layered, context-aware */
+    --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.05), 0 1px 3px rgba(15, 23, 42, 0.06);
+    --shadow-md: 0 10px 30px -12px rgba(15, 23, 42, 0.18), 0 2px 8px rgba(15, 23, 42, 0.05);
+    --shadow-lg: 0 34px 60px -24px rgba(15, 23, 42, 0.28), 0 8px 20px -12px rgba(15, 23, 42, 0.12);
+
+    /* radii */
+    --r-sm: 0.6rem;
+    --r-md: 0.9rem;
+    --r-lg: 1.25rem;
+    --r-xl: 1.6rem;
+
+    /* motion — springs approximated as easing curves.
+       For non-gesture UI a well-tuned critically-damped curve
+       reads the same as a spring; bounce is reserved for
+       momentum moments (press-release, reveals). */
+    --spring:        cubic-bezier(0.32, 0.72, 0, 1);   /* settle, no overshoot */
+    --spring-bounce: cubic-bezier(0.34, 1.42, 0.5, 1); /* slight overshoot     */
+    --ease-out:      cubic-bezier(0.22, 1, 0.36, 1);
+    --t-fast:   0.18s;
+    --t-med:    0.42s;
+    --t-slow:   0.7s;
+}
+
+.dark {
+    --bg:            #060a13;
+    --bg-tint:       #0a1120;
+    --surface:       #0f1729;
+    --surface-2:     #172136;
+    --text:          #f2f5fa;
+    --text-muted:    #93a2b8;
+    --text-subtle:   #64748b;
+
+    --border:        rgba(148, 163, 184, 0.13);
+    --border-strong: rgba(148, 163, 184, 0.22);
+
+    --accent:        #14b8a6;
+    --accent-bright: #2dd4bf;
+    --accent-ink:    #5eead4;
+    --accent-soft:   rgba(20, 184, 166, 0.16);
+
+    --nav-bg:        rgba(9, 13, 22, 0.62);
+    --nav-edge:      rgba(148, 163, 184, 0.14);
+
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
+    --shadow-md: 0 14px 34px -14px rgba(0, 0, 0, 0.6), 0 2px 8px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 40px 70px -26px rgba(0, 0, 0, 0.7), 0 10px 24px -14px rgba(0, 0, 0, 0.5);
+}
+
+/* ----------------------------------------------------------
+   3. BASE
+   ---------------------------------------------------------- */
+* { -webkit-tap-highlight-color: transparent; }
+
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    /* ease the dark<->light change rather than snapping brightness */
+    transition: background-color var(--t-med) var(--ease-out),
+                color var(--t-med) var(--ease-out);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+::selection { background: var(--accent-soft); color: var(--accent-ink); }
+
+/* Interactive things should never wait on the 300ms tap delay. */
+a, button, .pressable, .interactive-block { touch-action: manipulation; }
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+.interactive-block:focus-visible {
+    outline: 2px solid var(--accent-bright);
+    outline-offset: 2px;
+    border-radius: var(--r-sm);
+}
+
+/* ----------------------------------------------------------
+   4. TYPOGRAPHY — optical sizing, size-specific tracking,
+   leading that tracks size inversely.
+   ---------------------------------------------------------- */
+h1, h2, h3, h4, .font-f1 {
+    font-family: 'Formula1', 'Inter', system-ui, sans-serif !important;
+    font-optical-sizing: auto;
+}
+
+/* Large display text: negative tracking, tight leading. */
+h1 { letter-spacing: -0.03em; line-height: 1.04; }
+h2 { letter-spacing: -0.022em; line-height: 1.1; }
+h3 { letter-spacing: -0.015em; line-height: 1.2; }
+h4 { letter-spacing: -0.01em; line-height: 1.25; }
+
+/* Body copy: near-zero tracking, comfortable leading. */
+p, li { letter-spacing: 0; }
+
+.text-balance { text-wrap: balance; }
+.text-pretty  { text-wrap: pretty; }
+
+.display {
+    font-size: clamp(2.4rem, 5.5vw, 4.2rem);
+    line-height: 1.02;
+    letter-spacing: -0.035em;
+}
+
+.eyebrow {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+/* ----------------------------------------------------------
+   5. TRANSLUCENT NAV — a floating material, content scrolls
+   under it. Edge appears on scroll instead of a hard divider.
+   ---------------------------------------------------------- */
+.glass-nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--nav-bg);
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+    backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+    /* bright top hairline = light catching the glass */
+    border-top: 1px solid var(--nav-edge);
+    border-bottom: 1px solid transparent;
+    transition: border-color var(--t-med) var(--ease-out),
+                background-color var(--t-med) var(--ease-out),
+                box-shadow var(--t-med) var(--ease-out);
+}
+.glass-nav.is-scrolled {
+    border-bottom-color: var(--border);
+    box-shadow: 0 8px 24px -18px rgba(15, 23, 42, 0.5);
+}
+
+.nav-link {
+    position: relative;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 0.4rem 0.15rem;
+    transition: color var(--t-fast) var(--ease-out);
+}
+.nav-link:hover { color: var(--text); }
+.nav-link.is-active { color: var(--accent); }
+/* underline grows from the element, hinting the active target */
+.nav-link.is-active::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: -0.35rem;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--accent);
+    transform: scaleX(1);
+    transform-origin: center;
+    transition: transform var(--t-med) var(--spring);
+}
+.nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: -0.35rem;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform var(--t-med) var(--spring);
+}
+.nav-link:hover::after { transform: scaleX(1); opacity: 0.5; }
+
+/* mobile menu sheet: originates from the top, materialises */
+.mobile-sheet {
+    background: var(--nav-bg);
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+    backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+    border-top: 1px solid var(--border);
+    overflow: hidden;
+    transform-origin: top center;
+    transition: opacity var(--t-med) var(--ease-out),
+                transform var(--t-med) var(--spring),
+                max-height var(--t-med) var(--spring);
+}
+.mobile-sheet.is-closed {
+    opacity: 0;
+    transform: translateY(-6px) scaleY(0.98);
+    max-height: 0;
+    pointer-events: none;
+}
+.mobile-sheet.is-open {
+    opacity: 1;
+    transform: translateY(0) scaleY(1);
+    max-height: 22rem;
+}
+.mobile-link {
+    display: block;
+    color: var(--text-muted);
+    font-weight: 500;
+    padding: 0.65rem 0.75rem;
+    border-radius: var(--r-sm);
+    transition: color var(--t-fast) var(--ease-out),
+                background-color var(--t-fast) var(--ease-out);
+}
+.mobile-link:hover, .mobile-link:active { color: var(--text); background: var(--surface-2); }
+.mobile-link.is-active { color: var(--accent); font-weight: 700; }
+
+/* ----------------------------------------------------------
+   6. SURFACES & CARDS
+   ---------------------------------------------------------- */
+.surface  { background: var(--surface); }
+.surface-2{ background: var(--surface-2); }
+
+.card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--t-med) var(--spring),
+                box-shadow var(--t-med) var(--ease-out),
+                border-color var(--t-med) var(--ease-out);
+}
+.card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--border-strong);
+}
+
+/* thin accent rail on the left of a card */
+.card-rail { border-left: 3px solid var(--accent); }
+
+/* ----------------------------------------------------------
+   7. BUTTONS — feedback on press, not release.
+   ---------------------------------------------------------- */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    border-radius: var(--r-md);
+    padding: 0.8rem 1.4rem;
+    cursor: pointer;
+    user-select: none;
+    transition: transform var(--t-fast) var(--ease-out),
+                background-color var(--t-fast) var(--ease-out),
+                box-shadow var(--t-med) var(--ease-out),
+                color var(--t-fast) var(--ease-out);
+    will-change: transform;
+}
+.btn:active { transform: scale(0.965); }
+
+.btn-primary {
+    background: var(--accent);
+    color: #fff;
+    box-shadow: 0 10px 24px -12px rgba(13, 148, 136, 0.9);
+}
+.btn-primary:hover { background: var(--accent-bright); }
+
+.btn-ghost {
+    background: color-mix(in srgb, var(--text) 8%, transparent);
+    color: var(--text);
+    border: 1px solid var(--border);
+}
+.btn-ghost:hover { background: color-mix(in srgb, var(--text) 12%, transparent); }
+
+.btn-square { width: 3.2rem; padding: 0; aspect-ratio: 1; }
+
+/* ----------------------------------------------------------
+   8. CHIPS / BADGES / INPUTS
+   ---------------------------------------------------------- */
+.chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 0.28rem 0.7rem;
+    border-radius: 999px;
+    background: var(--surface-2);
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+}
+.chip-accent {
+    background: var(--accent-soft);
+    color: var(--accent-ink);
+    border-color: transparent;
+}
+
+.field {
+    width: 100%;
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    padding: 0.8rem 1rem;
+    font-size: 0.9rem;
+    box-shadow: var(--shadow-sm);
+    transition: border-color var(--t-fast) var(--ease-out),
+                box-shadow var(--t-fast) var(--ease-out);
+}
+.field::placeholder { color: var(--text-subtle); }
+.field:focus {
+    outline: none;
+    border-color: var(--accent-bright);
+    box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+/* ----------------------------------------------------------
+   9. SCROLL REVEAL — elements rise + fade as they enter.
+   Motion starts from a hidden presentation state and settles
+   on a spring-ish curve; staggered by index for rhythm.
+   ---------------------------------------------------------- */
+/* Only hide reveal targets when JS is available (.js on <html>),
+   so the page degrades to fully-visible content without scripts. */
+.js [data-reveal] {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity var(--t-slow) var(--ease-out),
+                transform var(--t-slow) var(--spring);
+    transition-delay: var(--reveal-delay, 0ms);
+    will-change: transform, opacity;
+}
+.js [data-reveal].is-visible {
+    opacity: 1;
+    transform: none;
+}
+
+/* ----------------------------------------------------------
+   10. HERO
+   ---------------------------------------------------------- */
+.hero {
+    position: relative;
+    overflow: hidden;
+    background:
+        radial-gradient(120% 90% at 85% -10%, rgba(20,184,166,0.18), transparent 60%),
+        linear-gradient(180deg, #0b1220 0%, #0c1526 100%);
+    color: #eef2f7;
+}
+.hero-glow {
+    position: absolute;
+    top: -18%;
+    right: -12%;
+    width: 640px;
+    height: 640px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(20,184,166,0.28), transparent 62%);
+    filter: blur(60px);
+    pointer-events: none;
+}
+/* stacked device screenshots: bright edge + deep shadow = a real object */
+.device-shot {
+    border-radius: var(--r-xl);
+    box-shadow: var(--shadow-lg);
+}
+
+/* ----------------------------------------------------------
+   11. CHART CONTAINERS
+   ---------------------------------------------------------- */
+.chart-container {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    height: 350px;
+    max-height: 400px;
+}
+@media (min-width: 768px) { .chart-container { height: 400px; } }
+
+/* ----------------------------------------------------------
+   12. CUSTOM SCROLLBAR
+   ---------------------------------------------------------- */
+.custom-scrollbar::-webkit-scrollbar { width: 8px; height: 8px; }
+.custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: color-mix(in srgb, var(--text-subtle) 60%, transparent);
+    border-radius: 4px;
+}
+
+/* ----------------------------------------------------------
+   13. INTERACTIVE ARCHITECTURE BLOCKS
+   1:1-ish press feedback; lift on hover; clear selected state.
+   ---------------------------------------------------------- */
+.interactive-block {
+    cursor: pointer;
+    width: 100%;
+    border-radius: var(--r-md);
+    transition: transform var(--t-med) var(--spring),
+                box-shadow var(--t-med) var(--ease-out),
+                border-color var(--t-med) var(--ease-out),
+                background-color var(--t-fast) var(--ease-out);
+    will-change: transform;
+}
+.interactive-block:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--accent);
+}
+.interactive-block:active { transform: scale(0.985); }
+.block-selected {
+    border-color: var(--accent-ink) !important;
+    box-shadow: 0 0 0 2px var(--accent-soft), var(--shadow-md);
+}
+
+/* flow connector arrows */
+.flow-arrow {
+    display: block;
+    text-align: center;
+    font-size: 1.4rem;
+    line-height: 1;
+    color: var(--text-subtle);
+    opacity: 0.6;
+}
+
+/* ----------------------------------------------------------
+   14. TABLE ROWS (research + audit share the look)
+   ---------------------------------------------------------- */
+.data-row { transition: background-color var(--t-fast) var(--ease-out); }
+.data-row:hover { background: var(--surface-2); }
+
+.finding-summary { cursor: pointer; }
+.finding-summary:active { background: var(--surface-2); }
+
+/* Severity accent rails (kept from the original semantics) */
+.sev-critical { border-left-color: #dc2626; }
+.sev-high     { border-left-color: #f97316; }
+.sev-medium   { border-left-color: #eab308; }
+.sev-low      { border-left-color: #3b82f6; }
+.sev-info     { border-left-color: #14b8a6; }
+
+/* detail row expand/collapse feel */
+.finding-detail > td > div {
+    animation: detail-in var(--t-med) var(--ease-out) both;
+}
+@keyframes detail-in {
+    from { opacity: 0; transform: translateY(-4px); }
+    to   { opacity: 1; transform: none; }
+}
+
+/* ----------------------------------------------------------
+   15. THEME TOGGLE — sun / moon morph (preserved, retimed to
+   share the spring curve).
+   ---------------------------------------------------------- */
+.theme-toggle {
+    background: transparent; border: none; padding: 0.35rem; outline: none;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    border-radius: 999px;
+    color: var(--text-muted);
+    transition: color var(--t-fast) var(--ease-out),
+                background-color var(--t-fast) var(--ease-out),
+                transform var(--t-fast) var(--ease-out);
+}
+.theme-toggle:hover { color: var(--text); background: var(--surface-2); }
+.theme-toggle:active { transform: scale(0.9); }
+
+.theme-toggle__inner-moon {
+    width: 20px; height: 20px;
+    transition: transform 0.5s var(--spring);
+    transform-origin: center; transform: rotate(-100deg);
+}
+.dark .theme-toggle__inner-moon { transform: rotate(0deg); }
+.theme-toggle__inner-moon .sun-rays {
+    transition: transform 0.5s var(--spring), opacity 0.3s ease;
+    transform-origin: center; transform: scale(0.2); opacity: 0;
+}
+.dark .theme-toggle__inner-moon .sun-rays { transform: scale(1); opacity: 1; }
+.theme-toggle__inner-moon .sun-core {
+    transition: transform 0.5s var(--spring);
+    transform-origin: center; transform: scale(1.3);
+}
+.dark .theme-toggle__inner-moon .sun-core { transform: scale(1); }
+.theme-toggle__inner-moon .moon-mask-circle {
+    transition: transform 0.5s var(--spring);
+    transform: translate(0, 0);
+}
+.dark .theme-toggle__inner-moon .moon-mask-circle { transform: translate(12px, -12px); }
+
+/* ----------------------------------------------------------
+   16. SMALL UTILITIES
+   ---------------------------------------------------------- */
+.hairline { height: 1px; background: var(--border); border: 0; }
+.t-base   { color: var(--text); }
+.t-muted  { color: var(--text-muted); }
+.t-subtle { color: var(--text-subtle); }
+.t-accent { color: var(--accent); }
+.link-accent { color: var(--accent); transition: color var(--t-fast) var(--ease-out); }
+.link-accent:hover { color: var(--accent-bright); }
+code { font-family: ui-monospace, 'SFMono-Regular', Menlo, monospace; font-size: 0.85em; }
+
+/* ----------------------------------------------------------
+   17. ACCESSIBILITY — reduced motion / transparency / contrast.
+   Reduced motion keeps comprehension cues (opacity) but drops
+   travel, springs and parallax.
+   ---------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.15s !important;
+    }
+    [data-reveal] { transform: none !important; transition: opacity 0.2s ease !important; }
+    .card-hover:hover, .interactive-block:hover { transform: none !important; }
+    .theme-toggle__inner-moon,
+    .theme-toggle__inner-moon * { transition: opacity 0.2s ease !important; }
+    .hero-glow { display: none; }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+    .glass-nav, .mobile-sheet {
+        background: var(--surface);
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+        border-bottom: 1px solid var(--border);
+    }
+}
+
+@media (prefers-contrast: more) {
+    :root { --border: rgba(15,23,42,0.32); --border-strong: rgba(15,23,42,0.5); }
+    .dark { --border: rgba(148,163,184,0.4); --border-strong: rgba(148,163,184,0.6); }
+    .glass-nav, .mobile-sheet {
+        background: var(--surface);
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+    }
+    .nav-link, .mobile-link { color: var(--text); }
+}
