@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        // Set theme + a .js flag synchronously to avoid a flash and to keep
+        // scroll-reveal content visible if scripts are disabled.
+        document.documentElement.classList.add('js');
+        try {
+            if (localStorage.theme === 'dark' ||
+                (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+            }
+        } catch (e) {}
+    </script>
+    <title>About Us — QChain</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body class="flex flex-col min-h-screen">
+
+    <!-- GLOBAL NAVIGATION -->
+    <nav class="glass-nav">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="flex items-center gap-3 pressable">
+                        <img src="assets/qchain_logo.jpeg" alt="QChain Logo" class="w-8 h-8 rounded-lg shadow-sm dark:invert" onerror="this.src='https://via.placeholder.com/32'">
+                        <span class="text-2xl t-base tracking-tight font-f1">QChain</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="research.html" class="nav-link">Our Research</a>
+                    <a href="audit.html" class="nav-link">Security Audit</a>
+                    <a href="about.html" class="nav-link is-active">About Us</a>
+                    <button class="theme-toggle" type="button" aria-label="Toggle theme" onclick="toggleDarkMode()">
+                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="theme-toggle__inner-moon" fill="currentColor" viewBox="0 0 32 32"><mask id="moon-mask-desktop"><rect x="0" y="0" width="32" height="32" fill="white" /><circle cx="22" cy="10" r="9" fill="black" class="moon-mask-circle" /></mask><path class="sun-rays" d="M27.5 11.5v-7h-7L16 0l-4.5 4.5h-7v7L0 16l4.5 4.5v7h7L16 32l4.5-4.5h7v-7L32 16l-4.5-4.5zM16 25.4a9.39 9.39 0 1 1 0-18.8 9.39 9.39 0 1 1 0 18.8z" /><circle class="sun-core" cx="16" cy="16" r="8.1" mask="url(#moon-mask-desktop)" /></svg>
+                    </button>
+                </div>
+                <div class="flex items-center md:hidden gap-2">
+                    <button class="theme-toggle" type="button" aria-label="Toggle theme" onclick="toggleDarkMode()">
+                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="theme-toggle__inner-moon" fill="currentColor" viewBox="0 0 32 32"><mask id="moon-mask-mobile"><rect x="0" y="0" width="32" height="32" fill="white" /><circle cx="22" cy="10" r="9" fill="black" class="moon-mask-circle" /></mask><path class="sun-rays" d="M27.5 11.5v-7h-7L16 0l-4.5 4.5h-7v7L0 16l4.5 4.5v7h7L16 32l4.5-4.5h7v-7L32 16l-4.5-4.5zM16 25.4a9.39 9.39 0 1 1 0-18.8 9.39 9.39 0 1 1 0 18.8z" /><circle class="sun-core" cx="16" cy="16" r="8.1" mask="url(#moon-mask-mobile)" /></svg>
+                    </button>
+                    <button onclick="toggleMobileMenu()" aria-label="Menu" class="theme-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" style="width: 20px; height: 20px;">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="mobile-sheet is-closed md:hidden">
+            <div class="px-4 py-3 space-y-1 max-w-7xl mx-auto">
+                <a href="index.html" class="mobile-link">Home</a>
+                <a href="research.html" class="mobile-link">Our Research</a>
+                <a href="audit.html" class="mobile-link">Security Audit</a>
+                <a href="about.html" class="mobile-link is-active">About Us</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow">
+        <section class="hero py-24">
+            <div class="hero-glow"></div>
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
+                <h1 class="display mb-6 text-balance" style="color:var(--accent-bright)" data-reveal>Meet the Team</h1>
+                <p class="text-lg leading-relaxed mb-10 max-w-2xl mx-auto" style="color:#c7d2de" data-reveal data-reveal-delay="80">
+                    We are a dedicated team of undergraduate students focused on building <strong style="color:#eef2f7">"Post-Quantum Cryptography in Blockchain Technology: A Quantum-Resistant Credential Verification System"</strong> as part of our senior year project.
+                </p>
+                <div class="inline-flex flex-col items-center p-8 rounded-2xl" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);box-shadow:var(--shadow-lg)" data-reveal data-reveal-delay="140">
+                    <div class="w-24 h-24 mb-4 rounded-full overflow-hidden flex items-center justify-center" style="background:rgba(255,255,255,0.08)">
+                        <img src="assets/qchain_logo.jpeg" alt="Logo" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-xl font-bold mb-1" style="color:#eef2f7">Team QChain</h3>
+                    <p class="text-sm mb-5" style="color:#93a2b8">Undergraduate Researchers</p>
+                    <a href="mailto:admin.qchain@gmail.com" class="btn btn-primary">
+                        ✉️ admin.qchain@gmail.com
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    <footer class="hero mt-auto py-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4 relative z-10">
+            <div class="flex items-center gap-2">
+                <img src="assets/qchain_logo.jpeg" alt="QChain Logo" loading="lazy" class="w-6 h-6 rounded shadow-sm invert" onerror="this.style.display='none'">
+                <span class="font-mono text-sm tracking-tight" style="color:#93a2b8">QChain Research</span>
+            </div>
+            <p class="text-sm" style="color:#7c8aa0">&copy; 2026 Team QChain | Capstone Project</p>
+        </div>
+    </footer>
+</body>
+</html>

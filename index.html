@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        // Set theme + a .js flag synchronously to avoid a flash and to keep
+        // scroll-reveal content visible if scripts are disabled.
+        document.documentElement.classList.add('js');
+        try {
+            if (localStorage.theme === 'dark' ||
+                (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+            }
+        } catch (e) {}
+    </script>
+    <title>QChain — Secure Blockchain</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body class="flex flex-col min-h-screen">
+
+    <!-- GLOBAL NAVIGATION -->
+    <nav class="glass-nav">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="flex items-center gap-3 pressable">
+                        <img src="assets/qchain_logo.jpeg" alt="QChain Logo" class="w-8 h-8 rounded-lg shadow-sm dark:invert" onerror="this.src='https://via.placeholder.com/32'">
+                        <span class="text-2xl t-base tracking-tight font-f1">QChain</span>
+                    </a>
+                </div>
+
+                <!-- Desktop Links -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="index.html" class="nav-link is-active">Home</a>
+                    <a href="research.html" class="nav-link">Our Research</a>
+                    <a href="audit.html" class="nav-link">Security Audit</a>
+                    <a href="about.html" class="nav-link">About Us</a>
+                    <button class="theme-toggle" type="button" aria-label="Toggle theme" onclick="toggleDarkMode()">
+                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="theme-toggle__inner-moon" fill="currentColor" viewBox="0 0 32 32">
+                            <mask id="moon-mask-desktop"><rect x="0" y="0" width="32" height="32" fill="white" /><circle cx="22" cy="10" r="9" fill="black" class="moon-mask-circle" /></mask>
+                            <path class="sun-rays" d="M27.5 11.5v-7h-7L16 0l-4.5 4.5h-7v7L0 16l4.5 4.5v7h7L16 32l4.5-4.5h7v-7L32 16l-4.5-4.5zM16 25.4a9.39 9.39 0 1 1 0-18.8 9.39 9.39 0 1 1 0 18.8z" />
+                            <circle class="sun-core" cx="16" cy="16" r="8.1" mask="url(#moon-mask-desktop)" />
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Mobile controls -->
+                <div class="flex items-center md:hidden gap-2">
+                    <button class="theme-toggle" type="button" aria-label="Toggle theme" onclick="toggleDarkMode()">
+                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="theme-toggle__inner-moon" fill="currentColor" viewBox="0 0 32 32"><mask id="moon-mask-mobile"><rect x="0" y="0" width="32" height="32" fill="white" /><circle cx="22" cy="10" r="9" fill="black" class="moon-mask-circle" /></mask><path class="sun-rays" d="M27.5 11.5v-7h-7L16 0l-4.5 4.5h-7v7L0 16l4.5 4.5v7h7L16 32l4.5-4.5h7v-7L32 16l-4.5-4.5zM16 25.4a9.39 9.39 0 1 1 0-18.8 9.39 9.39 0 1 1 0 18.8z" /><circle class="sun-core" cx="16" cy="16" r="8.1" mask="url(#moon-mask-mobile)" /></svg>
+                    </button>
+                    <button onclick="toggleMobileMenu()" aria-label="Menu" class="theme-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" style="width: 20px; height: 20px;">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="mobile-sheet is-closed md:hidden">
+            <div class="px-4 py-3 space-y-1 max-w-7xl mx-auto">
+                <a href="index.html" class="mobile-link is-active">Home</a>
+                <a href="research.html" class="mobile-link">Our Research</a>
+                <a href="audit.html" class="mobile-link">Security Audit</a>
+                <a href="about.html" class="mobile-link">About Us</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow">
+        <!-- HERO -->
+        <section class="hero py-20 md:py-28">
+            <div class="hero-glow"></div>
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center relative">
+                <div class="relative z-10">
+                    <span class="chip chip-accent mb-5" data-reveal>A Senior Capstone Initiative</span>
+                    <h1 class="display mb-6 text-balance" data-reveal data-reveal-delay="60">
+                        Quantum-Resistant<br><span style="color:var(--accent-bright)">Credential Management</span>
+                    </h1>
+                    <p class="text-lg mb-9 leading-relaxed max-w-xl" style="color:#c7d2de" data-reveal data-reveal-delay="120">
+                        Bridging academic research with enterprise security. QChain upgrades Hyperledger Fabric with lattice-based cryptography, ensuring university degrees and corporate certificates survive the post-quantum era.
+                    </p>
+                    <div class="flex flex-col sm:flex-row flex-wrap items-stretch gap-4 w-full" data-reveal data-reveal-delay="180">
+                        <a href="research.html" class="btn btn-primary w-full sm:w-auto">Read our research</a>
+                        <div class="flex gap-4 w-full sm:w-auto">
+                            <a href="https://github.com/nihvp/QChain-PQC-blockchain" target="_blank" rel="noopener" aria-label="View Source on GitHub" class="btn btn-primary btn-square flex-shrink-0">
+                                <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.418 22 12c0-5.523-4.477-10-10-10z"></path></svg>
+                            </a>
+                            <a href="about.html" class="btn btn-ghost w-full sm:w-auto flex-grow" style="background:rgba(255,255,255,0.1);color:#eef2f7;border-color:rgba(255,255,255,0.16)">Meet the team</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Overlapping device screenshots -->
+                <div class="relative z-10 w-full mt-24 md:mt-32 lg:mt-0 flex justify-end" data-reveal data-reveal-delay="150">
+                    <img src="assets/image_9dd255.png" alt="QPortal Desktop interface" class="device-shot w-[95%] md:w-[85%] object-cover relative z-0">
+                    <img src="assets/image_9dd2b4.png" alt="QWallet Mobile app interface" class="device-shot absolute -bottom-6 md:-bottom-10 left-0 w-[40%] md:w-[35%] z-10">
+                </div>
+            </div>
+        </section>
+
+        <!-- VALUE PROP -->
+        <section class="py-24">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-3xl md:text-4xl t-base mb-14 text-balance" data-reveal>Designed for Academia. Built for Enterprise.</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="card card-hover p-7 text-left" data-reveal data-reveal-delay="0">
+                        <img src="assets/3dicons-notebook-dynamic-color.png" alt="Notebook Icon" class="w-10 h-10 mb-4 object-contain">
+                        <h3 class="text-xl t-base mb-3">Immutable Academic Integrity</h3>
+                        <p class="t-muted text-sm leading-relaxed">Universities need guarantees that issued degrees cannot be forged. Our hybrid IPFS model ensures degrees are easily verifiable while maintaining strict cryptographic proof.</p>
+                    </div>
+                    <div class="card card-hover p-7 text-left" data-reveal data-reveal-delay="80">
+                        <img src="assets/3dicons-shield-dynamic-color.png" alt="Shield Icon" class="w-10 h-10 mb-4 object-contain">
+                        <h3 class="text-xl t-base mb-3">Enterprise-Ready Security</h3>
+                        <p class="t-muted text-sm leading-relaxed">By utilizing ML-DSA (Dilithium) standards natively within Fabric, companies can trust that their organizational credentials won't be broken by Shor's algorithm tomorrow.</p>
+                    </div>
+                    <div class="card card-hover p-7 text-left" data-reveal data-reveal-delay="160">
+                        <img src="assets/3dicons-mobile-dynamic-color.png" alt="Mobile Icon" class="w-10 h-10 mb-4 object-contain">
+                        <h3 class="text-xl t-base mb-3">Seamless User Experience</h3>
+                        <p class="t-muted text-sm leading-relaxed">Complex cryptography is completely abstracted. Issuers use a sleek web portal, while students manage and present credentials via an intuitive mobile wallet.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="hero mt-auto py-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4 relative z-10">
+            <div class="flex items-center gap-2">
+                <img src="assets/qchain_logo.jpeg" alt="QChain Logo" loading="lazy" class="w-6 h-6 rounded shadow-sm invert" onerror="this.style.display='none'">
+                <span class="font-mono text-sm tracking-tight" style="color:#93a2b8">QChain Research</span>
+            </div>
+            <p class="text-sm" style="color:#7c8aa0">&copy; 2026 Team QChain | Capstone Project</p>
+        </div>
+    </footer>
+</body>
+</html>
