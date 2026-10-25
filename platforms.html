@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        document.documentElement.classList.add('js');
+        try {
+            if (localStorage.theme === 'dark' ||
+                (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+            }
+        } catch (e) {}
+    </script>
+    <title>Platforms — QPortal & QWallet | QChain</title>
+    <link rel="icon" href="assets/qchain_logo.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body class="flex flex-col min-h-screen">
+
+    <!-- GLOBAL NAVIGATION -->
+    <nav class="glass-nav">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="flex items-center gap-3 pressable">
+                        <img src="assets/qchain_logo.jpeg" alt="QChain Logo" class="w-8 h-8 rounded-lg shadow-sm dark:invert" onerror="this.src='https://via.placeholder.com/32'">
+                        <span class="text-xl t-base font-bold tracking-tight font-f1">QChain</span>
+                    </a>
+                </div>
+
+                <!-- Desktop Links -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="platforms.html" class="nav-link is-active">Platforms</a>
+                    <a href="research.html" class="nav-link">Our Research</a>
+                    <a href="audit.html" class="nav-link">Security Audit</a>
+                    <a href="about.html" class="nav-link">About Us</a>
+                    <button class="theme-toggle" type="button" aria-label="Toggle theme" onclick="toggleDarkMode()">
+                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="theme-toggle__inner-moon" fill="currentColor" viewBox="0 0 32 32">
+                            <mask id="moon-mask-desktop"><rect x="0" y="0" width="32" height="32" fill="white" /><circle cx="22" cy="10" r="9" fill="black" class="moon-mask-circle" /></mask>
+                            <path class="sun-rays" d="M27.5 11.5v-7h-7L16 0l-4.5 4.5h-7v7L0 16l4.5 4.5v7h7L16 32l4.5-4.5h7v-7L32 16l-4.5-4.5zM16 25.4a9.39 9.39 0 1 1 0-18.8 9.39 9.39 0 1 1 0 18.8z" />
+                            <circle class="sun-core" cx="16" cy="16" r="8.1" mask="url(#moon-mask-desktop)" />
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Mobile controls -->
+                <div class="flex items-center md:hidden gap-2">
+                    <button class="theme-toggle" type="button" aria-label="Toggle theme" onclick="toggleDarkMode()">
+                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="theme-toggle__inner-moon" fill="currentColor" viewBox="0 0 32 32">
+                            <mask id="moon-mask-mobile"><rect x="0" y="0" width="32" height="32" fill="white" /><circle cx="22" cy="10" r="9" fill="black" class="moon-mask-circle" /></mask>
+                            <path class="sun-rays" d="M27.5 11.5v-7h-7L16 0l-4.5 4.5h-7v7L0 16l4.5 4.5v7h7L16 32l4.5-4.5h7v-7L32 16l-4.5-4.5zM16 25.4a9.39 9.39 0 1 1 0-18.8 9.39 9.39 0 1 1 0 18.8z" />
+                            <circle class="sun-core" cx="16" cy="16" r="8.1" mask="url(#moon-mask-mobile)" />
+                        </svg>
+                    </button>
+                    <button onclick="toggleMobileMenu()" aria-label="Menu" class="theme-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="mobile-sheet is-closed md:hidden">
+            <div class="px-4 py-3 space-y-1 max-w-7xl mx-auto">
+                <a href="index.html" class="mobile-link">Home</a>
+                <a href="platforms.html" class="mobile-link is-active">Platforms</a>
+                <a href="research.html" class="mobile-link">Our Research</a>
+                <a href="audit.html" class="mobile-link">Security Audit</a>
+                <a href="about.html" class="mobile-link">About Us</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow">
+        <!-- HERO -->
+        <header class="hero-mesh py-20 border-b border-[var(--border)] relative">
+            <div class="hero-radial-glow"></div>
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+                <div class="inline-flex items-center gap-2 chip mb-6" data-reveal>
+                    <span class="pulse-dot"></span>
+                    <span class="font-mono text-xs uppercase tracking-wider">The Post-Quantum Credential Ecosystem</span>
+                </div>
+
+                <h1 class="display mb-6 tracking-tight text-balance max-w-4xl mx-auto" data-reveal data-reveal-delay="60">
+                    Enterprise Power Meets <br>
+                    <span class="text-gradient-mono">Sovereign Identity.</span>
+                </h1>
+
+                <p class="text-base sm:text-lg mb-8 leading-relaxed max-w-2xl mx-auto t-muted" data-reveal data-reveal-delay="120">
+                    Manage, issue, and verify credentials with QPortal. Hold and selectively disclose them on your phone with QWallet.
+                </p>
+
+                <!-- Platform Segmented Quick Switcher -->
+                <div class="inline-flex p-1.5 rounded-full surface-2 border border-[var(--border)] max-w-sm mx-auto shadow-sm" data-reveal data-reveal-delay="160">
+                    <button onclick="scrollToPlatform('qportal')" id="pill-qportal" class="px-6 py-2.5 rounded-full text-xs font-semibold t-base transition-all bg-[var(--surface)] shadow-sm flex items-center gap-2">
+                        <span>🌐</span>
+                        <span>QPortal Console</span>
+                    </button>
+                    <button onclick="scrollToPlatform('qwallet')" id="pill-qwallet" class="px-6 py-2.5 rounded-full text-xs font-semibold t-muted hover:text-[var(--text)] transition-all flex items-center gap-2">
+                        <span>📱</span>
+                        <span>QWallet Mobile</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- SECTION 2: QPORTAL SHOWCASE -->
+        <section id="qportal" class="py-24 border-b border-[var(--border)]">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- Section Header -->
+                <div class="mb-14">
+                    <div class="chip font-mono text-xs mb-3" data-reveal>
+                        ADMINISTRATIVE SUITE · FLUTTER WEB &amp; NGINX
+                    </div>
+                    <h2 class="text-3xl md:text-4xl t-base font-bold tracking-tight mb-4" data-reveal data-reveal-delay="40">
+                        QPortal: Enterprise Credential &amp; Verification Hub
+                    </h2>
+                    <p class="t-muted text-base max-w-3xl leading-relaxed" data-reveal data-reveal-delay="80">
+                        QPortal provides a zero-compromise administrative console where institutions issue tamper-proof post-quantum credentials and relying parties verify signatures against the Hyperledger Fabric ledger.
+                    </p>
+                </div>
+
+                <!-- Interactive Tabs for QPortal Sub-Suites -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-10" data-reveal data-reveal-delay="100">
+                    <button onclick="switchPortalTab('issuer')" id="tab-issuer" class="card card-hover p-4 text-left border-l-4 border-l-[var(--text)] transition-all bg-[var(--surface-2)]">
+                        <div class="text-xs font-mono t-subtle mb-1 uppercase">01 / Suite</div>
+                        <div class="text-sm font-bold t-base">The Issuer Studio</div>
+                        <div class="text-xs t-muted mt-1">Batch PQC issuance &amp; JSON-LD schemas</div>
+                    </button>
+                    <button onclick="switchPortalTab('verifier')" id="tab-verifier" class="card card-hover p-4 text-left border-l-4 border-l-transparent transition-all">
+                        <div class="text-xs font-mono t-subtle mb-1 uppercase">02 / Suite</div>
+                        <div class="text-sm font-bold t-base">The Verifier Suite</div>
+                        <div class="text-xs t-muted mt-1">Real-time policy verification &amp; scan</div>
+                    </button>
+                    <button onclick="switchPortalTab('admin')" id="tab-admin" class="card card-hover p-4 text-left border-l-4 border-l-transparent transition-all">
+                        <div class="text-xs font-mono t-subtle mb-1 uppercase">03 / Suite</div>
+                        <div class="text-sm font-bold t-base">IT Admin &amp; Cryptography</div>
+                        <div class="text-xs t-muted mt-1">NIST security levels, MSP, &amp; audit logs</div>
+                    </button>
+                </div>
+
+                <!-- QPortal Showcase Display -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    <!-- Left: Interactive Image Showcase with Click-to-Zoom -->
+                    <div class="lg:col-span-7" data-reveal>
+                        <div id="portal-lightbox-trigger" class="cursor-pointer group relative" onclick="openLightbox(portalData[currentPortalTab].image, portalData[currentPortalTab].caption)">
+                            <img id="portal-screen-img" src="assets/image_9dd255.png" alt="QPortal Administrative Console interface" class="device-shot w-full object-contain transition-opacity duration-200" loading="lazy">
+                            <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/30 rounded-xl">
+                                <span class="chip bg-white text-black font-semibold text-xs py-1.5 px-3 shadow-md">Click to expand interface</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between text-xs t-subtle mt-3 font-mono px-1">
+                            <span id="portal-screen-caption">Screen 2A: The Issuer Studio (Batch Issuance &amp; Schemas)</span>
+                            <span class="chip text-[10px] py-0.5 px-2">Interactive Preview</span>
+                        </div>
+                    </div>
+
+                    <!-- Right: Dynamic Details for Selected Role -->
+                    <div class="lg:col-span-5" data-reveal data-reveal-delay="80">
+                        <div id="portal-detail-box" class="card p-6 md:p-8 space-y-6">
+                            <!-- Tab Content Injected via JS -->
+                            <div>
+                                <span class="chip font-mono text-[10px] mb-2 uppercase" id="portal-tag">The Issuer Studio</span>
+                                <h3 class="text-xl font-bold t-base tracking-tight mb-2" id="portal-title">Batch PQC Credential Issuance</h3>
+                                <p class="text-sm t-muted leading-relaxed" id="portal-desc">
+                                    Issue thousands of credentials at scale with quantum-safe Dilithium (ML-DSA-44) keys. Includes drag-and-drop CSV batch upload, progress tracking, and automatic off-chain IPFS payload distribution.
+                                </p>
+                            </div>
+
+                            <div class="space-y-3 border-t border-[var(--border)] pt-4" id="portal-features">
+                                <div class="flex items-start gap-3">
+                                    <span class="font-mono text-xs t-base mt-0.5">■</span>
+                                    <div>
+                                        <h4 class="font-bold text-xs t-base">Dynamic Schema Studio</h4>
+                                        <p class="text-xs t-muted">Define customizable credential schemas with strict validation, transcript fields, and degree confers.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <span class="font-mono text-xs t-base mt-0.5">■</span>
+                                    <div>
+                                        <h4 class="font-bold text-xs t-base">Real-Time Revocation &amp; Suspension</h4>
+                                        <p class="text-xs t-muted">Immediate revocation registered directly on Hyperledger Fabric ledger; verifiers reflect status instantly.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <span class="font-mono text-xs t-base mt-0.5">■</span>
+                                    <div>
+                                        <h4 class="font-bold text-xs t-base">Cryptographic Salt Generation</h4>
+                                        <p class="text-xs t-muted">Computes canonical SHA3-256 salted hashes for each attribute to enable zero-knowledge selective disclosure.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="pt-2 font-mono text-[11px] t-subtle border-t border-[var(--border)] flex items-center justify-between">
+                                <span>Source: <code>UI_WebApp/lib/screens/</code></span>
+                                <a href="https://github.com/nihvp/QChain-PQC-blockchain/tree/main/UI_WebApp" target="_blank" rel="noopener" class="link-subtle hover:underline">View Source →</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: QWALLET SHOWCASE -->
+        <section id="qwallet" class="py-24 surface-2 border-b border-[var(--border)]">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- Section Header -->
+                <div class="mb-14">
+                    <div class="chip font-mono text-xs mb-3" data-reveal>
+                        SELF-SOVEREIGN IDENTITY · FLUTTER MOBILE (IOS &amp; ANDROID)
+                    </div>
+                    <h2 class="text-3xl md:text-4xl t-base font-bold tracking-tight mb-4" data-reveal data-reveal-delay="40">
+                        QWallet: Quantum-Resistant Identity in Your Pocket
+                    </h2>
+                    <p class="t-muted text-base max-w-3xl leading-relaxed" data-reveal data-reveal-delay="80">
+                        Full credential ownership in the holder's hands. QWallet lets students, citizens, and professionals store post-quantum credentials locally in their secure hardware enclave and selectively reveal only the data they choose to share.
+                    </p>
+                </div>
+
+                <!-- Interactive Tabs for QWallet Capabilities -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-10" data-reveal data-reveal-delay="100">
+                    <button onclick="switchWalletTab('deck')" id="tab-deck" class="card card-hover p-4 text-left border-l-4 border-l-[var(--text)] transition-all bg-[var(--surface)]">
+                        <div class="text-xs font-mono t-subtle mb-1 uppercase">01 / Mobile</div>
+                        <div class="text-sm font-bold t-base">The Credential Stack</div>
+                        <div class="text-xs t-muted mt-1">Multi-credential deck &amp; local vault</div>
+                    </button>
+                    <button onclick="switchWalletTab('selective')" id="tab-selective" class="card card-hover p-4 text-left border-l-4 border-l-transparent transition-all">
+                        <div class="text-xs font-mono t-subtle mb-1 uppercase">02 / Privacy</div>
+                        <div class="text-sm font-bold t-base">Selective Disclosure</div>
+                        <div class="text-xs t-muted mt-1">Salted per-field cryptographic masking</div>
+                    </button>
+                    <button onclick="switchWalletTab('qr')" id="tab-qr" class="card card-hover p-4 text-left border-l-4 border-l-transparent transition-all">
+                        <div class="text-xs font-mono t-subtle mb-1 uppercase">03 / Presentation</div>
+                        <div class="text-sm font-bold t-base">Ephemeral QR Presentation</div>
+                        <div class="text-xs t-muted mt-1">Anti-replay single-use verification</div>
+                    </button>
+                    <button onclick="switchWalletTab('audit')" id="tab-audit" class="card card-hover p-4 text-left border-l-4 border-l-transparent transition-all">
+                        <div class="text-xs font-mono t-subtle mb-1 uppercase">04 / History</div>
+                        <div class="text-sm font-bold t-base">Tamper Audit Log</div>
+                        <div class="text-xs t-muted mt-1">Verification trails &amp; on-chain proof</div>
+                    </button>
+                </div>
+
+                <!-- QWallet Showcase Display -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    <!-- Left: Interactive Mobile Mockup -->
+                    <div class="lg:col-span-5 flex flex-col items-center" data-reveal>
+                        <div id="wallet-lightbox-trigger" class="cursor-pointer group relative max-w-xs w-full" onclick="openLightbox(walletData[currentWalletTab].image, walletData[currentWalletTab].caption)">
+                            <img id="wallet-screen-img" src="assets/image_9dd2b4.png" alt="QWallet Mobile Application interface" class="device-shot w-full object-contain transition-opacity duration-200" loading="lazy">
+                            <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/30 rounded-3xl">
+                                <span class="chip bg-white text-black font-semibold text-xs py-1.5 px-3 shadow-md">Click to expand</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between w-full max-w-xs text-xs t-subtle mt-3 font-mono px-1">
+                            <span id="wallet-screen-caption">Screen 3A: The Credential Stack (Home / Wallet)</span>
+                            <span class="chip text-[10px] py-0.5 px-2">Mobile Deck</span>
+                        </div>
+                    </div>
+
+                    <!-- Right: Dynamic Details for Selected Mobile Feature -->
+                    <div class="lg:col-span-7" data-reveal data-reveal-delay="80">
+                        <div id="wallet-detail-box" class="card p-6 md:p-8 space-y-6">
+                            <div>
+                                <span class="chip font-mono text-[10px] mb-2 uppercase" id="wallet-tag">The Credential Stack</span>
+                                <h3 class="text-xl font-bold t-base tracking-tight mb-2" id="wallet-title">Fluid Multi-Credential Vault</h3>
+                                <p class="text-sm t-muted leading-relaxed" id="wallet-desc">
+                                    Interactive swipeable card deck displaying verified educational degrees, corporate certifications, and health attestations. All private keys (ML-KEM-768 and ML-DSA-44) are generated on-device and stored in iOS Keychain / Android Keystore.
+                                </p>
+                            </div>
+
+                            <div class="space-y-3 border-t border-[var(--border)] pt-4" id="wallet-features">
+                                <div class="flex items-start gap-3">
+                                    <span class="font-mono text-xs t-base mt-0.5">■</span>
+                                    <div>
+                                        <h4 class="font-bold text-xs t-base">Local Secure Enclave Storage</h4>
+                                        <p class="text-xs t-muted">Private keys never leave the phone. No centralized entity can decrypt or sign on the user's behalf.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <span class="font-mono text-xs t-base mt-0.5">■</span>
+                                    <div>
+                                        <h4 class="font-bold text-xs t-base">Full Offline Accessibility</h4>
+                                        <p class="text-xs t-muted">Credentials and cryptographic proofs cached locally for presentation even when offline.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <span class="font-mono text-xs t-base mt-0.5">■</span>
+                                    <div>
+                                        <h4 class="font-bold text-xs t-base">Biometric Protection</h4>
+                                        <p class="text-xs t-muted">Hardware-backed FaceID / Fingerprint authorization required before generating presentation proofs.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="pt-2 font-mono text-[11px] t-subtle border-t border-[var(--border)] flex items-center justify-between">
+                                <span>Source: <code>UI_App/lib/screens/</code></span>
+                                <a href="https://github.com/nihvp/QChain-PQC-blockchain/tree/main/UI_App" target="_blank" rel="noopener" class="link-subtle hover:underline">View Source →</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: HOW THEY WORK TOGETHER -->
+        <section class="py-24 border-b border-[var(--border)]">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-2xl mx-auto mb-16">
+                    <h2 class="text-3xl md:text-4xl t-base font-bold tracking-tight mb-4" data-reveal>How They Interact Together</h2>
+                    <p class="t-muted text-base leading-relaxed" data-reveal data-reveal-delay="60">
+                        An integrated, crypto-agile lifecycle uniting administrative issuance on QPortal with sovereign presentation on QWallet.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 relative">
+                    <!-- Step 1 -->
+                    <div class="card p-6 flex flex-col justify-between" data-reveal data-reveal-delay="0">
+                        <div>
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="font-mono text-2xl font-bold t-base">01</span>
+                                <span class="chip font-mono text-[9px]">QPORTAL WEB</span>
+                            </div>
+                            <h3 class="text-base font-bold t-base mb-2">Canonical Issue</h3>
+                            <p class="text-xs t-muted leading-relaxed">
+                                University defines claims, generates salted commitments, signs with ML-DSA-44, and commits state immutably on Fabric.
+                            </p>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-[var(--border)] font-mono text-[10px] t-subtle">
+                            Issuer Signature Anchored
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="card p-6 flex flex-col justify-between" data-reveal data-reveal-delay="60">
+                        <div>
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="font-mono text-2xl font-bold t-base">02</span>
+                                <span class="chip font-mono text-[9px]">QWALLET MOBILE</span>
+                            </div>
+                            <h3 class="text-base font-bold t-base mb-2">Receive &amp; Store</h3>
+                            <p class="text-xs t-muted leading-relaxed">
+                                Holder retrieves encrypted payload from IPFS, decrypts using on-device ML-KEM-768 key, and stores credentials in the vault.
+                            </p>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-[var(--border)] font-mono text-[10px] t-subtle">
+                            Encrypted to Holder Key
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="card p-6 flex flex-col justify-between" data-reveal data-reveal-delay="120">
+                        <div>
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="font-mono text-2xl font-bold t-base">03</span>
+                                <span class="chip font-mono text-[9px]">QWALLET MOBILE</span>
+                            </div>
+                            <h3 class="text-base font-bold t-base mb-2">Select &amp; Present</h3>
+                            <p class="text-xs t-muted leading-relaxed">
+                                Holder toggles desired claims, attaches matching salts, signs challenge with mobile ML-DSA key, and renders dynamic QR.
+                            </p>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-[var(--border)] font-mono text-[10px] t-subtle">
+                            Anti-Replay Presentation
+                        </div>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="card p-6 flex flex-col justify-between" data-reveal data-reveal-delay="180">
+                        <div>
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="font-mono text-2xl font-bold t-base">04</span>
+                                <span class="chip font-mono text-[9px]">QPORTAL WEB</span>
+                            </div>
+                            <h3 class="text-base font-bold t-base mb-2">Verify &amp; Audit</h3>
+                            <p class="text-xs t-muted leading-relaxed">
+                                Verifier scans QR, verifies dual signatures (issuer + holder), matches on-chain commitment, and checks revocation status.
+                            </p>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-[var(--border)] font-mono text-[10px] t-subtle">
+                            Zero-Trust Validation
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: COMPARATIVE SPECIFICATION MATRIX -->
+        <section class="py-24 surface-2 border-b border-[var(--border)]">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="mb-12">
+                    <h2 class="text-3xl md:text-4xl t-base font-bold tracking-tight mb-3" data-reveal>Comparative Architecture Matrix</h2>
+                    <p class="t-muted text-sm leading-relaxed" data-reveal data-reveal-delay="40">
+                        Side-by-side technical breakdown across audiences, cryptographic roles, and deployment models.
+                    </p>
+                </div>
+
+                <div class="overflow-x-auto custom-scrollbar card shadow-sm" data-reveal data-reveal-delay="80">
+                    <table class="min-w-full text-sm">
+                        <thead>
+                            <tr class="surface-2">
+                                <th class="px-6 py-4 text-left eyebrow t-subtle">Capability / Attribute</th>
+                                <th class="px-6 py-4 text-left eyebrow t-base font-bold">🌐 QPortal</th>
+                                <th class="px-6 py-4 text-left eyebrow t-base font-bold">📱 QWallet</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-[var(--border)]">
+                            <tr class="data-row">
+                                <td class="px-6 py-4 font-semibold t-base whitespace-nowrap">Primary Audience</td>
+                                <td class="px-6 py-4 t-muted">Institutions, Universities, Employers, IT Admins</td>
+                                <td class="px-6 py-4 t-muted">Credential Holders (Students, Alumni, Citizens)</td>
+                            </tr>
+                            <tr class="data-row">
+                                <td class="px-6 py-4 font-semibold t-base whitespace-nowrap">Platform Target</td>
+                                <td class="px-6 py-4 t-muted">Web (Responsive Desktop &amp; Tablet)</td>
+                                <td class="px-6 py-4 t-muted">Mobile (iOS &amp; Android)</td>
+                            </tr>
+                            <tr class="data-row">
+                                <td class="px-6 py-4 font-semibold t-base whitespace-nowrap">Cryptographic Role</td>
+                                <td class="px-6 py-4 t-muted">Signs issuance via ML-DSA-44; validates dual proofs</td>
+                                <td class="px-6 py-4 t-muted">Decryption via ML-KEM-768; presentation signing via ML-DSA-44</td>
+                            </tr>
+                            <tr class="data-row">
+                                <td class="px-6 py-4 font-semibold t-base whitespace-nowrap">Blockchain Interplay</td>
+                                <td class="px-6 py-4 t-muted">Direct transaction invocations on Hyperledger Fabric ledger</td>
+                                <td class="px-6 py-4 t-muted">Queries ledger anchors &amp; resolves encrypted IPFS payloads</td>
+                            </tr>
+                            <tr class="data-row">
+                                <td class="px-6 py-4 font-semibold t-base whitespace-nowrap">Core Functions</td>
+                                <td class="px-6 py-4 t-muted">Batch issue, Schema studio, Policy verification, Audit logs</td>
+                                <td class="px-6 py-4 t-muted">Card vault, Selective disclosure masking, Dynamic QR presentation</td>
+                            </tr>
+                            <tr class="data-row">
+                                <td class="px-6 py-4 font-semibold t-base whitespace-nowrap">Offline Capability</td>
+                                <td class="px-6 py-4 t-muted">High-availability server / cloud cluster required</td>
+                                <td class="px-6 py-4 t-muted">Full offline presentation from secure local storage</td>
+                            </tr>
+                            <tr class="data-row">
+                                <td class="px-6 py-4 font-semibold t-base whitespace-nowrap">UI Framework</td>
+                                <td class="px-6 py-4 t-muted">Flutter Web + Nginx Reverse Proxy</td>
+                                <td class="px-6 py-4 t-muted">Flutter Mobile with Secure Enclave &amp; Biometrics</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 6: DEVELOPER & DEPLOYMENT CTA -->
+        <section class="py-24 border-b border-[var(--border)]">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div data-reveal>
+                        <h2 class="text-3xl md:text-4xl t-base font-bold tracking-tight mb-4">Developer Sandbox &amp; Quick Launch</h2>
+                        <p class="t-muted text-base leading-relaxed mb-6">
+                            Both platforms are completely open source and packaged with containerized build scripts for immediate deployment and academic evaluation.
+                        </p>
+                        <div class="flex flex-wrap gap-4">
+                            <a href="https://github.com/nihvp/QChain-PQC-blockchain/tree/main/UI_WebApp" target="_blank" rel="noopener" class="btn btn-primary">
+                                <span>Explore QPortal Code</span>
+                            </a>
+                            <a href="https://github.com/nihvp/QChain-PQC-blockchain/tree/main/UI_App" target="_blank" rel="noopener" class="btn btn-ghost">
+                                <span>Explore QWallet Code</span>
+                            </a>
+                            <a href="research.html#architecture" class="btn btn-outline">
+                                <span>Architecture Specs →</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4 font-mono text-xs" data-reveal data-reveal-delay="80">
+                        <div class="card p-5 surface">
+                            <div class="flex justify-between items-center text-xs t-subtle mb-2">
+                                <span># 1. Start QPortal Container via Docker</span>
+                                <span>bash</span>
+                            </div>
+                            <pre class="overflow-x-auto custom-scrollbar p-3 surface-2 rounded text-[11px] t-base"><code>cd qchain-network/docker
+docker compose --profile web up -d
+# Access web dashboard at http://localhost:3000</code></pre>
+                        </div>
+
+                        <div class="card p-5 surface">
+                            <div class="flex justify-between items-center text-xs t-subtle mb-2">
+                                <span># 2. Build QWallet Mobile Release APK</span>
+                                <span>bash</span>
+                            </div>
+                            <pre class="overflow-x-auto custom-scrollbar p-3 surface-2 rounded text-[11px] t-base"><code>cd qchain-network/docker
+docker compose --profile mobile-dev run --rm mobile-dev \
+  flutter build apk --release</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- LIGHTBOX MODAL (FOR SCREENSHOT INSPECTION) -->
+    <div id="lightbox" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-md flex items-center justify-center p-4 transition-opacity" onclick="closeLightbox()">
+        <div class="relative max-w-5xl max-h-[90vh] flex flex-col items-center" onclick="event.stopPropagation()">
+            <button onclick="closeLightbox()" class="absolute -top-10 right-0 text-white hover:text-neutral-300 font-mono text-sm px-3 py-1 rounded bg-white/10 border border-white/20">
+                ✕ Close (ESC)
+            </button>
+            <img id="lightbox-img" src="" alt="Expanded preview" class="max-h-[80vh] w-auto object-contain rounded-lg shadow-2xl">
+            <p id="lightbox-caption" class="text-white text-xs font-mono mt-3 text-center"></p>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="py-12 surface">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-3">
+                <img src="assets/qchain_logo.jpeg" alt="QChain Logo" class="w-6 h-6 rounded shadow-sm dark:invert" onerror="this.style.display='none'">
+                <span class="font-mono text-xs font-semibold uppercase tracking-wider t-muted">QChain Research</span>
+            </div>
+            <div class="flex items-center space-x-6 text-xs t-muted font-medium">
+                <a href="index.html" class="hover:text-[var(--text)] transition-colors">Home</a>
+                <a href="platforms.html" class="hover:text-[var(--text)] transition-colors">Platforms</a>
+                <a href="research.html" class="hover:text-[var(--text)] transition-colors">Research</a>
+                <a href="audit.html" class="hover:text-[var(--text)] transition-colors">Audit</a>
+                <a href="about.html" class="hover:text-[var(--text)] transition-colors">About</a>
+                <a href="https://github.com/nihvp/QChain-PQC-blockchain" target="_blank" rel="noopener" class="hover:text-[var(--text)] transition-colors">GitHub</a>
+            </div>
+            <p class="text-xs t-subtle">&copy; 2026 Team QChain · Capstone Initiative</p>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE SCRIPTS FOR PLATFORMS PAGE -->
+    <script>
+        function updateActivePlatformPill(id) {
+            const btnP = document.getElementById('pill-qportal');
+            const btnW = document.getElementById('pill-qwallet');
+            if (!btnP || !btnW) return;
+
+            if (id === 'qwallet') {
+                btnW.classList.add('bg-[var(--surface)]', 'shadow-sm', 't-base');
+                btnW.classList.remove('t-muted');
+                btnP.classList.remove('bg-[var(--surface)]', 'shadow-sm', 't-base');
+                btnP.classList.add('t-muted');
+            } else {
+                btnP.classList.add('bg-[var(--surface)]', 'shadow-sm', 't-base');
+                btnP.classList.remove('t-muted');
+                btnW.classList.remove('bg-[var(--surface)]', 'shadow-sm', 't-base');
+                btnW.classList.add('t-muted');
+            }
+        }
+
+        function scrollToPlatform(id) {
+            const el = document.getElementById(id);
+            if (!el) return;
+            const navOffset = 75;
+            const elementPosition = el.getBoundingClientRect().top + window.pageYOffset;
+            window.scrollTo({
+                top: elementPosition - navOffset,
+                behavior: 'smooth'
+            });
+            updateActivePlatformPill(id);
+        }
+
+        // Dynamic ScrollSpy: Keep the pill highlight in sync when user scrolls up or down
+        function initPlatformScrollSpy() {
+            const walletSec = document.getElementById('qwallet');
+            if (!walletSec) return;
+
+            let ticking = false;
+            const checkScroll = () => {
+                const walletRect = walletSec.getBoundingClientRect();
+                // When QWallet top is within or above the upper half of viewport, highlight QWallet.
+                // When scrolled back up into QPortal or the hero, automatically switch back to QPortal.
+                if (walletRect.top <= window.innerHeight * 0.45 && walletRect.bottom >= 150) {
+                    updateActivePlatformPill('qwallet');
+                } else {
+                    updateActivePlatformPill('qportal');
+                }
+                ticking = false;
+            };
+
+            window.addEventListener('scroll', () => {
+                if (!ticking) {
+                    requestAnimationFrame(checkScroll);
+                    ticking = true;
+                }
+            }, { passive: true });
+
+            checkScroll();
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initPlatformScrollSpy);
+        } else {
+            initPlatformScrollSpy();
+        }
+
+        /* =========================================================================
+           📸 SCREENSHOT REGISTRY & CONFIGURATION GUIDE
+           -------------------------------------------------------------------------
+           To update screenshots when you get new pictures:
+           1. Drop your image file into the "assets/" folder (e.g. assets/qportal_verifier.png)
+           2. Change the "image" path property in the corresponding tab entry below.
+           Everything else (UI display, tabs, fade animations, lightbox zoom) updates automatically!
+           ========================================================================= */
+
+        let currentPortalTab = 'issuer';
+        const portalData = {
+            issuer: {
+                tag: "The Issuer Studio",
+                title: "Batch PQC Credential Issuance",
+                desc: "Issue thousands of credentials at scale with quantum-safe Dilithium (ML-DSA-44) keys. Includes drag-and-drop CSV batch upload, progress tracking, and automatic off-chain IPFS payload distribution.",
+                // 🖼️ UPDATE IMAGE FOR ISSUER STUDIO HERE:
+                image: "assets/image_9dd255.png",
+                caption: "Screen 2A: The Issuer Studio (Batch Issuance & Schemas)",
+                features: [
+                    { title: "Dynamic Schema Studio", desc: "Define customizable credential schemas with strict validation, transcript fields, and degree confers." },
+                    { title: "Real-Time Revocation & Suspension", desc: "Immediate revocation registered directly on Hyperledger Fabric ledger; verifiers reflect status instantly." },
+                    { title: "Cryptographic Salt Generation", desc: "Computes canonical SHA3-256 salted hashes for each attribute to enable zero-knowledge selective disclosure." }
+                ],
+                src: "UI_WebApp/lib/screens/issuer/"
+            },
+            verifier: {
+                tag: "The Verifier Suite",
+                title: "Instant Verification & Scan Dashboard",
+                desc: "Relying parties scan ephemeral QR codes or query transaction hashes. QPortal recomputes salted attribute hashes and verifies the issuer's ML-DSA-44 signature directly against Fabric ledger state.",
+                // 🖼️ UPDATE IMAGE FOR VERIFIER SUITE HERE:
+                image: "assets/image_9dd255.png",
+                caption: "Screen 2B: The Verifier Suite (Real-Time QR & Policy Verification)",
+                features: [
+                    { title: "Custom Verification Policies", desc: "Define criteria policies (e.g. minimum GPA, accredited university, active status) with automatic rule evaluation." },
+                    { title: "Tamper-Evident Ledger Integrity", desc: "Strict fail-closed architecture: invalid hashes or altered signatures fail immediately with clear audit logs." },
+                    { title: "Revocation Subscription Alerts", desc: "Verifiers can subscribe to status changes and receive webhook alerts if an issued credential is revoked." }
+                ],
+                src: "UI_WebApp/lib/screens/verifier/"
+            },
+            admin: {
+                tag: "IT Admin & Cryptography Console",
+                title: "Consortium Governance & Parameters",
+                desc: "Network administrators manage cryptographic algorithms (NIST Security Level 2 Dilithium), monitor Hyperledger Fabric peer and orderer health, and audit all system transactions.",
+                // 🖼️ UPDATE IMAGE FOR IT ADMIN CONSOLE HERE:
+                image: "assets/image_9dd255.png",
+                caption: "Screen 2C: IT Admin Console (NIST PQC Security & Node Status)",
+                features: [
+                    { title: "Role-Based Access Control (RBAC)", desc: "Strict separation between Issuers, Verifiers, and Organization Admins, backed by Fabric MSP certs." },
+                    { title: "Immutable Event Log", desc: "Cryptographically verifiable operational audit log recording issuance timestamps and policy changes." },
+                    { title: "Node & Cluster Monitoring", desc: "Real-time health telemetry across the 2-peer consortium, Raft consensus orderer, and IPFS cluster." }
+                ],
+                src: "UI_WebApp/lib/screens/IT Admin/"
+            }
+        };
+
+        function switchPortalTab(tabKey) {
+            currentPortalTab = tabKey;
+            ['issuer', 'verifier', 'admin'].forEach(k => {
+                const btn = document.getElementById('tab-' + k);
+                if (k === tabKey) {
+                    btn?.classList.add('border-l-[var(--text)]', 'bg-[var(--surface-2)]');
+                    btn?.classList.remove('border-l-transparent');
+                } else {
+                    btn?.classList.remove('border-l-[var(--text)]', 'bg-[var(--surface-2)]');
+                    btn?.classList.add('border-l-transparent');
+                }
+            });
+
+            const d = portalData[tabKey];
+            if (!d) return;
+
+            document.getElementById('portal-tag').textContent = d.tag;
+            document.getElementById('portal-title').textContent = d.title;
+            document.getElementById('portal-desc').textContent = d.desc;
+
+            // Smooth image transition & caption update
+            const img = document.getElementById('portal-screen-img');
+            const cap = document.getElementById('portal-screen-caption');
+            if (img && d.image) {
+                img.style.opacity = '0.3';
+                setTimeout(() => {
+                    img.src = d.image;
+                    img.alt = d.caption || d.title;
+                    img.style.opacity = '1';
+                }, 120);
+            }
+            if (cap) cap.textContent = d.caption || d.title;
+
+            const featBox = document.getElementById('portal-features');
+            if (featBox) {
+                featBox.innerHTML = d.features.map(f => `
+                    <div class="flex items-start gap-3">
+                        <span class="font-mono text-xs t-base mt-0.5">■</span>
+                        <div>
+                            <h4 class="font-bold text-xs t-base">${f.title}</h4>
+                            <p class="text-xs t-muted">${f.desc}</p>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        let currentWalletTab = 'deck';
+        const walletData = {
+            deck: {
+                tag: "The Credential Stack",
+                title: "Fluid Multi-Credential Vault",
+                desc: "Interactive swipeable card deck displaying verified educational degrees, corporate certifications, and health attestations. All private keys (ML-KEM-768 and ML-DSA-44) are generated on-device and stored in iOS Keychain / Android Keystore.",
+                // 🖼️ UPDATE IMAGE FOR CREDENTIAL DECK HERE:
+                image: "assets/image_9dd2b4.png",
+                caption: "Screen 3A: The Credential Stack (Home / Wallet)",
+                features: [
+                    { title: "Local Secure Enclave Storage", desc: "Private keys never leave the phone. No centralized entity can decrypt or sign on the user's behalf." },
+                    { title: "Full Offline Accessibility", desc: "Credentials and cryptographic proofs cached locally for presentation even when offline." },
+                    { title: "Biometric Protection", desc: "Hardware-backed FaceID / Fingerprint authorization required before generating presentation proofs." }
+                ]
+            },
+            selective: {
+                tag: "Selective Disclosure & Privacy Shield",
+                title: "Zero-Knowledge Attribute Masking",
+                desc: "The holder selectively chooses which attributes to disclose (e.g., Degree Name = Visible, GPA = Hidden). Only the disclosed attributes and their corresponding salted SHA3-256 Merkle hashes are transmitted to the verifier.",
+                // 🖼️ UPDATE IMAGE FOR SELECTIVE DISCLOSURE HERE:
+                image: "assets/image_9dd2b4.png",
+                caption: "Screen 3B: Selective Disclosure & Privacy Shield",
+                features: [
+                    { title: "Mathematical Non-Disclosure", desc: "Undisclosed fields remain completely absent from the presentation packet; verifiers cannot reverse unreleased salts." },
+                    { title: "Prevent Identity Scraping", desc: "Exposes only strictly necessary claims, protecting national ID numbers and demographic PII." },
+                    { title: "Full Verifiability", desc: "Verifier still reconstructs the exact on-chain root commitment hash without seeing masked values." }
+                ]
+            },
+            qr: {
+                tag: "Dynamic Ephemeral QR Presentation",
+                title: "Single-Use Anti-Replay Tokens",
+                desc: "Generates high-density dynamic QR codes containing an ephemeral single-use verification challenge signed with the holder's post-quantum ML-DSA-44 key.",
+                // 🖼️ UPDATE IMAGE FOR EPHEMERAL QR PRESENTATION HERE:
+                image: "assets/image_9dd2b4.png",
+                caption: "Screen 3C: Dynamic Ephemeral QR Presentation",
+                features: [
+                    { title: "Strict Expiry Countdown", desc: "Presentations expire in 120 seconds, preventing eavesdropping and physical screenshot reuse." },
+                    { title: "Holder Signature Non-Repudiation", desc: "Presentation proof includes a cryptographic signature from the holder's on-chain public key." },
+                    { title: "Instant In-Person or Remote Scan", desc: "Easily scanned by any camera-equipped verifier running QPortal or an API gateway." }
+                ]
+            },
+            audit: {
+                tag: "Tamper Audit & History",
+                title: "Transparent Verification Records",
+                desc: "Every time a presentation challenge is accepted, the event is securely logged in the wallet's activity journal. Holders maintain full audit visibility of which organizations verified which claims.",
+                // 🖼️ UPDATE IMAGE FOR TAMPER AUDIT LOG HERE:
+                image: "assets/image_9dd2b4.png",
+                caption: "Screen 3D: Certificate Visualizer & Tamper Audit",
+                features: [
+                    { title: "On-Chain Transaction Proofs", desc: "Inspect transaction IDs, Hyperledger Fabric block numbers, and timestamp attestations." },
+                    { title: "Revocation Awareness", desc: "Automatically alerts the holder if an issuing organization updates or revokes a certificate." },
+                    { title: "Zero Telemetry", desc: "All logs stay local to the device; no centralized tracking servers are used." }
+                ]
+            }
+        };
+
+        function switchWalletTab(tabKey) {
+            currentWalletTab = tabKey;
+            ['deck', 'selective', 'qr', 'audit'].forEach(k => {
+                const btn = document.getElementById('tab-' + k);
+                if (k === tabKey) {
+                    btn?.classList.add('border-l-[var(--text)]', 'bg-[var(--surface)]');
+                    btn?.classList.remove('border-l-transparent');
+                } else {
+                    btn?.classList.remove('border-l-[var(--text)]', 'bg-[var(--surface)]');
+                    btn?.classList.add('border-l-transparent');
+                }
+            });
+
+            const d = walletData[tabKey];
+            if (!d) return;
+
+            document.getElementById('wallet-tag').textContent = d.tag;
+            document.getElementById('wallet-title').textContent = d.title;
+            document.getElementById('wallet-desc').textContent = d.desc;
+
+            // Smooth image transition & caption update
+            const img = document.getElementById('wallet-screen-img');
+            const cap = document.getElementById('wallet-screen-caption');
+            if (img && d.image) {
+                img.style.opacity = '0.3';
+                setTimeout(() => {
+                    img.src = d.image;
+                    img.alt = d.caption || d.title;
+                    img.style.opacity = '1';
+                }, 120);
+            }
+            if (cap) cap.textContent = d.caption || d.title;
+
+            const featBox = document.getElementById('wallet-features');
+            if (featBox) {
+                featBox.innerHTML = d.features.map(f => `
+                    <div class="flex items-start gap-3">
+                        <span class="font-mono text-xs t-base mt-0.5">■</span>
+                        <div>
+                            <h4 class="font-bold text-xs t-base">${f.title}</h4>
+                            <p class="text-xs t-muted">${f.desc}</p>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        /* LIGHTBOX FUNCTIONALITY */
+        function openLightbox(src, caption) {
+            const modal = document.getElementById('lightbox');
+            const img = document.getElementById('lightbox-img');
+            const cap = document.getElementById('lightbox-caption');
+            if (!modal || !img) return;
+
+            img.src = src;
+            if (cap) cap.textContent = caption || '';
+            modal.classList.remove('hidden');
+        }
+
+        function closeLightbox() {
+            const modal = document.getElementById('lightbox');
+            if (modal) modal.classList.add('hidden');
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeLightbox();
+        });
+    </script>
+</body>
+</html>
