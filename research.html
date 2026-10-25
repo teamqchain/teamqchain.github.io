@@ -209,185 +209,231 @@
                 </div>
 
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    <div class="lg:col-span-2 card p-6 sm:p-8 relative overflow-hidden" data-reveal>
+                    <div class="lg:col-span-2 card p-4 sm:p-6 md:p-8 relative overflow-hidden" data-reveal>
                         <div class="absolute top-0 left-0 w-full h-1" style="background:var(--accent)"></div>
-                        <h3 class="eyebrow t-subtle mb-6">System Flow Topology</h3>
+                        <h3 class="eyebrow t-subtle mb-5 sm:mb-6">System Flow Topology</h3>
 
-                        <div class="flex flex-col space-y-3 w-full">
-                            <!-- ACTORS ROW -->
-                            <div class="grid grid-cols-1 md:grid-cols-12 gap-3 items-end">
-                                <!-- Issuer, Verifier, IT Admin -->
-                                <div class="md:col-span-7">
-                                    <div class="grid grid-cols-3 gap-2">
-                                        <div onclick="showArchDetail('qportal')" class="interactive-block surface-2 px-2 py-1.5 rounded-full border border-[var(--border)] shadow-sm text-center text-xs font-medium t-base flex items-center justify-center gap-1">
-                                            <span>🏛️</span><span>Issuer</span>
+                        <div class="flex flex-col space-y-2.5 sm:space-y-3 w-full">
+                            <!-- TOP TRACKS: PORTAL & WALLET (Side-by-side on all screens, keeping actors tied to their apps) -->
+                            <div class="grid grid-cols-12 gap-2 sm:gap-3 items-stretch">
+                                <!-- PORTAL TRACK: Issuer, Verifier, IT Admin -> QPortal -->
+                                <div class="col-span-7 flex flex-col justify-between">
+                                    <!-- Actor Pills -->
+                                    <div class="grid grid-cols-3 gap-1 sm:gap-1.5">
+                                        <div onclick="showArchDetail('qportal')" class="interactive-block surface-2 p-1.5 sm:px-2 sm:py-2 rounded-lg sm:rounded-full border border-[var(--border)] shadow-sm text-center text-[10px] sm:text-xs font-medium t-base flex flex-col sm:flex-row items-center justify-center gap-1 cursor-pointer">
+                                            <svg class="w-3.5 h-3.5 text-teal-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M3 10h18M5 10v11M9 10v11M15 10v11M19 10v11M12 2L2 7h20L12 2z"/></svg>
+                                            <span class="truncate">Issuer</span>
                                         </div>
-                                        <div onclick="showArchDetail('qportal')" class="interactive-block surface-2 px-2 py-1.5 rounded-full border border-[var(--border)] shadow-sm text-center text-xs font-medium t-base flex items-center justify-center gap-1">
-                                            <span>🛡️</span><span>Verifier</span>
+                                        <div onclick="showArchDetail('qportal')" class="interactive-block surface-2 p-1.5 sm:px-2 sm:py-2 rounded-lg sm:rounded-full border border-[var(--border)] shadow-sm text-center text-[10px] sm:text-xs font-medium t-base flex flex-col sm:flex-row items-center justify-center gap-1 cursor-pointer">
+                                            <svg class="w-3.5 h-3.5 text-teal-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+                                            <span class="truncate">Verifier</span>
                                         </div>
-                                        <div onclick="showArchDetail('qportal')" class="interactive-block surface-2 px-2 py-1.5 rounded-full border border-[var(--border)] shadow-sm text-center text-xs font-medium t-base flex items-center justify-center gap-1">
-                                            <span>👤⚙️</span><span>IT admin</span>
-                                        </div>
-                                    </div>
-                                    <div class="grid grid-cols-3 gap-2 mt-1.5">
-                                        <span class="flow-arrow text-[11px] leading-none">▼</span>
-                                        <span class="flow-arrow text-[11px] leading-none">▼</span>
-                                        <span class="flow-arrow text-[11px] leading-none">▼</span>
-                                    </div>
-                                </div>
-                                <!-- Holder -->
-                                <div class="md:col-span-5">
-                                    <div class="max-w-[180px] mx-auto">
-                                        <div onclick="showArchDetail('qwallet')" class="interactive-block surface-2 px-3 py-1.5 rounded-full border border-[var(--border)] shadow-sm text-center text-xs font-medium t-base flex items-center justify-center gap-1.5">
-                                            <span>🪪</span><span>Holder</span>
-                                        </div>
-                                        <div class="mt-1.5 text-center">
-                                            <span class="flow-arrow text-[11px] leading-none">▼</span>
+                                        <div onclick="showArchDetail('qportal')" class="interactive-block surface-2 p-1.5 sm:px-2 sm:py-2 rounded-lg sm:rounded-full border border-[var(--border)] shadow-sm text-center text-[10px] sm:text-xs font-medium t-base flex flex-col sm:flex-row items-center justify-center gap-1 cursor-pointer">
+                                            <svg class="w-3.5 h-3.5 text-teal-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/><circle cx="19" cy="11" r="2"/><path d="m19 8.5v1m0 3v1m1.5-3.5h-1m-2 0h-1"/></svg>
+                                            <span class="truncate">IT admin</span>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
 
-                            <!-- CLIENT APPS (QPortal & QWallet) -->
-                            <div class="grid grid-cols-1 md:grid-cols-12 gap-3 items-stretch">
-                                <div data-arch="qportal" onclick="showArchDetail('qportal')" class="md:col-span-7 interactive-block surface-2 p-3.5 rounded-xl text-center border border-[var(--border)] flex flex-col justify-center">
-                                    <div class="font-bold text-sm t-base flex items-center justify-center gap-1.5">
-                                        <span class="text-base">🖥️</span> QPortal
+                                    <!-- Connector Arrows to QPortal -->
+                                    <div class="grid grid-cols-3 gap-1 sm:gap-1.5 my-1 sm:my-1.5 text-center">
+                                        <div class="flex justify-center"><svg class="w-2.5 h-2.5 text-teal-400/60" viewBox="0 0 24 24" fill="currentColor"><path d="M12 18l-6-8h12z"/></svg></div>
+                                        <div class="flex justify-center"><svg class="w-2.5 h-2.5 text-teal-400/60" viewBox="0 0 24 24" fill="currentColor"><path d="M12 18l-6-8h12z"/></svg></div>
+                                        <div class="flex justify-center"><svg class="w-2.5 h-2.5 text-teal-400/60" viewBox="0 0 24 24" fill="currentColor"><path d="M12 18l-6-8h12z"/></svg></div>
                                     </div>
-                                    <div class="text-[11px] font-mono tracking-wider t-muted mt-1 uppercase">
-                                        ISSUE · VERIFY · MANAGE
-                                    </div>
-                                </div>
-                                <div data-arch="qwallet" onclick="showArchDetail('qwallet')" class="md:col-span-5 interactive-block surface-2 p-3.5 rounded-xl text-center border border-[var(--border)] flex flex-col justify-center">
-                                    <div class="font-bold text-sm t-base flex items-center justify-center gap-1.5">
-                                        <span class="text-base">📱</span> QWallet
-                                    </div>
-                                    <div class="text-[11px] t-muted mt-1 flex items-center justify-center gap-1">
-                                        <span class="text-teal-500 text-xs">🛡️</span> On-device ML-KEM-768 + ML-DSA-44 keys
-                                    </div>
-                                </div>
-                            </div>
 
-                            <!-- ARROWS TO GATEWAY -->
-                            <div class="grid grid-cols-1 md:grid-cols-12 gap-3 py-0.5">
-                                <div class="md:col-span-7 flex justify-center">
-                                    <span class="flow-arrow text-[11px] leading-none">▼</span>
+                                    <!-- QPortal Card -->
+                                    <div data-arch="qportal" onclick="showArchDetail('qportal')" class="interactive-block surface-2 p-2.5 sm:p-3.5 rounded-xl text-center border border-[var(--border)] flex flex-col justify-center flex-1">
+                                        <div class="font-bold text-xs sm:text-sm t-base flex items-center justify-center gap-1.5">
+                                            <svg class="w-4 h-4 text-teal-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="14" x="2" y="3" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+                                            <span>QPortal</span>
+                                        </div>
+                                        <div class="flex flex-wrap items-center justify-center gap-1 mt-1.5">
+                                            <span class="px-1.5 py-0.5 rounded text-[8px] sm:text-[9px] font-mono tracking-wider font-semibold bg-slate-500/10 text-teal-400 border border-teal-500/20">ISSUE</span>
+                                            <span class="px-1.5 py-0.5 rounded text-[8px] sm:text-[9px] font-mono tracking-wider font-semibold bg-slate-500/10 text-teal-400 border border-teal-500/20">VERIFY</span>
+                                            <span class="px-1.5 py-0.5 rounded text-[8px] sm:text-[9px] font-mono tracking-wider font-semibold bg-slate-500/10 text-teal-400 border border-teal-500/20">MANAGE</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Connector Arrow to Gateway -->
+                                    <div class="flex justify-center mt-1 sm:mt-1.5">
+                                        <svg class="w-2.5 h-2.5 text-teal-400/60" viewBox="0 0 24 24" fill="currentColor"><path d="M12 18l-6-8h12z"/></svg>
+                                    </div>
                                 </div>
-                                <div class="md:col-span-5 flex justify-center">
-                                    <span class="flow-arrow text-[11px] leading-none">▼</span>
+
+                                <!-- WALLET TRACK: Holder -> QWallet -->
+                                <div class="col-span-5 flex flex-col justify-between">
+                                    <!-- Actor Pill: Holder -->
+                                    <div>
+                                        <div onclick="showArchDetail('qwallet')" class="interactive-block surface-2 p-1.5 sm:px-3 sm:py-2 rounded-lg sm:rounded-full border border-[var(--border)] shadow-sm text-center text-[10px] sm:text-xs font-medium t-base flex items-center justify-center gap-1.5 max-w-[130px] sm:max-w-[160px] mx-auto cursor-pointer">
+                                            <svg class="w-3.5 h-3.5 text-teal-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"/><circle cx="12" cy="10" r="3"/><path d="M7 21v-1a4 4 0 0 1 4-4h2a4 4 0 0 1 4 4v1"/></svg>
+                                            <span class="truncate">Holder</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Connector Arrow to QWallet -->
+                                    <div class="flex justify-center my-1 sm:my-1.5">
+                                        <svg class="w-2.5 h-2.5 text-teal-400/60" viewBox="0 0 24 24" fill="currentColor"><path d="M12 18l-6-8h12z"/></svg>
+                                    </div>
+
+                                    <!-- QWallet Card -->
+                                    <div data-arch="qwallet" onclick="showArchDetail('qwallet')" class="interactive-block surface-2 p-2.5 sm:p-3.5 rounded-xl text-center border border-[var(--border)] flex flex-col justify-center flex-1">
+                                        <div class="font-bold text-xs sm:text-sm t-base flex items-center justify-center gap-1.5">
+                                            <svg class="w-4 h-4 text-teal-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="20" x="5" y="2" rx="2"/><path d="M12 18h.01"/></svg>
+                                            <span>QWallet</span>
+                                        </div>
+                                        <div class="text-[9px] sm:text-[11px] t-muted mt-1.5 flex items-center justify-center gap-1 leading-tight">
+                                            <svg class="w-2.5 h-2.5 text-teal-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+                                            <span>On-device ML-KEM-768 + ML-DSA-44 keys</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Connector Arrow to Gateway -->
+                                    <div class="flex justify-center mt-1 sm:mt-1.5">
+                                        <svg class="w-2.5 h-2.5 text-teal-400/60" viewBox="0 0 24 24" fill="currentColor"><path d="M12 18l-6-8h12z"/></svg>
+                                    </div>
                                 </div>
                             </div>
 
                             <!-- SECURE HTTPS GATEWAY -->
-                            <div data-arch="gateway" onclick="showArchDetail('gateway')" class="interactive-block p-2.5 rounded-xl text-center border border-[var(--border)] surface-2 flex items-center justify-center gap-2">
-                                <span class="text-xs">🔒</span>
-                                <span class="text-xs font-semibold t-base tracking-wide">Secure HTTPS gateway (Nginx + tunnel)</span>
+                            <div data-arch="gateway" onclick="showArchDetail('gateway')" class="interactive-block p-2.5 sm:p-3 rounded-xl text-center border border-indigo-500/25 surface-2 flex items-center justify-center gap-2 shadow-sm" style="background:rgba(99,102,241,0.06)">
+                                <svg class="w-3.5 h-3.5 text-indigo-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                                <span class="text-xs font-semibold t-base tracking-wide">Secure HTTPS gateway <span class="t-subtle font-normal font-mono text-[10px] sm:text-[11px]">(Nginx + tunnel)</span></span>
                             </div>
 
-                            <!-- ARROW TO BACKEND -->
-                            <div class="flex justify-center py-0.5">
-                                <span class="flow-arrow text-[11px] leading-none">▼</span>
+                            <!-- CONNECTOR ARROW TO BACKEND -->
+                            <div class="flex justify-center my-0.5 sm:my-1">
+                                <svg class="w-2.5 h-2.5 text-indigo-400/60" viewBox="0 0 24 24" fill="currentColor"><path d="M12 18l-6-8h12z"/></svg>
                             </div>
 
                             <!-- QCHAIN API · GO -->
-                            <div data-arch="backend" onclick="showArchDetail('backend')" class="interactive-block p-4 rounded-xl text-center" style="background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.25)">
-                                <span class="font-bold text-sm mb-3 block" style="color:#3b82f6">QChain API · Go</span>
+                            <div data-arch="backend" onclick="showArchDetail('backend')" class="interactive-block p-3.5 sm:p-4 rounded-xl text-center" style="background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.25)">
+                                <div class="font-bold text-xs sm:text-sm mb-2.5 sm:mb-3 flex items-center justify-center gap-1.5" style="color:#3b82f6">
+                                    <svg class="w-4 h-4 text-blue-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="16" height="16" x="4" y="4" rx="2"/><path d="M9 9h6M9 13h6M9 17h4"/></svg>
+                                    <span>QChain API &middot; Go</span>
+                                </div>
                                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
-                                    <div class="surface p-2.5 rounded-lg shadow-sm">
-                                        <div class="font-bold t-base flex items-center justify-center gap-1">
-                                            <span class="text-teal-500 font-bold">✔</span> Sign
+                                    <div class="surface p-2 sm:p-2.5 rounded-lg shadow-sm border border-[var(--border)]">
+                                        <div class="font-bold text-[11px] sm:text-xs t-base flex items-center justify-center gap-1">
+                                            <svg class="w-3 h-3 text-teal-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                                            <span>Sign</span>
                                         </div>
-                                        <div class="text-[11px] t-subtle font-mono mt-0.5">ML-DSA-44</div>
+                                        <div class="text-[10px] sm:text-[11px] text-teal-500 dark:text-teal-400 font-mono mt-0.5 font-semibold">ML-DSA-44</div>
                                     </div>
-                                    <div class="surface p-2.5 rounded-lg shadow-sm">
-                                        <div class="font-bold t-base flex items-center justify-center gap-1">
-                                            <span class="text-teal-500 font-bold">✔</span> Encrypt
+                                    <div class="surface p-2 sm:p-2.5 rounded-lg shadow-sm border border-[var(--border)]">
+                                        <div class="font-bold text-[11px] sm:text-xs t-base flex items-center justify-center gap-1">
+                                            <svg class="w-3 h-3 text-teal-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                                            <span>Encrypt</span>
                                         </div>
-                                        <div class="text-[11px] t-subtle font-mono mt-0.5">ML-KEM-768 + AES-GCM</div>
+                                        <div class="text-[10px] sm:text-[11px] text-teal-500 dark:text-teal-400 font-mono mt-0.5 font-semibold">ML-KEM + AES</div>
                                     </div>
-                                    <div class="surface p-2.5 rounded-lg shadow-sm">
-                                        <div class="font-bold t-base flex items-center justify-center gap-1">
-                                            <span class="text-teal-500 font-bold">✔</span> Verify
+                                    <div class="surface p-2 sm:p-2.5 rounded-lg shadow-sm border border-[var(--border)]">
+                                        <div class="font-bold text-[11px] sm:text-xs t-base flex items-center justify-center gap-1">
+                                            <svg class="w-3 h-3 text-teal-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                                            <span>Verify</span>
                                         </div>
-                                        <div class="text-[11px] t-subtle mt-0.5">issuer + holder signatures</div>
+                                        <div class="text-[10px] sm:text-[11px] t-subtle mt-0.5 leading-tight">dual signatures</div>
                                     </div>
-                                    <div class="surface p-2.5 rounded-lg shadow-sm">
-                                        <div class="font-bold t-base">Present</div>
-                                        <div class="text-[11px] t-subtle mt-0.5">QR / OTP, single-use</div>
+                                    <div class="surface p-2 sm:p-2.5 rounded-lg shadow-sm border border-[var(--border)]">
+                                        <div class="font-bold text-[11px] sm:text-xs t-base">Present</div>
+                                        <div class="text-[10px] sm:text-[11px] t-subtle mt-0.5 leading-tight">QR / OTP single-use</div>
                                     </div>
                                 </div>
-                                <div class="text-[11px] t-subtle font-mono tracking-tight mt-3 text-center">
-                                    credential lifecycle · holders · subscriptions · audit
+                                <div class="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-[10px] sm:text-xs font-mono t-subtle mt-3 pt-2 border-t border-blue-500/15">
+                                    <span>credential lifecycle</span>
+                                    <span class="text-blue-400/40">&bull;</span>
+                                    <span>holders</span>
+                                    <span class="text-blue-400/40">&bull;</span>
+                                    <span>subscriptions</span>
+                                    <span class="text-blue-400/40">&bull;</span>
+                                    <span>audit</span>
                                 </div>
                             </div>
 
-                            <!-- ARROWS TO STORAGE & LEDGER -->
-                            <div class="flex flex-col md:flex-row gap-3 py-0.5">
-                                <div class="md:flex-[3] flex justify-center">
-                                    <span class="flow-arrow text-[11px] leading-none">▼</span>
+                            <!-- CONNECTOR ARROWS TO STORAGE & LEDGER -->
+                            <!-- On desktop (md+): 3 arrows aligned with the 3 columns. On mobile (< md): 1 centered arrow -->
+                            <div class="hidden md:flex gap-3 my-0.5 sm:my-1">
+                                <div class="flex-[3] flex justify-center">
+                                    <svg class="w-2.5 h-2.5 text-blue-400/60" viewBox="0 0 24 24" fill="currentColor"><path d="M12 18l-6-8h12z"/></svg>
                                 </div>
-                                <div class="md:flex-[1.4] flex justify-center">
-                                    <span class="flow-arrow text-[11px] leading-none">▼</span>
+                                <div class="flex-[1.4] flex justify-center">
+                                    <svg class="w-2.5 h-2.5 text-blue-400/60" viewBox="0 0 24 24" fill="currentColor"><path d="M12 18l-6-8h12z"/></svg>
                                 </div>
-                                <div class="md:flex-[1.4] flex justify-center">
-                                    <span class="flow-arrow text-[11px] leading-none">▼</span>
+                                <div class="flex-[1.4] flex justify-center">
+                                    <svg class="w-2.5 h-2.5 text-blue-400/60" viewBox="0 0 24 24" fill="currentColor"><path d="M12 18l-6-8h12z"/></svg>
                                 </div>
                             </div>
+                            <div class="flex md:hidden justify-center my-0.5 sm:my-1">
+                                <svg class="w-2.5 h-2.5 text-blue-400/60" viewBox="0 0 24 24" fill="currentColor"><path d="M12 18l-6-8h12z"/></svg>
+                            </div>
 
-                            <!-- BOTTOM LAYER: FABRIC, IPFS, MYSQL -->
-                            <div class="flex flex-col md:flex-row gap-3 items-stretch">
+                            <!-- BOTTOM STORAGE & LEDGER TIER -->
+                            <div class="flex flex-col md:flex-row gap-2.5 sm:gap-3 items-stretch">
                                 <!-- HYPERLEDGER FABRIC -->
-                                <div data-arch="fabric" onclick="showArchDetail('fabric')" class="md:flex-[3] interactive-block p-4 rounded-xl text-center flex flex-col justify-between" style="background:var(--accent-soft);border:1px solid var(--accent)">
-                                    <span class="font-bold text-sm mb-3 block t-accent">Hyperledger Fabric</span>
+                                <div data-arch="fabric" onclick="showArchDetail('fabric')" class="md:flex-[3] interactive-block p-3 sm:p-4 rounded-xl text-center flex flex-col justify-between" style="background:var(--accent-soft);border:1px solid var(--accent)">
+                                    <div class="font-bold text-xs sm:text-sm mb-2 sm:mb-3 flex items-center justify-center gap-1.5 t-accent">
+                                        <svg class="w-4 h-4 text-teal-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                                        <span>Hyperledger Fabric</span>
+                                    </div>
                                     
-                                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs mb-2.5">
-                                        <div class="surface p-2 rounded-lg shadow-sm t-base">
-                                            <strong>2 peers</strong>
-                                            <div class="text-[10px] t-subtle mt-0.5">Government · General</div>
+                                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5 sm:gap-2 text-xs mb-2">
+                                        <div class="surface p-1.5 sm:p-2 rounded-lg shadow-sm t-base border border-[var(--border)]">
+                                            <strong class="text-[11px] sm:text-xs block">2 peers</strong>
+                                            <div class="text-[9px] sm:text-[10px] t-subtle mt-0.5">Government &middot; General</div>
                                         </div>
-                                        <div class="surface p-2 rounded-lg shadow-sm t-base">
-                                            <strong>Orderer</strong>
-                                            <div class="text-[10px] t-subtle mt-0.5">Raft</div>
+                                        <div class="surface p-1.5 sm:p-2 rounded-lg shadow-sm t-base border border-[var(--border)]">
+                                            <strong class="text-[11px] sm:text-xs block">Orderer</strong>
+                                            <div class="text-[9px] sm:text-[10px] t-subtle mt-0.5 font-mono">Raft</div>
                                         </div>
-                                        <div class="surface p-2 rounded-lg shadow-sm t-base">
-                                            <strong>3 Fabric CAs</strong>
-                                            <div class="text-[10px] t-subtle mt-0.5">certificates</div>
+                                        <div class="surface p-1.5 sm:p-2 rounded-lg shadow-sm t-base border border-[var(--border)]">
+                                            <strong class="text-[11px] sm:text-xs block">3 Fabric CAs</strong>
+                                            <div class="text-[9px] sm:text-[10px] t-subtle mt-0.5">certificates</div>
                                         </div>
-                                        <div class="surface p-2 rounded-lg shadow-sm t-base">
-                                            <strong>CouchDB</strong>
-                                            <div class="text-[10px] t-subtle mt-0.5">shared state</div>
+                                        <div class="surface p-1.5 sm:p-2 rounded-lg shadow-sm t-base border border-[var(--border)]">
+                                            <strong class="text-[11px] sm:text-xs block">CouchDB</strong>
+                                            <div class="text-[9px] sm:text-[10px] t-subtle mt-0.5">shared state</div>
                                         </div>
                                     </div>
 
-                                    <div class="surface p-2 rounded-lg shadow-sm text-xs font-semibold t-base mb-2.5">
-                                        QChaincode (JavaScript smart contract)
+                                    <div class="surface py-1.5 sm:py-2 px-2.5 rounded-lg shadow-sm text-xs font-semibold t-base mb-2 border border-[var(--border)] flex items-center justify-center gap-1.5">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-teal-400"></span>
+                                        <span class="text-[11px] sm:text-xs">QChaincode <span class="t-subtle font-normal font-mono text-[10px] sm:text-[11px]">(JavaScript smart contract)</span></span>
                                     </div>
 
-                                    <div class="surface p-2 rounded-lg shadow-sm text-xs">
-                                        <div class="font-bold t-base flex items-center justify-center gap-1.5">
-                                            <span class="text-teal-500">🛡️</span> Post-quantum MSP: ML-DSA-44 identities
+                                    <div class="surface p-2 sm:p-2.5 rounded-lg shadow-sm text-xs border border-teal-500/25">
+                                        <div class="font-bold t-base flex items-center justify-center gap-1 text-[11px] sm:text-xs text-teal-600 dark:text-teal-300">
+                                            <svg class="w-3.5 h-3.5 text-teal-500 dark:text-teal-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+                                            <span>Post-quantum MSP: ML-DSA-44 identities</span>
                                         </div>
-                                        <div class="text-[11px] t-subtle mt-0.5 font-mono">
-                                            peers · orderer · admins · clients · CA roots
+                                        <div class="text-[9px] sm:text-[10px] t-subtle mt-0.5 font-mono">
+                                            peers &middot; orderer &middot; admins &middot; clients &middot; CA roots
                                         </div>
-                                    </div>
-                                </div>
-
-                                <!-- IPFS -->
-                                <div data-arch="ipfs" onclick="showArchDetail('ipfs')" class="md:flex-[1.4] interactive-block p-4 rounded-xl text-center flex flex-col justify-between" style="background:rgba(168,85,247,0.08);border:1px solid rgba(168,85,247,0.25)">
-                                    <span class="font-bold text-sm mb-2 block" style="color:#a855f7">IPFS</span>
-                                    <div class="surface p-3 rounded-lg shadow-sm flex-1 flex flex-col justify-center">
-                                        <div class="text-xs font-bold t-base">encrypted credentials</div>
-                                        <div class="text-[11px] t-subtle font-mono mt-1">(by CID)</div>
                                     </div>
                                 </div>
 
-                                <!-- MYSQL -->
-                                <div data-arch="mysql" onclick="showArchDetail('mysql')" class="md:flex-[1.4] interactive-block p-4 rounded-xl text-center flex flex-col justify-between" style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.25)">
-                                    <span class="font-bold text-sm mb-2 block" style="color:#d97706">MySQL</span>
-                                    <div class="surface p-3 rounded-lg shadow-sm flex-1 flex flex-col justify-center">
-                                        <div class="text-xs font-bold t-base">operational data</div>
-                                        <div class="text-[11px] t-subtle font-mono mt-1">only</div>
+                                <!-- IPFS & MYSQL (side-by-side on mobile, individual columns on md) -->
+                                <div class="grid grid-cols-2 md:contents gap-2 sm:gap-3">
+                                    <!-- IPFS -->
+                                    <div data-arch="ipfs" onclick="showArchDetail('ipfs')" class="md:flex-[1.4] interactive-block p-3 sm:p-3.5 rounded-xl text-center flex flex-col justify-between" style="background:rgba(168,85,247,0.08);border:1px solid rgba(168,85,247,0.25)">
+                                        <div class="font-bold text-xs sm:text-sm mb-1.5 sm:mb-2 flex items-center justify-center gap-1" style="color:#a855f7">
+                                            <svg class="w-3.5 h-3.5 text-purple-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m21 16-9 5-9-5V8l9-5 9 5v8z"/><path d="m3.27 6.96 8.73 4.9 8.73-4.9M12 22.08V12"/></svg>
+                                            <span>IPFS</span>
+                                        </div>
+                                        <div class="surface p-2 sm:p-2.5 rounded-lg shadow-sm flex-1 flex flex-col justify-center border border-[var(--border)]">
+                                            <div class="text-[11px] sm:text-xs font-semibold t-base leading-tight">encrypted credentials</div>
+                                            <div class="text-[9px] sm:text-[10px] text-purple-400 font-mono mt-1 font-semibold">(by CID)</div>
+                                        </div>
+                                    </div>
+
+                                    <!-- MYSQL -->
+                                    <div data-arch="mysql" onclick="showArchDetail('mysql')" class="md:flex-[1.4] interactive-block p-3 sm:p-3.5 rounded-xl text-center flex flex-col justify-between" style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.25)">
+                                        <div class="font-bold text-xs sm:text-sm mb-1.5 sm:mb-2 flex items-center justify-center gap-1" style="color:#d97706">
+                                            <svg class="w-3.5 h-3.5 text-amber-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/><path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3"/></svg>
+                                            <span>MySQL</span>
+                                        </div>
+                                        <div class="surface p-2 sm:p-2.5 rounded-lg shadow-sm flex-1 flex flex-col justify-center border border-[var(--border)]">
+                                            <div class="text-[11px] sm:text-xs font-semibold t-base leading-tight">operational data</div>
+                                            <div class="text-[9px] sm:text-[10px] text-amber-500 dark:text-amber-400 font-mono mt-1 font-semibold">only</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
