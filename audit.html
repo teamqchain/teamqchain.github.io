@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script>
-        // Set theme + a .js flag synchronously to avoid a flash and to keep
+        // Set theme + a .js flag synchronously to avoid a flash and keep
         // scroll-reveal content visible if scripts are disabled.
         document.documentElement.classList.add('js');
         try {
@@ -21,7 +21,300 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
     <link rel="stylesheet" href="styles.css">
-    <script src="script.js" defer></script>
+
+    <style>
+        /* Standalone embedded styles matching QChain design tokens */
+        @font-face {
+            font-family: 'Formula1';
+            src: url('assets/Formula1-Regular.ttf') format('truetype');
+            font-weight: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Formula1';
+            src: url('assets/Formula1-Bold.ttf') format('truetype');
+            font-weight: bold;
+            font-display: swap;
+        }
+
+        :root {
+            --bg: #f5f7fa;
+            --bg-tint: #eef2f7;
+            --surface: #ffffff;
+            --surface-2: #f1f5f9;
+            --text: #0b1220;
+            --text-muted: #5a6b82;
+            --text-subtle: #8a99ad;
+            --border: rgba(15, 23, 42, 0.08);
+            --border-strong: rgba(15, 23, 42, 0.14);
+            --accent: #0d9488;
+            --accent-bright: #14b8a6;
+            --accent-ink: #0f766e;
+            --accent-soft: rgba(20, 184, 166, 0.12);
+            --nav-bg: rgba(255, 255, 255, 0.78);
+            --nav-edge: rgba(255, 255, 255, 0.85);
+            --glass-blur: 20px;
+            --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.05), 0 1px 3px rgba(15, 23, 42, 0.06);
+            --shadow-md: 0 10px 30px -12px rgba(15, 23, 42, 0.18), 0 2px 8px rgba(15, 23, 42, 0.05);
+            --shadow-lg: 0 34px 60px -24px rgba(15, 23, 42, 0.28), 0 8px 20px -12px rgba(15, 23, 42, 0.12);
+            --r-sm: 0.6rem;
+            --r-md: 0.9rem;
+            --r-lg: 1.25rem;
+            --r-xl: 1.6rem;
+            --spring: cubic-bezier(0.32, 0.72, 0, 1);
+            --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+            --t-fast: 0.18s;
+            --t-med: 0.42s;
+            --t-slow: 0.7s;
+        }
+
+        .dark {
+            --bg: #060a13;
+            --bg-tint: #0a1120;
+            --surface: #0f1729;
+            --surface-2: #172136;
+            --text: #f2f5fa;
+            --text-muted: #93a2b8;
+            --text-subtle: #64748b;
+            --border: rgba(148, 163, 184, 0.13);
+            --border-strong: rgba(148, 163, 184, 0.22);
+            --accent: #14b8a6;
+            --accent-bright: #2dd4bf;
+            --accent-ink: #5eead4;
+            --accent-soft: rgba(20, 184, 166, 0.16);
+            --nav-bg: rgba(9, 13, 22, 0.75);
+            --nav-edge: rgba(148, 163, 184, 0.14);
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
+            --shadow-md: 0 14px 34px -14px rgba(0, 0, 0, 0.6), 0 2px 8px rgba(0, 0, 0, 0.4);
+            --shadow-lg: 0 40px 70px -26px rgba(0, 0, 0, 0.7), 0 10px 24px -14px rgba(0, 0, 0, 0.5);
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            transition: background-color var(--t-med) var(--ease-out), color var(--t-med) var(--ease-out);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4, .font-f1 {
+            font-family: 'Formula1', 'Inter', system-ui, sans-serif !important;
+        }
+
+        .glass-nav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: var(--nav-bg);
+            -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+            backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+            border-top: 1px solid var(--nav-edge);
+            border-bottom: 1px solid var(--border);
+            transition: border-color var(--t-med) var(--ease-out), background-color var(--t-med) var(--ease-out);
+        }
+
+        .nav-link {
+            position: relative;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: 0.4rem 0.15rem;
+            transition: color var(--t-fast) var(--ease-out);
+        }
+        .nav-link:hover { color: var(--text); }
+        .nav-link.is-active { color: var(--accent); }
+        .nav-link.is-active::after {
+            content: "";
+            position: absolute;
+            left: 0; right: 0; bottom: -0.35rem;
+            height: 2px;
+            border-radius: 2px;
+            background: var(--accent);
+        }
+
+        .mobile-sheet {
+            background: var(--nav-bg);
+            -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+            backdrop-filter: blur(var(--glass-blur)) saturate(180%);
+            border-top: 1px solid var(--border);
+            overflow: hidden;
+            transition: opacity var(--t-med) var(--ease-out), max-height var(--t-med) var(--spring);
+        }
+        .mobile-sheet.is-closed {
+            opacity: 0;
+            max-height: 0;
+            pointer-events: none;
+        }
+        .mobile-sheet.is-open {
+            opacity: 1;
+            max-height: 22rem;
+        }
+        .mobile-link {
+            display: block;
+            color: var(--text-muted);
+            font-weight: 500;
+            padding: 0.65rem 0.75rem;
+            border-radius: var(--r-sm);
+            transition: color var(--t-fast) var(--ease-out), background-color var(--t-fast) var(--ease-out);
+        }
+        .mobile-link:hover { color: var(--text); background: var(--surface-2); }
+        .mobile-link.is-active { color: var(--accent); font-weight: 700; }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--r-lg);
+            box-shadow: var(--shadow-sm);
+            transition: transform var(--t-med) var(--spring), box-shadow var(--t-med) var(--ease-out), border-color var(--t-med) var(--ease-out);
+        }
+        .card-hover:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--border-strong);
+        }
+        .card-rail { border-left: 3px solid var(--accent); }
+
+        .chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.72rem;
+            font-weight: 600;
+            padding: 0.28rem 0.7rem;
+            border-radius: 999px;
+            background: var(--surface-2);
+            color: var(--text-muted);
+            border: 1px solid var(--border);
+        }
+        .chip-accent {
+            background: var(--accent-soft);
+            color: var(--accent-ink);
+            border-color: transparent;
+        }
+
+        .field {
+            width: 100%;
+            background: var(--surface);
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-radius: var(--r-md);
+            padding: 0.75rem 1rem;
+            font-size: 0.9rem;
+            box-shadow: var(--shadow-sm);
+            transition: border-color var(--t-fast) var(--ease-out), box-shadow var(--t-fast) var(--ease-out);
+        }
+        .field:focus {
+            outline: none;
+            border-color: var(--accent-bright);
+            box-shadow: 0 0 0 3px var(--accent-soft);
+        }
+
+        .hero {
+            position: relative;
+            overflow: hidden;
+            background:
+                radial-gradient(120% 90% at 85% -10%, rgba(20,184,166,0.18), transparent 60%),
+                linear-gradient(180deg, #0b1220 0%, #0c1526 100%);
+            color: #eef2f7;
+        }
+        .hero-glow {
+            position: absolute;
+            top: -18%;
+            right: -12%;
+            width: 640px;
+            height: 640px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(20,184,166,0.28), transparent 62%);
+            filter: blur(60px);
+            pointer-events: none;
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            height: 350px;
+            max-height: 400px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar { width: 8px; height: 8px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: color-mix(in srgb, var(--text-subtle) 60%, transparent);
+            border-radius: 4px;
+        }
+
+        .data-row { transition: background-color var(--t-fast) var(--ease-out); }
+        .data-row:hover { background: var(--surface-2); }
+        .finding-summary { cursor: pointer; }
+
+        .sev-critical { border-left-color: #dc2626; }
+        .sev-high     { border-left-color: #f97316; }
+        .sev-medium   { border-left-color: #eab308; }
+        .sev-low      { border-left-color: #3b82f6; }
+        .sev-resolved { border-left-color: #10b981; }
+
+        .theme-toggle {
+            background: transparent; border: none; padding: 0.35rem; outline: none;
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            border-radius: 999px;
+            color: var(--text-muted);
+            transition: color var(--t-fast) var(--ease-out), background-color var(--t-fast) var(--ease-out);
+        }
+        .theme-toggle:hover { color: var(--text); background: var(--surface-2); }
+        .theme-toggle__inner-moon {
+            width: 20px; height: 20px;
+            transition: transform 0.5s var(--spring);
+            transform-origin: center; transform: rotate(-100deg);
+        }
+        .dark .theme-toggle__inner-moon { transform: rotate(0deg); }
+        .theme-toggle__inner-moon .sun-rays {
+            transition: transform 0.5s var(--spring), opacity 0.3s ease;
+            transform-origin: center; transform: scale(0.2); opacity: 0;
+        }
+        .dark .theme-toggle__inner-moon .sun-rays { transform: scale(1); opacity: 1; }
+        .theme-toggle__inner-moon .sun-core {
+            transition: transform 0.5s var(--spring);
+            transform-origin: center; transform: scale(1.3);
+        }
+        .dark .theme-toggle__inner-moon .sun-core { transform: scale(1); }
+        .theme-toggle__inner-moon .moon-mask-circle {
+            transition: transform 0.5s var(--spring);
+            transform: translate(0, 0);
+        }
+        .dark .theme-toggle__inner-moon .moon-mask-circle { transform: translate(12px, -12px); }
+
+        .eyebrow {
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+        }
+        .t-base   { color: var(--text); }
+        .t-muted  { color: var(--text-muted); }
+        .t-subtle { color: var(--text-subtle); }
+        .t-accent { color: var(--accent); }
+        code { font-family: ui-monospace, 'SFMono-Regular', Menlo, monospace; font-size: 0.85em; }
+
+        .js [data-reveal] {
+            opacity: 0;
+            transform: translateY(16px);
+            transition: opacity var(--t-slow) var(--ease-out), transform var(--t-slow) var(--spring);
+            transition-delay: var(--reveal-delay, 0ms);
+            will-change: transform, opacity;
+        }
+        .js [data-reveal].is-visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .js [data-reveal] { transform: none !important; opacity: 1 !important; transition: none !important; }
+            .card-hover:hover { transform: none !important; }
+            .hero-glow { display: none; }
+        }
+    </style>
 </head>
 <body class="flex flex-col min-h-screen">
 
@@ -30,7 +323,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex items-center">
-                    <a href="index.html" class="flex items-center gap-3 pressable">
+                    <a href="index.html" class="flex items-center gap-3">
                         <img src="assets/qchain_logo.jpeg" alt="QChain Logo" class="w-8 h-8 rounded-lg shadow-sm dark:invert" onerror="this.src='https://via.placeholder.com/32'">
                         <span class="text-2xl t-base tracking-tight font-f1">QChain</span>
                     </a>
@@ -72,25 +365,26 @@
             <div class="hero-glow"></div>
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-12 items-center relative">
                 <div>
-                    <span class="chip chip-accent mb-4" data-reveal>Internal Security Audit</span>
+                    <span class="chip chip-accent mb-4" data-reveal>Comprehensive Security Audit</span>
                     <h1 class="text-4xl md:text-5xl mb-5 text-balance" data-reveal data-reveal-delay="60">
                         Where QChain Is <span style="color:var(--accent-bright)">Strong</span>,<br> and Where It Isn't <span style="color:#f87171">Yet</span>
                     </h1>
                     <p class="text-lg mb-6 max-w-lg leading-relaxed" style="color:#c7d2de" data-reveal data-reveal-delay="120">
-                        A full-stack security audit of the QChain post-quantum credential system (backend, chaincode, Fabric network, gateway, database and client apps) mapped to the six classical security properties.
+                        A rigorous source-code security audit of the QChain post-quantum credential system (Go backend, Hyperledger Fabric chaincode, network configuration, web gateway, MySQL schema, and Flutter clients) mapped to the six classical security properties.
                     </p>
                     <div class="flex flex-wrap gap-3 text-sm" data-reveal data-reveal-delay="160">
-                        <span class="chip" style="background:rgba(255,255,255,0.08);color:#c7d2de;border-color:rgba(255,255,255,0.14)">Reviewed: 2026-08-08</span>
-                        <span class="chip" style="background:rgba(255,255,255,0.08);color:#c7d2de;border-color:rgba(255,255,255,0.14)">Post-G2 codebase</span>
+                        <span class="chip" style="background:rgba(255,255,255,0.08);color:#c7d2de;border-color:rgba(255,255,255,0.14)">Reviewed: 2026-10-25</span>
+                        <span class="chip" style="background:rgba(255,255,255,0.08);color:#c7d2de;border-color:rgba(255,255,255,0.14)">Track H / Current Codebase</span>
+                        <span class="chip" style="background:rgba(16,185,129,0.18);color:#34d399;border-color:rgba(16,185,129,0.3)">4 Key Vulnerabilities Resolved</span>
                     </div>
                 </div>
                 <div class="p-6 rounded-2xl" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);box-shadow:var(--shadow-lg)" data-reveal data-reveal-delay="120">
                     <h3 class="eyebrow mb-3" style="color:var(--accent-bright)">Verdict at a glance</h3>
                     <ul class="space-y-3 text-sm" style="color:#c7d2de">
-                        <li class="flex items-start"><span class="mr-2" style="color:var(--accent-bright)">☞</span><span><strong style="color:#eef2f7">Cryptographic core is solid.</strong> ML-DSA-44 signing, SHA3-256 integrity, and the new Track B/G2 encryption are correctly built and verified.</span></li>
-                        <li class="flex items-start"><span class="mr-2" style="color:#f87171">☞</span><span><strong style="color:#eef2f7">Access control is the weak point.</strong> The API has no authentication and one shared identity.</span></li>
-                        <li class="flex items-start"><span class="mr-2" style="color:#fb923c">☞</span><span><strong style="color:#eef2f7">Two logic gaps bite verification:</strong> expired credentials still pass, and OTP codes are brute-forceable.</span></li>
-                        <li class="flex items-start"><span class="mr-2" style="color:#facc15">☞</span><span><strong style="color:#eef2f7">Identity layer is still classical.</strong> Fabric MSP/TLS remain ECDSA.</span></li>
+                        <li class="flex items-start"><span class="mr-2" style="color:var(--accent-bright)">☞</span><span><strong style="color:#eef2f7">Cryptographic core is post-quantum and robust.</strong> ML-DSA-44 issuance signatures, holder presentation signatures, cryptographic selective disclosure with salted field commitments, and ML-KEM-768 envelope encryption are verified.</span></li>
+                        <li class="flex items-start"><span class="mr-2" style="color:#10b981">☞</span><span><strong style="color:#eef2f7">Major verification gaps resolved.</strong> Credential expiry enforcement, cryptographic selective disclosure, holder presentation signing, and fail-fast IPFS validation have been successfully implemented.</span></li>
+                        <li class="flex items-start"><span class="mr-2" style="color:#f87171">☞</span><span><strong style="color:#eef2f7">Access control & API hygiene remain critical.</strong> A newly added test cleanup route (<code>/dev/cleanupTest</code>) enables unauthenticated data wiping, and public key registration allows potential key hijacking.</span></li>
+                        <li class="flex items-start"><span class="mr-2" style="color:#facc15">☞</span><span><strong style="color:#eef2f7">Identity layer is still classical.</strong> Fabric node MSP X.509 certs, consensus signatures, and gRPC TLS remain classical ECDSA (Track A research scope).</span></li>
                     </ul>
                 </div>
             </div>
@@ -101,21 +395,22 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="mb-14 text-center max-w-3xl mx-auto">
                     <h2 class="text-3xl md:text-4xl t-base mb-4 text-balance" data-reveal>Executive Summary</h2>
-                    <p class="t-muted leading-relaxed" data-reveal data-reveal-delay="60">QChain does the hard cryptography well: the credential signature, hashing, and off-chain/on-chain confidentiality are post-quantum and correctly implemented. The risks that remain are <strong class="t-base">conventional application-security gaps</strong> (authentication, input validation, key custody and operational hardening) plus the deliberately-deferred post-quantum identity work. None of the criticals are cryptographic; all are fixable without new research.</p>
+                    <p class="t-muted leading-relaxed" data-reveal data-reveal-delay="60">QChain has made substantial architectural strides since the initial August 2026 assessment: four major vulnerabilities have been fully resolved, including on-chain expiry enforcement, true cryptographic selective disclosure via salted commitments, and holder presentation signing with post-quantum ML-DSA-44. However, conventional web-service authorization remains the critical attack surface: unauthenticated endpoints allow administrative actions, demographic enumeration, and arbitrary database record wiping. None of these vulnerabilities stem from cryptographic weaknesses; all are remediable with standard application-security patterns.</p>
                 </div>
 
                 <!-- score tiles -->
-                <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-16">
-                    <div class="card p-5 text-center" style="border-left:3px solid #dc2626" data-reveal data-reveal-delay="0"><div class="text-4xl font-bold" style="color:#dc2626">1</div><div class="eyebrow t-subtle mt-1">Critical</div></div>
-                    <div class="card p-5 text-center" style="border-left:3px solid #f97316" data-reveal data-reveal-delay="50"><div class="text-4xl font-bold" style="color:#ea580c">6</div><div class="eyebrow t-subtle mt-1">High</div></div>
-                    <div class="card p-5 text-center" style="border-left:3px solid #eab308" data-reveal data-reveal-delay="100"><div class="text-4xl font-bold" style="color:#ca8a04">8</div><div class="eyebrow t-subtle mt-1">Medium</div></div>
-                    <div class="card p-5 text-center" style="border-left:3px solid #3b82f6" data-reveal data-reveal-delay="150"><div class="text-4xl font-bold" style="color:#2563eb">5</div><div class="eyebrow t-subtle mt-1">Low</div></div>
-                    <div class="card p-5 text-center col-span-2 md:col-span-1" style="border-left:3px solid var(--accent)" data-reveal data-reveal-delay="200"><div class="text-4xl font-bold t-accent">7</div><div class="eyebrow t-subtle mt-1">Strengths</div></div>
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 mb-16">
+                    <div class="card p-5 text-center" style="border-left:3px solid #dc2626" data-reveal data-reveal-delay="0"><div class="text-4xl font-bold" style="color:#dc2626">2</div><div class="eyebrow t-subtle mt-1">Critical (Active)</div></div>
+                    <div class="card p-5 text-center" style="border-left:3px solid #ea580c" data-reveal data-reveal-delay="40"><div class="text-4xl font-bold" style="color:#ea580c">5</div><div class="eyebrow t-subtle mt-1">High (Active)</div></div>
+                    <div class="card p-5 text-center" style="border-left:3px solid #ca8a04" data-reveal data-reveal-delay="80"><div class="text-4xl font-bold" style="color:#ca8a04">7</div><div class="eyebrow t-subtle mt-1">Medium (Active)</div></div>
+                    <div class="card p-5 text-center" style="border-left:3px solid #2563eb" data-reveal data-reveal-delay="120"><div class="text-4xl font-bold" style="color:#2563eb">5</div><div class="eyebrow t-subtle mt-1">Low (Active)</div></div>
+                    <div class="card p-5 text-center" style="border-left:3px solid #10b981" data-reveal data-reveal-delay="160"><div class="text-4xl font-bold" style="color:#10b981">4</div><div class="eyebrow t-subtle mt-1">Resolved</div></div>
+                    <div class="card p-5 text-center" style="border-left:3px solid var(--accent)" data-reveal data-reveal-delay="200"><div class="text-4xl font-bold t-accent">10</div><div class="eyebrow t-subtle mt-1">Strengths</div></div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
                     <div class="card p-6" data-reveal>
-                        <h3 class="text-lg t-base mb-4 text-center">Findings by Severity</h3>
+                        <h3 class="text-lg t-base mb-4 text-center">Active Findings by Severity</h3>
                         <div class="chart-container"><canvas id="sevChart"></canvas></div>
                     </div>
                     <div class="card p-6" data-reveal data-reveal-delay="80">
@@ -128,12 +423,30 @@
                 <div class="mt-20">
                     <h3 class="text-xl t-base mb-6 text-center" data-reveal>Posture Against the Six Security Properties</h3>
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                        <div class="card p-4" style="border-left:3px solid #22c55e" data-reveal data-reveal-delay="0"><div class="flex justify-between items-center"><h4 class="font-bold" style="color:#16a34a">Integrity</h4><span class="chip" style="background:rgba(34,197,94,0.16);color:#15803d;border:none">STRONG</span></div><p class="text-sm t-muted mt-1">SHA3-256, re-hashed on-chain at verify. Post-quantum.</p></div>
-                        <div class="card p-4" style="border-left:3px solid #22c55e" data-reveal data-reveal-delay="60"><div class="flex justify-between items-center"><h4 class="font-bold" style="color:#16a34a">Confidentiality</h4><span class="chip" style="background:rgba(34,197,94,0.16);color:#15803d;border:none">MUCH IMPROVED</span></div><p class="text-sm t-muted mt-1">Off-chain + on-chain body now ML-KEM/AES encrypted (Track B + G2). PII columns still open.</p></div>
-                        <div class="card p-4" style="border-left:3px solid #eab308" data-reveal data-reveal-delay="120"><div class="flex justify-between items-center"><h4 class="font-bold" style="color:#ca8a04">Authenticity</h4><span class="chip" style="background:rgba(234,179,8,0.16);color:#a16207;border:none">SPLIT</span></div><p class="text-sm t-muted mt-1">Credential signature is PQC; Fabric identity/TLS still ECDSA.</p></div>
-                        <div class="card p-4" style="border-left:3px solid #ef4444" data-reveal data-reveal-delay="0"><div class="flex justify-between items-center"><h4 class="font-bold" style="color:#dc2626">Authentication</h4><span class="chip" style="background:rgba(239,68,68,0.14);color:#dc2626;border:none">ABSENT</span></div><p class="text-sm t-muted mt-1">No API auth, open CORS, one shared identity. Weak OTP.</p></div>
-                        <div class="card p-4" style="border-left:3px solid #eab308" data-reveal data-reveal-delay="60"><div class="flex justify-between items-center"><h4 class="font-bold" style="color:#ca8a04">Non-repudiation</h4><span class="chip" style="background:rgba(234,179,8,0.16);color:#a16207;border:none">PARTIAL</span></div><p class="text-sm t-muted mt-1">Issuance signed (PQC); holder presentations unsigned; audit log mutable.</p></div>
-                        <div class="card p-4" style="border-left:3px solid #eab308" data-reveal data-reveal-delay="120"><div class="flex justify-between items-center"><h4 class="font-bold" style="color:#ca8a04">Availability</h4><span class="chip" style="background:rgba(234,179,8,0.16);color:#a16207;border:none">DEMO-GRADE</span></div><p class="text-sm t-muted mt-1">Single VM/peer/orderer/IPFS/MySQL. No rate-limiting.</p></div>
+                        <div class="card p-4" style="border-left:3px solid #16a34a" data-reveal data-reveal-delay="0">
+                            <div class="flex justify-between items-center"><h4 class="font-bold" style="color:#16a34a">Integrity</h4><span class="chip" style="background:rgba(34,197,94,0.16);color:#15803d;border:none">STRONG</span></div>
+                            <p class="text-sm t-muted mt-2">SHA3-256 canonical commitments rebuilt on-chain at verification; strict fail-closed checks; IPFS CIDs validated and committed.</p>
+                        </div>
+                        <div class="card p-4" style="border-left:3px solid #16a34a" data-reveal data-reveal-delay="60">
+                            <div class="flex justify-between items-center"><h4 class="font-bold" style="color:#16a34a">Confidentiality</h4><span class="chip" style="background:rgba(34,197,94,0.16);color:#15803d;border:none">STRONG</span></div>
+                            <p class="text-sm t-muted mt-2">Off-chain body encrypted to holder ML-KEM-768 key. Cryptographic selective disclosure using salted field hashes. Plaintext MySQL PII remains.</p>
+                        </div>
+                        <div class="card p-4" style="border-left:3px solid #eab308" data-reveal data-reveal-delay="120">
+                            <div class="flex justify-between items-center"><h4 class="font-bold" style="color:#ca8a04">Authenticity</h4><span class="chip" style="background:rgba(234,179,8,0.16);color:#a16207;border:none">IMPROVING</span></div>
+                            <p class="text-sm t-muted mt-2">Issuer &amp; holder presentation signatures are ML-DSA-44 post-quantum. Fabric MSP/TLS node authentication remains classical ECDSA.</p>
+                        </div>
+                        <div class="card p-4" style="border-left:3px solid #ef4444" data-reveal data-reveal-delay="0">
+                            <div class="flex justify-between items-center"><h4 class="font-bold" style="color:#dc2626">Authentication</h4><span class="chip" style="background:rgba(239,68,68,0.14);color:#dc2626;border:none">CRITICAL GAP</span></div>
+                            <p class="text-sm t-muted mt-2">API has no authentication middleware or CORS protection; unauthenticated test cleanup and public key binding routes present severe risks.</p>
+                        </div>
+                        <div class="card p-4" style="border-left:3px solid #16a34a" data-reveal data-reveal-delay="60">
+                            <div class="flex justify-between items-center"><h4 class="font-bold" style="color:#16a34a">Non-repudiation</h4><span class="chip" style="background:rgba(34,197,94,0.16);color:#15803d;border:none">SUBSTANTIAL</span></div>
+                            <p class="text-sm t-muted mt-2">Both credential issuance and holder presentations are cryptographically signed with ML-DSA-44. MySQL audit logs remain mutable.</p>
+                        </div>
+                        <div class="card p-4" style="border-left:3px solid #eab308" data-reveal data-reveal-delay="120">
+                            <div class="flex justify-between items-center"><h4 class="font-bold" style="color:#ca8a04">Availability</h4><span class="chip" style="background:rgba(234,179,8,0.16);color:#a16207;border:none">DEMO-GRADE</span></div>
+                            <p class="text-sm t-muted mt-2">Single VM topology (single orderer, peer, IPFS node, MySQL). No API rate limiting or HTTP request body size caps.</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -144,27 +457,26 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="mb-12">
                     <h2 class="text-3xl md:text-4xl t-base mb-4 text-balance" data-reveal>Scope &amp; Methodology</h2>
-                    <p class="t-muted max-w-3xl leading-relaxed" data-reveal data-reveal-delay="60">A manual source-code review of the QChain repository at the post-G2 state, covering the Go backend, JavaScript chaincode, Fabric network configuration, the Nginx gateway, database schema and the Flutter clients. Findings are classified by severity (impact × exploitability) and mapped to the six classical security properties. The cryptographic implementation was reviewed by tracing the actual code paths, not the documentation, and the Track B/G2 primitives were compiled and unit-tested with real ML-KEM.</p>
+                    <p class="t-muted max-w-3xl leading-relaxed" data-reveal data-reveal-delay="60">A line-by-line manual source-code audit covering the Go backend (<code>offchain/</code>), JavaScript chaincode (<code>QChaincode.js</code>), network configuration (Fabric, Docker, CA), Nginx web gateway, MySQL schema, and Flutter clients (<code>UI_App</code> &amp; <code>UI_WebApp</code>). Every finding is evaluated against actual code execution paths, unit tests, and threat models rather than architectural documentation.</p>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="card p-6" data-reveal>
-                        <h3 class="font-bold t-base mb-3">In scope</h3>
+                        <h3 class="font-bold t-base mb-3">Audited Surface</h3>
                         <ul class="text-sm t-muted space-y-2 list-disc list-inside">
-                            <li>Go backend (<code>offchain/</code>) - API, crypto, DB, Fabric client</li>
-                            <li>Chaincode (<code>qchain-network/chaincode/QChaincode.js</code>)</li>
-                            <li>Network config: core.yaml, configtx, docker-compose, fabric-ca</li>
-                            <li>Web gateway (Nginx) and enrolment/setup scripts</li>
-                            <li>MySQL schema &amp; migrations; Flutter client trust model</li>
+                            <li><strong>Go API &amp; Crypto Engine (<code>offchain/</code>)</strong>: Handlers, commitment builder, KEM/DEM envelope, verification logic, and DB drivers.</li>
+                            <li><strong>Smart Contract (<code>qchain-network/chaincode/QChaincode.js</code>)</strong>: Lifecycle, access control checks, and deterministic state storage.</li>
+                            <li><strong>Network &amp; Orchestration</strong>: Docker compose, Fabric CA configurations, and bootstrap scripts.</li>
+                            <li><strong>Web Gateway &amp; Client Trust Models</strong>: Nginx configuration, Tailscale Funnel ingress, and mobile Flutter secure hardware storage.</li>
                         </ul>
                     </div>
                     <div class="card p-6" data-reveal data-reveal-delay="80">
-                        <h3 class="font-bold t-base mb-3">Severity model</h3>
-                        <div class="space-y-2 text-sm">
-                            <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full inline-block" style="background:#dc2626"></span><span class="t-muted"><strong class="t-base">Critical</strong> - trivially exploitable, high impact (e.g. forge/revoke any credential)</span></div>
-                            <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full inline-block" style="background:#f97316"></span><span class="t-muted"><strong class="t-base">High</strong> - serious impact or clear attack path</span></div>
-                            <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full inline-block" style="background:#eab308"></span><span class="t-muted"><strong class="t-base">Medium</strong> - needs conditions, or defence-in-depth gap</span></div>
-                            <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full inline-block" style="background:#3b82f6"></span><span class="t-muted"><strong class="t-base">Low</strong> - hygiene, hardening, minor issues</span></div>
-                            <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full inline-block" style="background:#14b8a6"></span><span class="t-muted"><strong class="t-base">Strength</strong> - implemented correctly / defends well</span></div>
+                        <h3 class="font-bold t-base mb-3">Severity &amp; Lifecycle Classification</h3>
+                        <div class="space-y-2.5 text-sm">
+                            <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full inline-block" style="background:#dc2626"></span><span class="t-muted"><strong class="t-base">Critical</strong> — Directly exploitable remotely with catastrophic impact (e.g. arbitrary DB wipe, full auth bypass).</span></div>
+                            <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full inline-block" style="background:#ea580c"></span><span class="t-muted"><strong class="t-base">High</strong> — High-impact defect or practical attack path (e.g. key hijacking, token brute-forcing, PII exposure).</span></div>
+                            <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full inline-block" style="background:#ca8a04"></span><span class="t-muted"><strong class="t-base">Medium</strong> — Privilege escalation, demographic enumeration, or race conditions under specific prerequisites.</span></div>
+                            <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full inline-block" style="background:#2563eb"></span><span class="t-muted"><strong class="t-base">Low / Hygiene</strong> — Hardening, configuration inconsistencies, unpinned builds, or informational limits.</span></div>
+                            <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full inline-block" style="background:#10b981"></span><span class="t-muted"><strong class="t-base">Resolved</strong> — Previously reported issue confirmed fixed and verified in code.</span></div>
                         </div>
                     </div>
                 </div>
@@ -175,18 +487,24 @@
         <section id="findings" class="py-20">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="mb-6">
-                    <h2 class="text-3xl md:text-4xl t-base mb-2 text-balance" data-reveal>Detailed Findings</h2>
-                    <p class="t-muted max-w-3xl" data-reveal data-reveal-delay="60">Twenty findings, most severe first. Search by keyword, file, or category; filter by severity.</p>
+                    <h2 class="text-3xl md:text-4xl t-base mb-2 text-balance" data-reveal>Detailed Findings &amp; Status</h2>
+                    <p class="t-muted max-w-3xl" data-reveal data-reveal-delay="60">Twenty-five total findings tracked across the codebase lifecycle. Filter by severity, status, or search keywords. Click any row to view full details.</p>
                 </div>
 
                 <div class="flex flex-col sm:flex-row gap-3 mb-4" data-reveal>
-                    <input type="text" id="searchInputAudit" onkeyup="filterFindings()" placeholder="Search findings by ID, title, file, or category…" class="field flex-grow">
-                    <select id="sevFilter" onchange="filterFindings()" class="field sm:w-52">
-                        <option value="">All severities</option>
+                    <input type="text" id="searchInputAudit" onkeyup="filterFindings()" placeholder="Search findings by ID, title, file, category, or status…" class="field flex-grow">
+                    <select id="sevFilter" onchange="filterFindings()" class="field sm:w-48">
+                        <option value="">All Severities</option>
                         <option value="Critical">Critical</option>
                         <option value="High">High</option>
                         <option value="Medium">Medium</option>
                         <option value="Low">Low</option>
+                    </select>
+                    <select id="statusFilter" onchange="filterFindings()" class="field sm:w-48">
+                        <option value="">All Statuses</option>
+                        <option value="Active">Active Only</option>
+                        <option value="Resolved">Resolved Only</option>
+                        <option value="Partially Resolved">Partially Resolved</option>
                     </select>
                 </div>
 
@@ -196,6 +514,7 @@
                             <tr class="surface-2">
                                 <th class="px-4 py-3 text-left eyebrow t-subtle">ID</th>
                                 <th class="px-4 py-3 text-left eyebrow t-subtle">Severity</th>
+                                <th class="px-4 py-3 text-left eyebrow t-subtle">Status</th>
                                 <th class="px-4 py-3 text-left eyebrow t-subtle">Finding</th>
                                 <th class="px-4 py-3 text-left eyebrow t-subtle">Category</th>
                                 <th class="px-4 py-3 text-left eyebrow t-subtle">Location</th>
@@ -215,7 +534,7 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="mb-10">
                     <h2 class="text-3xl md:text-4xl t-base mb-4 text-balance" data-reveal>What the System Gets Right</h2>
-                    <p class="t-muted max-w-3xl leading-relaxed" data-reveal data-reveal-delay="60">An audit that only lists problems is misleading. These are the parts that are implemented correctly and should not be changed casually.</p>
+                    <p class="t-muted max-w-3xl leading-relaxed" data-reveal data-reveal-delay="60">A thorough audit highlights engineering achievements alongside vulnerabilities. These verified strengths form QChain's solid cryptographic foundation.</p>
                 </div>
                 <div id="strengthGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                     <!-- Populated by JS -->
@@ -228,41 +547,42 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="mb-10">
                     <h2 class="text-3xl md:text-4xl t-base mb-4 text-balance" data-reveal>Prioritised Remediation Roadmap</h2>
-                    <p class="t-muted max-w-3xl leading-relaxed" data-reveal data-reveal-delay="60">Ordered by value ÷ effort. The first tier removes the critical and the two verification-logic gaps (none require new research and all can be done in the backend).</p>
+                    <p class="t-muted max-w-3xl leading-relaxed" data-reveal data-reveal-delay="60">Ordered by risk reduction vs. engineering effort. Tier 1 tackles newly identified exploitable routes and core authentication.</p>
                 </div>
                 <div class="space-y-4">
                     <div class="card p-6" data-reveal>
-                        <div class="flex items-center gap-3 mb-3"><span class="text-xs font-bold text-white px-3 py-1 rounded-full" style="background:#dc2626">TIER 1: NOW</span><h3 class="font-bold t-base">Close the exploitable gaps</h3></div>
+                        <div class="flex items-center gap-3 mb-3"><span class="text-xs font-bold text-white px-3 py-1 rounded-full" style="background:#dc2626">TIER 1: IMMEDIATE</span><h3 class="font-bold t-base">Eliminate critical data-loss &amp; authentication holes</h3></div>
                         <ul class="text-sm t-muted space-y-2 list-disc list-inside">
-                            <li>Add API authentication (JWT/session) + per-role authorization on every privileged route; lock CORS to known origins. <span style="color:#dc2626" class="font-semibold">(F01)</span></li>
-                            <li>Enforce expiry at verification - treat <code>expiryDate &lt; now</code> as not-valid, and/or a status-sweep job. <span style="color:#ea580c" class="font-semibold">(F02)</span></li>
-                            <li>Rate-limit + lock out OTP/<code>resolveSession</code>; consider 8-digit or alphanumeric tokens. <span style="color:#ea580c" class="font-semibold">(F03)</span></li>
-                            <li>Add a request body-size limit (<code>http.MaxBytesReader</code>). <span style="color:#ca8a04" class="font-semibold">(F10)</span></li>
+                            <li><strong>Remove or strictly guard <code>POST /dev/cleanupTest</code>:</strong> Ensure test cleanup code cannot run in production or without root credentials. <span style="color:#dc2626" class="font-semibold">(F21)</span></li>
+                            <li><strong>Lock down <code>bindHolderKeys</code>:</strong> Enforce one-time immutable key binding in chaincode and verify holder identity before registering public keys. <span style="color:#ea580c" class="font-semibold">(F22)</span></li>
+                            <li><strong>Introduce API Authentication:</strong> Add JWT / session middleware and role-based access control (RBAC) across all privileged routes; restrict CORS. <span style="color:#dc2626" class="font-semibold">(F01)</span></li>
+                            <li><strong>Rate-limit &amp; Lockout Verification Tokens:</strong> Add attempt counters and IP rate limiting on <code>/resolveSession</code>; consider alphanumeric presentation tokens. <span style="color:#ea580c" class="font-semibold">(F03)</span></li>
+                            <li><strong>Protect Demographic Endpoints:</strong> Require authentication for <code>/mobile/getHolderProfile</code>, <code>/mobile/checkKeys</code>, and <code>/getHolders</code>. <span style="color:#ca8a04" class="font-semibold">(F23, F24)</span></li>
                         </ul>
                     </div>
                     <div class="card p-6" data-reveal data-reveal-delay="60">
-                        <div class="flex items-center gap-3 mb-3"><span class="text-xs font-bold text-white px-3 py-1 rounded-full" style="background:#f97316">TIER 2: SOON</span><h3 class="font-bold t-base">Harden keys, secrets &amp; ops</h3></div>
+                        <div class="flex items-center gap-3 mb-3"><span class="text-xs font-bold text-white px-3 py-1 rounded-full" style="background:#ea580c">TIER 2: SHORT-TERM</span><h3 class="font-bold t-base">Key custody, concurrency &amp; operational hardening</h3></div>
                         <ul class="text-sm t-muted space-y-2 list-disc list-inside">
-                            <li>Move signing + KEM keys off <code>.env</code> to a KMS/HSM; separate custody. <span style="color:#ea580c" class="font-semibold">(F06, F16)</span></li>
-                            <li>Rotate all default credentials (CouchDB, fabric-ca <code>admin:adminpw</code>). <span style="color:#ca8a04" class="font-semibold">(F09)</span></li>
-                            <li>Encrypt PII columns (Track C) reusing the Track B envelope. <span style="color:#ca8a04" class="font-semibold">(F11)</span></li>
-                            <li>Make the mobile-session redemption atomic (mark-used in one UPDATE). <span style="color:#ca8a04" class="font-semibold">(F12)</span></li>
-                            <li>Anchor/sign audit logs; pin Docker images; add gateway security headers + rate-limiting. <span style="color:#ca8a04" class="font-semibold">(F13, F14, F15)</span></li>
+                            <li><strong>Protect Org Signing Key:</strong> Migrate <code>ISSUER_PRIVATE_KEY_HEX</code> from plaintext <code>.env</code> to an HSM or cloud KMS (PKCS#11). <span style="color:#ea580c" class="font-semibold">(F06)</span></li>
+                            <li><strong>Atomic Session Redemption:</strong> Enforce atomic mark-and-delete on <code>mobile_sessions</code> to eliminate token replay race conditions. <span style="color:#ca8a04" class="font-semibold">(F12)</span></li>
+                            <li><strong>Request Body Caps:</strong> Wrap request bodies in <code>http.MaxBytesReader</code> across all API handlers to prevent memory exhaustion DoS. <span style="color:#ca8a04" class="font-semibold">(F10)</span></li>
+                            <li><strong>Credential Hygiene:</strong> Rotate default credentials for CouchDB and Fabric CA bootstrap identities. <span style="color:#ca8a04" class="font-semibold">(F09)</span></li>
+                            <li><strong>Gateway Hardening &amp; PII Encryption:</strong> Add HSTS, CSP, and rate limiting in Nginx; apply Track C field encryption to MySQL PII columns. <span style="color:#ca8a04" class="font-semibold">(F07, F14)</span></li>
                         </ul>
                     </div>
                     <div class="card p-6" data-reveal data-reveal-delay="120">
-                        <div class="flex items-center gap-3 mb-3"><span class="text-xs font-bold text-white px-3 py-1 rounded-full" style="background:var(--accent)">TIER 3: RESEARCH</span><h3 class="font-bold t-base">Post-quantum identity &amp; resilience</h3></div>
+                        <div class="flex items-center gap-3 mb-3"><span class="text-xs font-bold text-white px-3 py-1 rounded-full" style="background:var(--accent)">TIER 3: STRATEGIC</span><h3 class="font-bold t-base">Quantum-safe identity &amp; high availability</h3></div>
                         <ul class="text-sm t-muted space-y-2 list-disc list-inside">
-                            <li>Replace ECDSA in the Fabric MSP/TLS with ML-DSA (see the Track A implementation plan). <span style="color:#ea580c" class="font-semibold">(F04)</span></li>
-                            <li>Holder-held keys + signed presentations; real cryptographic selective disclosure. <span style="color:#ca8a04" class="font-semibold">(F08, F17)</span></li>
-                            <li>Multi-orderer/peer, second IPFS node, DB replication for availability. <span style="color:#ca8a04" class="font-semibold">(F18)</span></li>
+                            <li><strong>Track A Implementation:</strong> Replace ECDSA in Fabric BCCSP, peer MSP certificates, and TLS with ML-DSA for end-to-end quantum resistance. <span style="color:#ea580c" class="font-semibold">(F04)</span></li>
+                            <li><strong>High Availability Topology:</strong> Deploy multi-consenter Raft ordering, redundant peer nodes across distinct availability zones, an IPFS cluster, and high-availability MySQL replication. <span style="color:#ca8a04" class="font-semibold">(F18)</span></li>
+                            <li><strong>Blockchain Audit Checkpoints:</strong> Cryptographically anchor off-chain operational audit logs to ledger state. <span style="color:#ca8a04" class="font-semibold">(F13)</span></li>
                         </ul>
                     </div>
                 </div>
 
                 <div class="mt-8 card p-6" style="border-left:3px solid #3b82f6" data-reveal>
-                    <h4 class="font-bold mb-2" style="color:#2563eb">Context: this is a research capstone, not production</h4>
-                    <p class="text-sm t-muted leading-relaxed">Several findings (single-VM topology, open demo access, default demo credentials) are acceptable for a supervised university demo and are called out for honesty in any write-up rather than as blockers. The Tier 1 items, however, undercut the system's own security claims even in a demo and should be fixed first.</p>
+                    <h4 class="font-bold mb-2" style="color:#2563eb">Context &amp; Transparency Statement</h4>
+                    <p class="text-sm t-muted leading-relaxed">QChain is a cutting-edge post-quantum applied research blockchain. Demonstrating academic honesty by publishing this comprehensive internal audit reinforces credibility: while the core post-quantum credential architecture, envelope cryptography, and holder-signed presentations are robustly implemented, addressing conventional access control and operational hygiene remains essential before production readiness.</p>
                 </div>
             </div>
         </section>
@@ -274,8 +594,549 @@
                 <img src="assets/qchain_logo.jpeg" alt="QChain Logo" loading="lazy" class="w-6 h-6 rounded shadow-sm invert" onerror="this.style.display='none'">
                 <span class="font-mono text-sm tracking-tight" style="color:#93a2b8">QChain Research</span>
             </div>
-            <p class="text-sm" style="color:#7c8aa0">Internal review · generated 2026-08-08 · findings reflect the post-G2 codebase</p>
+            <p class="text-sm" style="color:#7c8aa0">Internal Security Audit · Updated 2026-10-25 · Track H Codebase</p>
         </div>
     </footer>
+
+    <!-- SCRIPT DATA & LOGIC -->
+    <script>
+        tailwind.config = { darkMode: 'class' };
+
+        function toggleDarkMode() {
+            const isDark = document.documentElement.classList.toggle('dark');
+            localStorage.theme = isDark ? 'dark' : 'light';
+            if (typeof updateChartColors === 'function') updateChartColors(isDark);
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            if (!menu) return;
+            const opening = menu.classList.contains('is-closed');
+            menu.classList.toggle('is-closed', !opening);
+            menu.classList.toggle('is-open', opening);
+        }
+
+        const findings = [
+            {
+                id: "F01",
+                sev: "Critical",
+                status: "Active",
+                cat: "Authentication",
+                title: "No API authentication; open CORS; one shared privileged identity",
+                loc: "offchain/server.go, config.go",
+                impact: "Every route (including /issueCredential, /revokeCredential, /suspendCredential, /updateCredential) is registered without authentication middleware. CORS header is set to '*'. All privileged operations run using a single shared wallet identity (issuer1/verifier1). Anyone who can reach the HTTP port can issue, revoke, or modify credentials at will, effectively bypassing on-chain role checks.",
+                rec: "Introduce JWT/session authentication across all privileged routes. Implement per-user Fabric identities and strict role-based authorization (RBAC). Restrict CORS to authorized frontend domains."
+            },
+            {
+                id: "F21",
+                sev: "Critical",
+                status: "Active",
+                cat: "Access Control",
+                title: "Unauthenticated database cleanup endpoint allows arbitrary data wiping",
+                loc: "offchain/db_cleanup.go:handleDevCleanupTest, server.go:113",
+                impact: "A testing endpoint (POST /dev/cleanupTest) is registered on the production HTTP router without authentication, authorization, or debug-mode checks. An external caller can submit target emiratesIDs, holderIDs, or credentialIDs and trigger cascading SQL deletes that wipe credentials, holder records, alerts, subscriptions, verification logs, and audit trails.",
+                rec: "Remove handleDevCleanupTest from the production router immediately. If required for testing, restrict it behind an environment flag (e.g. RUN_ENV=development), IP whitelisting, and administrative token authorization."
+            },
+            {
+                id: "F02",
+                sev: "High",
+                status: "Resolved",
+                cat: "Correctness",
+                title: "Expired credentials still verify as valid",
+                loc: "offchain/verification.go, offchain/chain.go:289",
+                impact: "Originally, credentials past their expiryDate returned verified=true with active status because expiry was never evaluated during verification.",
+                rec: "RESOLVED: effectiveStatus() now evaluates expiry dates against Dubai local time; verifyPresentation flags expired credentials with status='expired', sets reason='EXPIRED', and fails verification (Verified=false)."
+            },
+            {
+                id: "F03",
+                sev: "High",
+                status: "Active",
+                cat: "Authentication",
+                title: "OTP / presentation tokens are brute-forceable",
+                loc: "offchain/mobile.go (handleGenerateOTP, handleResolveSession)",
+                impact: "Manual verification OTP codes are 6-digit numeric strings (10^6 space) valid for 120 seconds. The /resolveSession endpoint lacks rate-limiting, IP throttling, attempt counting, or lockout. An attacker can attempt an online brute-force attack to redeem active holder sessions during the validity window.",
+                rec: "Enforce per-IP and per-session rate limiting with lockout after 3-5 failed attempts on /resolveSession. Increase token entropy (8+ alphanumeric characters) and log security alerts on repeated failures."
+            },
+            {
+                id: "F04",
+                sev: "High",
+                status: "Active",
+                cat: "Post-Quantum Identity",
+                title: "Fabric MSP identity, tx-signing and TLS remain classical ECDSA",
+                loc: "qchain-network/config/core.yaml (BCCSP: SW/SHA2/256), fabric.go",
+                impact: "Credential and presentation signatures are post-quantum (ML-DSA-44), but the blockchain infrastructure (Fabric MSP X.509 certs, consensus signatures, peer TLS) relies on classical ECDSA. A quantum adversary capable of breaking ECDSA could forge peer identities or tamper with consensus transactions.",
+                rec: "Execute Track A: upgrade Fabric BCCSP, peer MSP, and crypto-config to support ML-DSA-44 natively. Explicitly document this known Track A research scope in public reports."
+            },
+            {
+                id: "F05",
+                sev: "High",
+                status: "Active",
+                cat: "Confidentiality",
+                title: "Pre-G2 credentials keep full plaintext on-chain forever",
+                loc: "Fabric world-state & block history (immutable)",
+                impact: "Historical blocks committed prior to G2 retain plaintext credential attributes in the immutable peer ledger. This block history cannot be altered. Confidentiality guarantees apply strictly to post-G2 commitments.",
+                rec: "Acknowledge the historical immutability boundary in documentation. Any sensitive pre-G2 demo data should be treated as public, and new deployments must start from a clean ledger."
+            },
+            {
+                id: "F06",
+                sev: "High",
+                status: "Partially Resolved",
+                cat: "Key Management",
+                title: "Issuer signing key stored in plaintext .env on host",
+                loc: "offchain/.env (ISSUER_PRIVATE_KEY_HEX)",
+                impact: "Organization decryption keys are no longer stored on the server (holder ML-KEM keys are managed client-side in QWallet). However, the issuer ML-DSA-44 signing key (ISSUER_PRIVATE_KEY_HEX) resides in plaintext in .env, risking unauthorized credential forging if the host is compromised.",
+                rec: "Migrate the issuer signing key to a hardware security module (HSM) or cloud KMS using PKCS#11. Restrict file permissions and implement key rotation procedures."
+            },
+            {
+                id: "F07",
+                sev: "High",
+                status: "Active",
+                cat: "Confidentiality",
+                title: "Holder PII stored in plaintext in MySQL",
+                loc: "qchain-network/scripts/schema.sql (holders table)",
+                impact: "Demographic attributes (emirates_id, first_name, last_name, email, phone, college) are stored in cleartext MySQL columns. Track B encrypted off-chain credential bodies, but database-level PII encryption (Track C) has not yet been applied.",
+                rec: "Implement application-layer column encryption (Track C) for sensitive holder attributes using AES-256-GCM, and use salted blind indexes for query lookups."
+            },
+            {
+                id: "F22",
+                sev: "High",
+                status: "Active",
+                cat: "Key Management",
+                title: "Holder public key overwrite and key hijacking vulnerability",
+                loc: "offchain/mobile.go:handleRegisterHolderKeys, QChaincode.js:bindHolderKeys",
+                impact: "The chaincode method bindHolderKeys does not verify whether public keys have already been bound for a holder. Combined with an unauthenticated /mobile/registerHolderKeys endpoint, an attacker can overwrite any victim's registered ML-KEM and ML-DSA public keys. New credentials will be encrypted to the attacker, and the attacker can sign fraudulent presentations as the victim.",
+                rec: "Enforce one-time immutability in chaincode: reject bindHolderKeys if holder.KemPublicKey is already set. Require authenticated holder verification before registering or updating keys."
+            },
+            {
+                id: "F08",
+                sev: "Medium",
+                status: "Resolved",
+                cat: "Non-repudiation",
+                title: "Holder presentations are not signed",
+                loc: "offchain/mobile.go, offchain/verification.go:153",
+                impact: "Previously, presentation sessions were server-minted rows; holders never signed presentation challenges, allowing potential repudiation.",
+                rec: "RESOLVED (Track H): Mobile presentations now require an ML-DSA-44 signature (HolderSignature) over the presentation payload (DisclosedPayload), verified against the holder's on-chain DSA public key before verification succeeds."
+            },
+            {
+                id: "F09",
+                sev: "Medium",
+                status: "Active",
+                cat: "Secrets",
+                title: "Default/hard-coded credentials in config",
+                loc: "docker-compose.yaml (CouchDB adminpw), fabric-ca-server-config.yaml",
+                impact: "CouchDB uses default credentials (admin:adminpw) in environment variables and healthcheck URLs. Fabric CA configurations and bootstrap scripts also default to admin:adminpw, presenting guessable footholds on publicly accessible networks.",
+                rec: "Replace all default credentials with cryptographically random secrets injected via secure environment variables. Restrict CouchDB (5984) and CA ports to internal Docker networks."
+            },
+            {
+                id: "F10",
+                sev: "Medium",
+                status: "Active",
+                cat: "Availability",
+                title: "No request body-size limit on API handlers",
+                loc: "offchain/httputil.go:decodeBody",
+                impact: "decodeBody decodes r.Body using json.NewDecoder without an http.MaxBytesReader limit. An attacker can stream oversized HTTP POST payloads to consume backend memory and cause a denial-of-service.",
+                rec: "Wrap all request bodies with http.MaxBytesReader(w, r.Body, maxBytesLimit) (e.g. 1MB - 5MB) and return HTTP 413 Payload Too Large on overflow."
+            },
+            {
+                id: "F11",
+                sev: "Medium",
+                status: "Resolved",
+                cat: "Confidentiality",
+                title: "Selective disclosure is cosmetic only",
+                loc: "offchain/commitment.go, offchain/verification.go",
+                impact: "Previously, hidden fields were simply redacted in memory after the server decrypted the full credential payload.",
+                rec: "RESOLVED: QChain implemented true cryptographic selective disclosure. Credentials commit to salted field hashes (SHA3(salt:field:value)); salts remain with the holder, and only disclosed attributes and salts are transmitted and verified on-chain."
+            },
+            {
+                id: "F12",
+                sev: "Medium",
+                status: "Active",
+                cat: "Correctness",
+                title: "Mobile-session redemption is not atomic (replay window)",
+                loc: "offchain/mobile.go:handleResolveSession",
+                impact: "handleResolveSession reads the session record, executes on-chain verification, and calls deleteMobileSession only upon conclusion. Concurrent requests with the same token can race during the verification window and both pass validation before deletion.",
+                rec: "Execute atomic session consumption using a single SQL UPDATE ... SET is_used = 1 WHERE id = ? AND is_used = 0, verifying that exactly one row was updated before proceeding."
+            },
+            {
+                id: "F13",
+                sev: "Medium",
+                status: "Active",
+                cat: "Non-repudiation",
+                title: "Audit and event logs are mutable, off-chain and unsigned",
+                loc: "offchain/db_audit.go, MySQL portal_audit_log",
+                impact: "System audit logs and operational events reside in mutable MySQL tables without cryptographic signing or blockchain anchoring. Anyone with database access (or via dev cleanup endpoints) can tamper with or delete audit entries.",
+                rec: "Sign audit log entries using the organization key or anchor periodic Merkle tree root hashes onto the Fabric ledger to provide tamper-evidence."
+            },
+            {
+                id: "F14",
+                sev: "Medium",
+                status: "Active",
+                cat: "Hardening",
+                title: "Gateway lacks security headers and rate-limiting",
+                loc: "web-gateway/nginx.conf",
+                impact: "The Nginx gateway sets only X-Content-Type-Options: nosniff. It lacks HSTS, Content-Security-Policy (CSP), X-Frame-Options, and Referrer-Policy. Furthermore, no limit_req rate-limiting is configured in front of the /api/ reverse proxy.",
+                rec: "Add HSTS, strict CSP, X-Frame-Options: DENY, and Referrer-Policy: strict-origin-when-cross-origin. Configure Nginx limit_req zones to throttle aggressive API calling."
+            },
+            {
+                id: "F15",
+                sev: "Medium",
+                status: "Partially Resolved",
+                cat: "Supply Chain",
+                title: "Unpinned :latest Docker images",
+                loc: "qchain-network/docker/docker-compose.yaml",
+                impact: "The broken server_test.go file was completely rewritten and now passes cleanly. However, Docker compose files continue using :latest tags for hyperledger/fabric-peer, fabric-orderer, and ipfs/kubo, leaving deployments vulnerable to breaking upstream changes.",
+                rec: "Pin all container images to explicit, tested semantic version tags (e.g. hyperledger/fabric-peer:2.5.9, ipfs/kubo:v0.26.0)."
+            },
+            {
+                id: "F23",
+                sev: "Medium",
+                status: "Active",
+                cat: "Information Disclosure",
+                title: "Unauthenticated holder enumeration and demographic PII harvesting",
+                loc: "offchain/mobile.go (/mobile/checkKeys, /mobile/getHolderProfile), holders.go",
+                impact: "Unauthenticated endpoints (/mobile/checkKeys?emiratesID=... and /mobile/getHolderProfile?emiratesID=...) allow arbitrary callers to query any Emirates ID and retrieve full names, emails, colleges, and key-binding status. In addition, GET /getHolders returns the entire registered holder registry without authentication.",
+                rec: "Require holder session authentication for profile and key lookups. Restrict /getHolders to authorized staff sessions and implement query rate limiting."
+            },
+            {
+                id: "F24",
+                sev: "Medium",
+                status: "Active",
+                cat: "Authorization",
+                title: "Unauthenticated staff invitation, role alteration, and deletion",
+                loc: "offchain/staff.go (handleInviteStaff, handleUpdateStaffRole, handleDeleteStaff)",
+                impact: "Staff administration routes (/inviteStaff, /updateStaffRole, /deleteStaff) have no authentication. Anyone can invite staff into schemaManager or policyManager roles, modify privileges, or delete staff members, with actions falsely attributed to hardcoded administrators in audit logs.",
+                rec: "Enforce admin session verification on all staff management endpoints, ensuring only verified organization administrators can modify staff privileges."
+            },
+            {
+                id: "F16",
+                sev: "Low",
+                status: "Active",
+                cat: "Build / Config",
+                title: "Backend build path and chaincode-name inconsistencies",
+                loc: "docker-compose.yaml (context ../../offchain/go-bindings), config.go",
+                impact: "docker-compose.yaml points to a stale build context (../../offchain/go-bindings), and CHAINCODE_NAME is defined as 'QChaincode' in compose but defaults to 'qchaincode' in config.go, creating deployment confusion.",
+                rec: "Update compose build context to 'offchain/' and standardize chaincode naming casing across compose, config.go, and deployment scripts."
+            },
+            {
+                id: "F17",
+                sev: "Low",
+                status: "Active",
+                cat: "Confidentiality",
+                title: "IPFS re-encrypt cannot recall already-exposed plaintext",
+                loc: "Distributed IPFS network",
+                impact: "Plaintext credential bodies published to public IPFS gateways prior to encryption cannot be revoked or erased from third-party IPFS peer caches. This is an inherent property of distributed hash-addressed storage.",
+                rec: "Document this storage limitation clearly. Assume any pre-encryption IPFS CID may remain cached, and reissue sensitive credentials."
+            },
+            {
+                id: "F18",
+                sev: "Low",
+                status: "Active",
+                cat: "Availability",
+                title: "Multiple single points of failure",
+                loc: "docker-compose.yaml (1 orderer, 1 peer/org, 1 IPFS, 1 MySQL, 1 VM)",
+                impact: "The demonstration network operates on a single VM with a single Raft consenter, single peer per organization, and single IPFS/MySQL node. Any service failure halts issuance and verification.",
+                rec: "For production: deploy multi-consenter Raft ordering, redundant peer nodes across distinct availability zones, an IPFS cluster, and high-availability MySQL replication."
+            },
+            {
+                id: "F19",
+                sev: "Low",
+                status: "Active",
+                cat: "Availability",
+                title: "Public demo is open with no access control",
+                loc: "setup-tailscale-funnel.sh",
+                impact: "The research demonstration is exposed directly to the public web via Tailscale Funnel without an authentication barrier, leaving the unauthenticated API open to internet-wide probing.",
+                rec: "Place the public demo behind HTTP basic authentication or an IP allowlist while API authentication (F01) is being integrated."
+            },
+            {
+                id: "F20",
+                sev: "Low",
+                status: "Resolved",
+                cat: "Hardening",
+                title: "IPFS upload failure silently proceeds without a CID",
+                loc: "offchain/credentials.go:handleIssueCredential",
+                impact: "Previously, an IPFS upload failure during issuance logged an error but allowed issuance to proceed with an empty CID.",
+                rec: "RESOLVED: handleIssueCredential now aborts immediately on IPFS upload failure (returning HTTP 502 Bad Gateway), and chaincode strictly validates IPFS CIDs via regex."
+            },
+            {
+                id: "F25",
+                sev: "Low",
+                status: "Active",
+                cat: "Information Disclosure",
+                title: "Unrestricted public scraping of encrypted credential envelopes",
+                loc: "offchain/mobile.go:handleGetEnvelope",
+                impact: "The endpoint /mobile/getEnvelope?credentialID=... returns IPFS ciphertext envelopes without verifying whether the requester is the legitimate credential holder. While ciphertext is ML-KEM protected, unrestricted scraping leaks issuance timing, envelope sizes, and active CIDs.",
+                rec: "Require holder session tokens or active presentation tokens before returning encrypted envelope ciphertext from IPFS."
+            }
+        ];
+
+        const strengths = [
+            {
+                title: "Post-Quantum Credential Signatures (ML-DSA-44)",
+                body: "FIPS 204 compliant ML-DSA-44 via liboqs signs SHA3-256 canonical commitments. Signatures and verification are symmetric, rigorous, and tested against quantum forgeability."
+            },
+            {
+                title: "On-Chain Commitment Integrity Verification",
+                body: "Verification re-hashes canonical commitment objects from ledger state and validates the issuer's ML-DSA-44 signature directly; the database is never trusted for cryptographic decisions."
+            },
+            {
+                title: "Cryptographic Selective Disclosure (Track H)",
+                body: "Replaced cosmetic redaction with mathematical per-field salted SHA3-256 commitments. Salts remain solely with the holder; undisclosed fields are never transmitted or exposed to verifiers."
+            },
+            {
+                title: "Holder-Signed Presentations (ML-DSA-44)",
+                body: "Presentations require an ML-DSA-44 digital signature from the holder's on-chain public key over the presentation payload, providing genuine non-repudiation and stopping impersonation."
+            },
+            {
+                title: "Hardware Secure Key Storage in QWallet",
+                body: "Holder ML-KEM and ML-DSA private keys are generated on-device and stored in iOS Keychain / Android Keystore with chunking and post-write verification; private keys never leave the phone."
+            },
+            {
+                title: "Robust Hybrid KEM-DEM Envelope Cryptography",
+                body: "Track B hybrid encryption pairs ML-KEM-768 with AES-256-GCM and HKDF-SHA3-256 using single-use per-field wrapping keys, preventing cross-field or cross-credential ciphertext manipulation."
+            },
+            {
+                title: "Fail-Closed Verification Architecture",
+                body: "If on-chain state, IPFS envelopes, or commitment hashes fail to resolve or mismatch, verification terminates immediately with specific error codes rather than falling back to valid."
+            },
+            {
+                title: "SQL Injection Immune (Fully Parameterized)",
+                body: "Every database query across offchain/ utilizes SQL placeholders and parameter slices, including dynamic search and status filtering. Zero SQL injection flaws were identified."
+            },
+            {
+                title: "Fail-Fast IPFS Integration & Validation",
+                body: "Credential issuance halts immediately upon IPFS upload failure, and chaincode strictly validates IPFS CID formatting before embedding it into the signed commitment."
+            },
+            {
+                title: "Comprehensive Automated Off-Chain Test Suite",
+                body: "Rewritten server_test.go, verification_test.go, and commitment_test.go provide clean, compiling test coverage for ML-DSA round-trips, timezone formatting, and handler validation."
+            }
+        ];
+
+        const sevMeta = {
+            Critical: { badge: "bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300", dot: "bg-red-600", bar: "sev-critical" },
+            High:     { badge: "bg-orange-100 dark:bg-orange-900/40 text-orange-700 dark:text-orange-300", dot: "bg-orange-500", bar: "sev-high" },
+            Medium:   { badge: "bg-yellow-100 dark:bg-yellow-900/40 text-yellow-700 dark:text-yellow-300", dot: "bg-yellow-500", bar: "sev-medium" },
+            Low:      { badge: "bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300", dot: "bg-blue-500", bar: "sev-low" }
+        };
+
+        const statusMeta = {
+            Active:               "bg-red-50 dark:bg-red-950/40 text-red-700 dark:text-red-400 border border-red-200 dark:border-red-900/60",
+            Resolved:             "bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-900/60",
+            "Partially Resolved": "bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-900/60"
+        };
+
+        function chartTheme() {
+            const isDark = document.documentElement.classList.contains('dark');
+            return {
+                isDark,
+                text: isDark ? '#93a2b8' : '#5a6b82',
+                grid: isDark ? 'rgba(148,163,184,0.16)' : 'rgba(15,23,42,0.08)',
+                surface: isDark ? '#0f1729' : '#ffffff',
+                backdrop: isDark ? '#0f1729' : '#ffffff'
+            };
+        }
+
+        function renderFindings() {
+            const tbody = document.getElementById('findBody');
+            if (!tbody) return;
+
+            tbody.innerHTML = findings.map(f => {
+                const m = sevMeta[f.sev] || sevMeta.Low;
+                const sm = statusMeta[f.status] || statusMeta.Active;
+                const isResolved = f.status === "Resolved";
+                const borderBar = isResolved ? "sev-resolved" : m.bar;
+
+                return `
+                <tr class="finding-summary data-row cursor-pointer align-top" data-sev="${f.sev}" data-status="${f.status}" data-search="${(f.id+' '+f.title+' '+f.cat+' '+f.loc+' '+f.impact+' '+f.status).toUpperCase()}" onclick="toggleDetail('${f.id}')">
+                    <td class="px-4 py-4 font-mono font-bold t-base whitespace-nowrap">${f.id}</td>
+                    <td class="px-4 py-4 whitespace-nowrap"><span class="inline-flex items-center gap-1.5 text-xs font-bold px-2.5 py-1 rounded-full ${m.badge}"><span class="w-2 h-2 rounded-full ${m.dot}"></span>${f.sev}</span></td>
+                    <td class="px-4 py-4 whitespace-nowrap"><span class="text-xs font-bold px-2.5 py-1 rounded-full ${sm}">${f.status}</span></td>
+                    <td class="px-4 py-4 font-semibold t-base min-w-[220px]">
+                        ${f.title}
+                        <span class="block md:hidden text-xs font-normal t-subtle mt-1">${f.cat} · ${f.loc}</span>
+                    </td>
+                    <td class="px-4 py-4 hidden md:table-cell"><span class="chip whitespace-nowrap">${f.cat}</span></td>
+                    <td class="px-4 py-4 hidden md:table-cell font-mono text-xs t-subtle min-w-[180px]">${f.loc}</td>
+                </tr>
+                <tr id="detail-${f.id}" class="finding-detail hidden" data-sev="${f.sev}">
+                    <td colspan="6" class="px-4 pb-6 pt-0 surface-2 border-l-4 ${borderBar}">
+                        <div class="max-w-4xl pt-4">
+                            <p class="eyebrow t-subtle mb-1">Impact &amp; Description</p>
+                            <p class="text-sm t-muted mb-4 leading-relaxed">${f.impact}</p>
+                            <p class="eyebrow t-accent mb-1">${isResolved ? "Resolution Details" : "Remediation Recommendation"}</p>
+                            <p class="text-sm t-muted leading-relaxed">${f.rec}</p>
+                        </div>
+                    </td>
+                </tr>`;
+            }).join('');
+        }
+
+        function renderStrengths() {
+            const grid = document.getElementById('strengthGrid');
+            if (!grid) return;
+
+            grid.innerHTML = strengths.map((s, i) => `
+                <div class="card card-hover card-rail p-5" data-reveal data-reveal-delay="${(i % 3) * 70}">
+                    <div class="flex items-start gap-2 mb-2">
+                        <span class="t-accent mt-0.5">✓</span>
+                        <h4 class="font-bold t-base text-sm">${s.title}</h4>
+                    </div>
+                    <p class="text-sm t-muted leading-relaxed">${s.body}</p>
+                </div>`).join('');
+        }
+
+        function filterFindings() {
+            const q = document.getElementById('searchInputAudit').value.toUpperCase();
+            const sev = document.getElementById('sevFilter').value;
+            const status = document.getElementById('statusFilter').value;
+            let visible = 0;
+
+            document.querySelectorAll('.finding-summary').forEach(row => {
+                const matchSearch = row.dataset.search.indexOf(q) > -1;
+                const matchSev = !sev || row.dataset.sev === sev;
+                const matchStatus = !status || row.dataset.status === status;
+                const show = matchSearch && matchSev && matchStatus;
+
+                row.style.display = show ? '' : 'none';
+                const id = row.querySelector('td').textContent.trim();
+                const detail = document.getElementById('detail-' + id);
+                if (detail && !show) detail.classList.add('hidden');
+                if (show) visible++;
+            });
+
+            const emptyMsg = document.getElementById('noResults');
+            if (emptyMsg) emptyMsg.classList.toggle('hidden', visible !== 0);
+        }
+
+        function toggleDetail(id) {
+            const row = document.getElementById('detail-' + id);
+            if (row) row.classList.toggle('hidden');
+        }
+
+        function initScrollReveals() {
+            const items = document.querySelectorAll('[data-reveal]');
+            if (!items.length) return;
+            const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (reduce || !('IntersectionObserver' in window)) {
+                items.forEach(el => el.classList.add('is-visible'));
+                return;
+            }
+            const io = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) return;
+                    const el = entry.target;
+                    const delay = parseInt(el.dataset.revealDelay || '0', 10);
+                    el.style.setProperty('--reveal-delay', delay + 'ms');
+                    el.classList.add('is-visible');
+                    obs.unobserve(el);
+                });
+            }, { rootMargin: '0px 0px -8% 0px', threshold: 0.1 });
+            items.forEach(el => io.observe(el));
+        }
+
+        function initAuditCharts() {
+            if (typeof Chart === 'undefined') return;
+            const t = chartTheme();
+
+            const activeCrit = findings.filter(f => f.sev === 'Critical' && f.status === 'Active').length;
+            const activeHigh = findings.filter(f => f.sev === 'High' && (f.status === 'Active' || f.status === 'Partially Resolved')).length;
+            const activeMed = findings.filter(f => f.sev === 'Medium' && (f.status === 'Active' || f.status === 'Partially Resolved')).length;
+            const activeLow = findings.filter(f => f.sev === 'Low' && f.status === 'Active').length;
+            const resolvedCount = findings.filter(f => f.status === 'Resolved').length;
+
+            const sevEl = document.getElementById('sevChart');
+            if (sevEl) {
+                new Chart(sevEl.getContext('2d'), {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Critical (Active)', 'High (Active)', 'Medium (Active)', 'Low (Active)', 'Resolved Issues'],
+                        datasets: [{
+                            data: [activeCrit, activeHigh, activeMed, activeLow, resolvedCount],
+                            backgroundColor: ['#dc2626', '#ea580c', '#ca8a04', '#2563eb', '#10b981'],
+                            borderWidth: 3,
+                            borderColor: t.surface
+                        }]
+                    },
+                    options: {
+                        maintainAspectRatio: false,
+                        responsive: true,
+                        cutout: '62%',
+                        plugins: {
+                            legend: { position: 'bottom' }
+                        }
+                    }
+                });
+            }
+
+            const catMap = {};
+            findings.forEach(f => {
+                const c = f.cat || 'Other';
+                catMap[c] = (catMap[c] || 0) + 1;
+            });
+            const catLabels = Object.keys(catMap);
+            const catData = catLabels.map(l => catMap[l]);
+
+            const catEl = document.getElementById('catChart');
+            if (catEl) {
+                new Chart(catEl.getContext('2d'), {
+                    type: 'bar',
+                    data: {
+                        labels: catLabels,
+                        datasets: [{
+                            label: 'Findings',
+                            data: catData,
+                            backgroundColor: '#14b8a6',
+                            borderRadius: 6
+                        }]
+                    },
+                    options: {
+                        maintainAspectRatio: false,
+                        responsive: true,
+                        indexAxis: 'y',
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            x: {
+                                ticks: { precision: 0 },
+                                title: { display: true, text: 'Total Count (Active & Resolved)' }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
+        function updateChartColors(isDark) {
+            const t = chartTheme();
+            Chart.defaults.color = t.text;
+            Chart.defaults.borderColor = t.grid;
+            for (let id in Chart.instances) {
+                let chart = Chart.instances[id];
+                if (chart.options.scales?.x) {
+                    chart.options.scales.x.ticks.color = t.text;
+                    chart.options.scales.x.grid.color = t.grid;
+                }
+                if (chart.options.scales?.y) {
+                    chart.options.scales.y.ticks.color = t.text;
+                    chart.options.scales.y.grid.color = t.grid;
+                }
+                if (chart.config.type === 'doughnut') chart.data.datasets[0].borderColor = t.surface;
+                chart.update();
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderFindings();
+            renderStrengths();
+            initScrollReveals();
+
+            if (typeof Chart !== 'undefined') {
+                const t = chartTheme();
+                Chart.defaults.color = t.text;
+                Chart.defaults.borderColor = t.grid;
+                Chart.defaults.font.family = "'Inter', system-ui, sans-serif";
+                initAuditCharts();
+            }
+        });
+    </script>
 </body>
 </html>
