@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script>
-        // Set theme + a .js flag synchronously to avoid a flash and to keep
-        // scroll-reveal content visible if scripts are disabled.
         document.documentElement.classList.add('js');
         try {
             if (localStorage.theme === 'dark' ||
@@ -14,7 +12,8 @@
             }
         } catch (e) {}
     </script>
-    <title>Our Research — QChain</title>
+    <title>Research & Architecture — QChain</title>
+    <link rel="icon" href="assets/qchain_logo.ico" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
@@ -32,7 +31,7 @@
                 <div class="flex items-center">
                     <a href="index.html" class="flex items-center gap-3 pressable">
                         <img src="assets/qchain_logo.jpeg" alt="QChain Logo" class="w-8 h-8 rounded-lg shadow-sm dark:invert" onerror="this.src='https://via.placeholder.com/32'">
-                        <span class="text-2xl t-base tracking-tight font-f1">QChain</span>
+                        <span class="text-xl t-base font-bold tracking-tight font-f1">QChain</span>
                     </a>
                 </div>
                 <div class="hidden md:flex space-x-8 items-center">
@@ -41,15 +40,23 @@
                     <a href="audit.html" class="nav-link">Security Audit</a>
                     <a href="about.html" class="nav-link">About Us</a>
                     <button class="theme-toggle" type="button" aria-label="Toggle theme" onclick="toggleDarkMode()">
-                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="theme-toggle__inner-moon" fill="currentColor" viewBox="0 0 32 32"><mask id="moon-mask-desktop"><rect x="0" y="0" width="32" height="32" fill="white" /><circle cx="22" cy="10" r="9" fill="black" class="moon-mask-circle" /></mask><path class="sun-rays" d="M27.5 11.5v-7h-7L16 0l-4.5 4.5h-7v7L0 16l4.5 4.5v7h7L16 32l4.5-4.5h7v-7L32 16l-4.5-4.5zM16 25.4a9.39 9.39 0 1 1 0-18.8 9.39 9.39 0 1 1 0 18.8z" /><circle class="sun-core" cx="16" cy="16" r="8.1" mask="url(#moon-mask-desktop)" /></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="theme-toggle__inner-moon" fill="currentColor" viewBox="0 0 32 32">
+                            <mask id="moon-mask-desktop"><rect x="0" y="0" width="32" height="32" fill="white" /><circle cx="22" cy="10" r="9" fill="black" class="moon-mask-circle" /></mask>
+                            <path class="sun-rays" d="M27.5 11.5v-7h-7L16 0l-4.5 4.5h-7v7L0 16l4.5 4.5v7h7L16 32l4.5-4.5h7v-7L32 16l-4.5-4.5zM16 25.4a9.39 9.39 0 1 1 0-18.8 9.39 9.39 0 1 1 0 18.8z" />
+                            <circle class="sun-core" cx="16" cy="16" r="8.1" mask="url(#moon-mask-desktop)" />
+                        </svg>
                     </button>
                 </div>
                 <div class="flex items-center md:hidden gap-2">
                     <button class="theme-toggle" type="button" aria-label="Toggle theme" onclick="toggleDarkMode()">
-                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="theme-toggle__inner-moon" fill="currentColor" viewBox="0 0 32 32"><mask id="moon-mask-mobile"><rect x="0" y="0" width="32" height="32" fill="white" /><circle cx="22" cy="10" r="9" fill="black" class="moon-mask-circle" /></mask><path class="sun-rays" d="M27.5 11.5v-7h-7L16 0l-4.5 4.5h-7v7L0 16l4.5 4.5v7h7L16 32l4.5-4.5h7v-7L32 16l-4.5-4.5zM16 25.4a9.39 9.39 0 1 1 0-18.8 9.39 9.39 0 1 1 0 18.8z" /><circle class="sun-core" cx="16" cy="16" r="8.1" mask="url(#moon-mask-mobile)" /></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="theme-toggle__inner-moon" fill="currentColor" viewBox="0 0 32 32">
+                            <mask id="moon-mask-mobile"><rect x="0" y="0" width="32" height="32" fill="white" /><circle cx="22" cy="10" r="9" fill="black" class="moon-mask-circle" /></mask>
+                            <path class="sun-rays" d="M27.5 11.5v-7h-7L16 0l-4.5 4.5h-7v7L0 16l4.5 4.5v7h7L16 32l4.5-4.5h7v-7L32 16l-4.5-4.5zM16 25.4a9.39 9.39 0 1 1 0-18.8 9.39 9.39 0 1 1 0 18.8z" />
+                            <circle class="sun-core" cx="16" cy="16" r="8.1" mask="url(#moon-mask-mobile)" />
+                        </svg>
                     </button>
                     <button onclick="toggleMobileMenu()" aria-label="Menu" class="theme-toggle">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" style="width: 20px; height: 20px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
                         </svg>
                     </button>
@@ -68,62 +75,98 @@
 
     <main class="flex-grow">
         <!-- HERO -->
-        <header class="hero py-20">
-            <div class="hero-glow"></div>
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-12 items-center relative">
+        <header class="hero-mesh py-20 border-b border-[var(--border)] relative">
+            <div class="hero-radial-glow"></div>
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-12 items-center relative z-10">
                 <div>
-                    <h1 class="text-4xl md:text-5xl mb-5 text-balance" data-reveal>
-                        Securing the Ledger Against <br><span style="color:var(--accent-bright)">Quantum Supremacy</span>
+                    <div class="chip mb-4" data-reveal>
+                        <span class="pulse-dot"></span>
+                        <span class="font-mono text-xs uppercase">Cryptographic Research & Architecture</span>
+                    </div>
+                    <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-5 text-balance" data-reveal data-reveal-delay="60">
+                        Securing the Ledger Against <br><span class="text-gradient-mono">Quantum Supremacy</span>
                     </h1>
-                    <p class="text-lg mb-8 max-w-lg leading-relaxed" style="color:#c7d2de" data-reveal data-reveal-delay="80">
-                        A strategic analysis of implementing Post-Quantum Cryptography (PQC) in Hyperledger Fabric. Exploring the shift from ECDSA/RSA to Lattice-based signatures.
+                    <p class="text-base sm:text-lg mb-8 max-w-lg leading-relaxed t-muted" data-reveal data-reveal-delay="120">
+                        A rigorous architectural exploration of integrating lattice-based Post-Quantum Cryptography (PQC) into Hyperledger Fabric. Transitioning from vulnerable ECDSA and RSA to NIST-finalized FIPS standards.
                     </p>
-                    <div class="flex flex-col sm:flex-row gap-4 max-w-md w-full" data-reveal data-reveal-delay="140">
-                        <a href="#architecture" class="btn btn-ghost w-full" style="background:rgba(255,255,255,0.1);color:#eef2f7;border-color:rgba(255,255,255,0.16)">View Architecture</a>
-                        <a href="#algorithms" class="btn btn-ghost w-full" style="background:rgba(255,255,255,0.1);color:#eef2f7;border-color:rgba(255,255,255,0.16)">Compare Algorithms</a>
+                    <div class="flex flex-col sm:flex-row gap-4 max-w-md w-full" data-reveal data-reveal-delay="160">
+                        <a href="#architecture" class="btn btn-primary w-full sm:w-auto">System Flow Topology</a>
+                        <a href="#algorithms" class="btn btn-ghost w-full sm:w-auto">Algorithm Benchmark</a>
                     </div>
                 </div>
 
-                <div class="p-6 rounded-2xl relative" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);box-shadow:var(--shadow-lg)" data-reveal data-reveal-delay="120">
-                    <h3 class="eyebrow mb-3" style="color:var(--accent-bright)">Executive Summary</h3>
-                    <ul class="space-y-3 text-sm" style="color:#c7d2de">
-                        <li class="flex items-start"><span class="mr-2" style="color:var(--accent-bright)">☞</span><span><strong style="color:#eef2f7">The Risk:</strong> Shor's algorithm threatens ECDSA signatures used in Fabric MSPs.</span></li>
-                        <li class="flex items-start"><span class="mr-2" style="color:var(--accent-bright)">☞</span><span><strong style="color:#eef2f7">The Solution:</strong> Migration to NIST finalists: <em>ML-DSA (Dilithium)</em> or <em>FN-DSA (Falcon)</em>.</span></li>
-                        <li class="flex items-start"><span class="mr-2" style="color:var(--accent-bright)">☞</span><span><strong style="color:#eef2f7">The Cost:</strong> PQC signatures are ~100x larger. Throughput may drop by 50-70%.</span></li>
-                        <li class="flex items-start"><span class="mr-2" style="color:var(--accent-bright)">☞</span><span><strong style="color:#eef2f7">The Fix:</strong> Hybrid architectures using IPFS for off-chain storage of heavy signatures.</span></li>
+                <div class="card p-7 shadow-lg" data-reveal data-reveal-delay="120">
+                    <h3 class="eyebrow mb-4 t-subtle">Core Findings & Thesis</h3>
+                    <ul class="space-y-3.5 text-sm t-muted">
+                        <li class="flex items-start gap-2.5">
+                            <span class="t-base font-bold text-xs mt-0.5">■</span>
+                            <span><strong class="t-base">The Threat:</strong> Shor's algorithm renders classical ECDSA and RSA breakable on quantum computers, allowing forgery of blockchain identity MSPs.</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <span class="t-base font-bold text-xs mt-0.5">■</span>
+                            <span><strong class="t-base">The Standard:</strong> Migration to NIST finalists: <em>ML-DSA (Dilithium)</em> for signatures and <em>ML-KEM (Kyber)</em> for envelope encryption.</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <span class="t-base font-bold text-xs mt-0.5">■</span>
+                            <span><strong class="t-base">The Tradeoff:</strong> PQC signatures are ~40x–100x larger than ECDSA, introducing potential consensus serialization bottlenecks.</span>
+                        </li>
+                        <li class="flex items-start gap-2.5">
+                            <span class="t-base font-bold text-xs mt-0.5">■</span>
+                            <span><strong class="t-base">The Solution:</strong> Hybrid architecture storing minimal salted hash commitments on-chain while encrypted payloads reside on IPFS.</span>
+                        </li>
                     </ul>
                 </div>
             </div>
         </header>
 
         <!-- THREAT HORIZON -->
-        <section id="threat" class="py-20">
+        <section id="threat" class="py-20 border-b border-[var(--border)]">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="mb-14 text-center max-w-3xl mx-auto">
-                    <h2 class="text-3xl md:text-4xl t-base mb-4 text-balance" data-reveal>The Quantum Threat Horizon</h2>
-                    <p class="t-muted leading-relaxed" data-reveal data-reveal-delay="60">Blockchain immutability is a double-edged sword. Encrypted data captured today can be decrypted tomorrow. While hashing remains robust, the asymmetric cryptography foundation of Hyperledger is vulnerable.</p>
+                    <h2 class="text-3xl md:text-4xl t-base font-bold mb-4 tracking-tight" data-reveal>The Quantum Threat Horizon</h2>
+                    <p class="t-muted text-base leading-relaxed" data-reveal data-reveal-delay="60">
+                        Blockchain immutability is permanent: encrypted transactions captured today can be decrypted tomorrow. While symmetric hashing (SHA3-256) remains resistant, the asymmetric foundation of Fabric identities is critically exposed.
+                    </p>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                    <div class="card p-6" data-reveal>
+                    <div class="card p-6 shadow-sm" data-reveal>
+                        <h3 class="text-sm font-bold font-mono uppercase t-subtle mb-3 text-center">Projected Logical Qubits vs. Cryptanalysis Threshold</h3>
                         <div class="chart-container"><canvas id="timelineChart"></canvas></div>
-                        <p class="text-xs text-center t-subtle mt-3">Projection based on IBM Quantum Roadmaps to Fault Tolerance & Google Quantum AI Research</p>
+                        <p class="text-xs text-center t-subtle mt-3 font-mono">Projection based on IBM Quantum Roadmaps & Google Quantum AI Research</p>
                     </div>
 
                     <div data-reveal data-reveal-delay="80">
-                        <h3 class="text-xl t-base mb-4">Vulnerability Matrix</h3>
+                        <h3 class="text-xl font-bold t-base mb-4 tracking-tight">Cryptographic Vulnerability Matrix</h3>
                         <div class="grid grid-cols-1 gap-4">
-                            <div class="card p-4" style="border-left:3px solid #ef4444">
-                                <div class="flex justify-between items-center"><h4 class="font-bold" style="color:#dc2626">ECDSA / RSA</h4><span class="chip" style="background:rgba(239,68,68,0.14);color:#dc2626;border:none">CRITICAL</span></div>
-                                <p class="text-sm t-muted mt-1">Completely broken by Shor's algorithm. Allows forgery of admin identities.</p>
+                            <div class="card p-5" style="border-left: 3px solid #ef4444">
+                                <div class="flex justify-between items-center">
+                                    <h4 class="font-bold text-red-500">ECDSA / RSA-2048</h4>
+                                    <span class="chip font-mono text-[10px] bg-red-500/10 text-red-500 border-red-500/20">CRITICAL RISK</span>
+                                </div>
+                                <p class="text-sm t-muted mt-2 leading-relaxed">
+                                    Polynomial-time factorization via Shor's algorithm. Allows total forgery of MSP admin certificates and Fabric gateway transaction signatures.
+                                </p>
                             </div>
-                            <div class="card p-4" style="border-left:3px solid #eab308">
-                                <div class="flex justify-between items-center"><h4 class="font-bold" style="color:#ca8a04">SHA-256 / SHA-3</h4><span class="chip" style="background:rgba(234,179,8,0.16);color:#a16207;border:none">MODERATE</span></div>
-                                <p class="text-sm t-muted mt-1">Weakened by Grover's algorithm, but key length doubling mitigates risk.</p>
+
+                            <div class="card p-5" style="border-left: 3px solid #eab308">
+                                <div class="flex justify-between items-center">
+                                    <h4 class="font-bold text-amber-500">SHA-256 / SHA3-256</h4>
+                                    <span class="chip font-mono text-[10px] bg-amber-500/10 text-amber-500 border-amber-500/20">MODERATE (SECURE AT 256-BIT)</span>
+                                </div>
+                                <p class="text-sm t-muted mt-2 leading-relaxed">
+                                    Square-root speedup via Grover's algorithm effectively halves entropy. 256-bit hashes provide a full 128 bits of post-quantum security, remaining resilient.
+                                </p>
                             </div>
-                            <div class="card p-4" style="border-left:3px solid #22c55e">
-                                <div class="flex justify-between items-center"><h4 class="font-bold" style="color:#16a34a">Lattice-Based (PQC)</h4><span class="chip" style="background:rgba(34,197,94,0.16);color:#15803d;border:none">SECURE</span></div>
-                                <p class="text-sm t-muted mt-1">NIST standardized replacements (ML-DSA, FN-DSA). Resistant to known vectors.</p>
+
+                            <div class="card p-5" style="border-left: 3px solid #10b981">
+                                <div class="flex justify-between items-center">
+                                    <h4 class="font-bold text-emerald-500">Lattice-Based (ML-DSA / ML-KEM)</h4>
+                                    <span class="chip font-mono text-[10px] bg-emerald-500/10 text-emerald-500 border-emerald-500/20">POST-QUANTUM SECURE</span>
+                                </div>
+                                <p class="text-sm t-muted mt-2 leading-relaxed">
+                                    NIST finalized standards (FIPS 204 & 203). Hardness proven on shortest vector problems (SVP) in high-dimensional lattices with no known sub-exponential quantum attacks.
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -131,347 +174,301 @@
             </div>
         </section>
 
-        <!-- ALGORITHMS -->
-        <section id="algorithms" class="py-20" style="background:var(--bg-tint)">
+        <!-- ALGORITHMS BENCHMARK -->
+        <section id="algorithms" class="py-20 surface-2 border-b border-[var(--border)]">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="mb-14">
-                    <h2 class="text-3xl md:text-4xl t-base mb-4 text-balance" data-reveal>The Candidates: NIST PQC Standards</h2>
-                    <p class="t-muted max-w-3xl leading-relaxed" data-reveal data-reveal-delay="60">Not all PQC algorithms are suitable for blockchain. We compare the three primary NIST finalized standards based on recent performance benchmarks.</p>
+                    <h2 class="text-3xl md:text-4xl t-base font-bold mb-4 tracking-tight" data-reveal>NIST PQC Standards Comparison</h2>
+                    <p class="t-muted max-w-3xl leading-relaxed" data-reveal data-reveal-delay="60">
+                        Blockchain validator nodes require fast verification and constrained memory overhead. We benchmarked the three primary NIST finalists across size, speed, and implementation security.
+                    </p>
                 </div>
 
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     <div class="lg:col-span-1" data-reveal>
-                        <div class="card p-6 h-full">
-                            <h3 class="font-bold text-lg mb-4 t-base">Algorithm Details</h3>
-                            <div class="space-y-3">
-                                <button onclick="updateAlgoInfo('dilithium')" class="pressable w-full text-left p-4 rounded-xl card card-hover">
-                                    <div class="flex justify-between items-center"><span class="font-bold t-base">Dilithium (ML-DSA)</span><span class="chip">Lattice</span></div>
-                                    <p class="text-xs t-subtle mt-1">The "All-rounder". Balanced size and speed.</p>
-                                </button>
-                                <button onclick="updateAlgoInfo('falcon')" class="pressable w-full text-left p-4 rounded-xl card card-hover">
-                                    <div class="flex justify-between items-center"><span class="font-bold t-base">Falcon (FN-DSA)</span><span class="chip">Lattice</span></div>
-                                    <p class="text-xs t-subtle mt-1">Fastest verification, complex implementation.</p>
-                                </button>
-                                <button onclick="updateAlgoInfo('sphincs')" class="pressable w-full text-left p-4 rounded-xl card card-hover">
-                                    <div class="flex justify-between items-center"><span class="font-bold t-base">SPHINCS+ (SLH-DSA)</span><span class="chip">Hash-based</span></div>
-                                    <p class="text-xs t-subtle mt-1">Stateless & conservative. Very large signatures.</p>
-                                </button>
+                        <div class="card p-6 h-full flex flex-col justify-between">
+                            <div>
+                                <h3 class="font-bold text-sm font-mono uppercase t-subtle mb-4">Algorithm Profiles</h3>
+                                <div class="space-y-3">
+                                    <button onclick="updateAlgoInfo('dilithium')" class="pressable w-full text-left p-4 rounded-xl card card-hover">
+                                        <div class="flex justify-between items-center">
+                                            <span class="font-bold t-base text-sm">ML-DSA (Dilithium)</span>
+                                            <span class="chip font-mono text-[10px]">FIPS 204</span>
+                                        </div>
+                                        <p class="text-xs t-subtle mt-1.5">Recommended standard. Optimal size/speed balance.</p>
+                                    </button>
+                                    <button onclick="updateAlgoInfo('falcon')" class="pressable w-full text-left p-4 rounded-xl card card-hover">
+                                        <div class="flex justify-between items-center">
+                                            <span class="font-bold t-base text-sm">FN-DSA (Falcon)</span>
+                                            <span class="chip font-mono text-[10px]">FIPS 206</span>
+                                        </div>
+                                        <p class="text-xs t-subtle mt-1.5">Fastest verification, but requires constant-time FPU.</p>
+                                    </button>
+                                    <button onclick="updateAlgoInfo('sphincs')" class="pressable w-full text-left p-4 rounded-xl card card-hover">
+                                        <div class="flex justify-between items-center">
+                                            <span class="font-bold t-base text-sm">SLH-DSA (SPHINCS+)</span>
+                                            <span class="chip font-mono text-[10px]">FIPS 205</span>
+                                        </div>
+                                        <p class="text-xs t-subtle mt-1.5">Stateless hash-based fallback. High signature bloat.</p>
+                                    </button>
+                                </div>
                             </div>
 
-                            <div id="algo-verdict" class="mt-6 p-4 surface-2 rounded-xl text-sm" style="border:1px solid var(--border)">
-                                <strong class="block t-base mb-1">Recommendation:</strong>
-                                <span class="t-muted">Select an algorithm above to see the verdict for Hyperledger Fabric.</span>
+                            <div id="algo-verdict" class="mt-6 p-4 surface-2 rounded-xl text-sm border border-[var(--border)]">
+                                <strong class="block t-base font-bold mb-1">Recommendation:</strong>
+                                <span class="t-muted text-xs leading-relaxed">ML-DSA is recommended for Hyperledger Fabric MSP identity and credential signature signing.</span>
                             </div>
                         </div>
                     </div>
 
-                    <div class="lg:col-span-2 card p-6" data-reveal data-reveal-delay="80">
+                    <div class="lg:col-span-2 card p-6 shadow-sm" data-reveal data-reveal-delay="80">
+                        <h3 class="text-sm font-bold font-mono uppercase t-subtle mb-2 text-center">Multi-Attribute Radar Evaluation</h3>
                         <div class="chart-container"><canvas id="radarChart"></canvas></div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- PERFORMANCE -->
-        <section id="performance" class="py-20">
+        <!-- PERFORMANCE & SIGNATURE SIZE -->
+        <section id="performance" class="py-20 border-b border-[var(--border)]">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
                     <div data-reveal>
-                        <h2 class="text-3xl md:text-4xl t-base mb-4 text-balance">The Cost of Security</h2>
-                        <p class="t-muted mb-6 leading-relaxed">PQC is a "defensive downgrade" in terms of performance. The primary bottlenecks are <strong class="t-base">Key Size</strong> and <strong class="t-base">Verification Time</strong>.</p>
+                        <h2 class="text-3xl md:text-4xl t-base font-bold mb-4 tracking-tight">The Ledger Bloat Dilemma</h2>
+                        <p class="t-muted mb-6 leading-relaxed">
+                            Post-quantum security involves an inherent performance and storage cost. The primary challenges are <strong class="t-base">Public Key & Signature Sizes</strong> and <strong class="t-base">Throughput Overhead</strong>.
+                        </p>
 
-                        <div class="card p-6" style="border-left:3px solid #f97316">
-                            <h4 class="font-bold mb-2" style="color:#ea580c">Impact on Throughput (TPS)</h4>
-                            <p class="text-sm t-muted mb-4">Research indicates a potential <strong class="t-base">50-70% drop</strong> in throughput when moving from ECDSA to hybrid PQC schemes due to verification overhead.</p>
+                        <div class="card p-6" style="border-left: 3px solid var(--text)">
+                            <h4 class="font-bold text-sm t-base mb-2">Throughput Impact (TPS Reduction)</h4>
+                            <p class="text-sm t-muted mb-4 leading-relaxed">
+                                Due to cryptographic key verification overhead and network packet serialization, transitioning from classical ECDSA to hybrid PQC results in an estimated <strong class="t-base">50–60% throughput drop</strong> without hardware acceleration.
+                            </p>
 
-                            <div class="w-full surface-2 rounded-full h-4 mb-1"><div style="width:100%;background:var(--text-subtle)" class="h-4 rounded-full"></div></div>
-                            <div class="text-xs t-subtle mb-3">Classic Fabric (ECDSA) ~3000 TPS</div>
-                            <div class="w-full surface-2 rounded-full h-4 mb-1"><div style="width:40%;background:var(--accent-bright)" class="h-4 rounded-full"></div></div>
-                            <div class="text-xs t-subtle">Post-Quantum Fabric ~1200 TPS</div>
+                            <div class="space-y-3 font-mono text-xs">
+                                <div>
+                                    <div class="flex justify-between t-subtle mb-1">
+                                        <span>Classic Fabric (ECDSA-secp256r1)</span>
+                                        <span>~3,000 TPS</span>
+                                    </div>
+                                    <div class="w-full surface-2 rounded-full h-2.5 overflow-hidden border border-[var(--border)]">
+                                        <div style="width: 100%" class="h-full bg-neutral-400 dark:bg-neutral-600"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between t-subtle mb-1">
+                                        <span>Post-Quantum Fabric (ML-DSA-44)</span>
+                                        <span>~1,250 TPS</span>
+                                    </div>
+                                    <div class="w-full surface-2 rounded-full h-2.5 overflow-hidden border border-[var(--border)]">
+                                        <div style="width: 42%" class="h-full bg-neutral-800 dark:bg-neutral-200"></div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="card p-6" data-reveal data-reveal-delay="80">
-                        <h3 class="text-lg t-base mb-4 text-center">Data Bloat: Signature Size Comparison</h3>
+                    <div class="card p-6 shadow-sm" data-reveal data-reveal-delay="80">
+                        <h3 class="text-sm font-bold font-mono uppercase t-subtle mb-3 text-center">Data Bloat: Signature Size Comparison (Log Scale)</h3>
                         <div class="chart-container"><canvas id="barChart"></canvas></div>
-                        <p class="text-xs text-center t-subtle mt-3">Based on I. Strugar and R. Bekić, "Performance and Applicability of Post-Quantum Digital Signature Algorithms in Resource-Constrained Environments," Algorithms, vol. 16, no. 11, p. 518, Nov. 2023</p>
+                        <p class="text-xs text-center t-subtle mt-3 font-mono">Benchmark data compiled from NIST PQC Round 4 specifications</p>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- ARCHITECTURE -->
-        <section id="architecture" class="py-20" style="background:var(--bg-tint)">
+        <section id="architecture" class="py-20 surface-2 border-b border-[var(--border)]">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="mb-14 text-center">
-                    <h2 class="text-3xl md:text-4xl t-base mb-4 text-balance" data-reveal>Proposed System Architecture</h2>
-                    <p class="t-muted max-w-2xl mx-auto leading-relaxed" data-reveal data-reveal-delay="60">A full-stack, crypto-agile credentialing architecture featuring post-quantum <strong class="t-base">ML-DSA-44</strong> and <strong class="t-base">ML-KEM-768</strong> cryptography, Hyperledger Fabric, and hybrid off-chain IPFS storage.</p>
+                    <h2 class="text-3xl md:text-4xl t-base font-bold mb-4 tracking-tight" data-reveal>Proposed System Architecture</h2>
+                    <p class="t-muted max-w-2xl mx-auto leading-relaxed" data-reveal data-reveal-delay="60">
+                        A full-stack, crypto-agile credentialing infrastructure featuring post-quantum <strong class="t-base">ML-DSA-44</strong>, <strong class="t-base">ML-KEM-768</strong>, Hyperledger Fabric consortium consensus, and hybrid off-chain IPFS storage.
+                    </p>
                 </div>
 
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    <div class="lg:col-span-2 card p-4 sm:p-6 md:p-8 relative overflow-hidden" data-reveal>
-                        <div class="absolute top-0 left-0 w-full h-1" style="background:var(--accent)"></div>
-                        <h3 class="eyebrow t-subtle mb-5 sm:mb-6">System Flow Topology</h3>
+                    <!-- Interactive Architecture Flow -->
+                    <div class="lg:col-span-2 card p-5 sm:p-7 relative overflow-hidden" data-reveal>
+                        <h3 class="eyebrow t-subtle mb-6">Interactive System Flow Topology (Click Nodes Below)</h3>
 
-                        <div class="flex flex-col space-y-2.5 sm:space-y-3 w-full">
-                            <!-- TOP TRACKS: PORTAL & WALLET (Side-by-side on all screens, keeping actors tied to their apps) -->
-                            <div class="grid grid-cols-12 gap-2 sm:gap-3 items-stretch">
-                                <!-- PORTAL TRACK: Issuer, Verifier, IT Admin -> QPortal -->
+                        <div class="flex flex-col space-y-3 w-full">
+                            <!-- TOP ACTORS & CLIENTS -->
+                            <div class="grid grid-cols-12 gap-3 items-stretch">
+                                <!-- PORTAL TRACK -->
                                 <div class="col-span-7 flex flex-col justify-between">
-                                    <!-- Actor Pills -->
-                                    <div class="grid grid-cols-3 gap-1 sm:gap-1.5">
-                                        <div onclick="showArchDetail('qportal')" class="interactive-block surface-2 p-1.5 sm:px-2 sm:py-2 rounded-lg sm:rounded-full border border-[var(--border)] shadow-sm text-center text-[10px] sm:text-xs font-medium t-base flex flex-col sm:flex-row items-center justify-center gap-1 cursor-pointer">
-                                            <svg class="w-3.5 h-3.5 text-teal-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M3 10h18M5 10v11M9 10v11M15 10v11M19 10v11M12 2L2 7h20L12 2z"/></svg>
+                                    <div class="grid grid-cols-3 gap-1.5">
+                                        <div onclick="showArchDetail('qportal')" class="interactive-block surface-2 p-2 rounded-lg border border-[var(--border)] text-center text-xs font-medium t-base flex items-center justify-center gap-1 cursor-pointer">
                                             <span class="truncate">Issuer</span>
                                         </div>
-                                        <div onclick="showArchDetail('qportal')" class="interactive-block surface-2 p-1.5 sm:px-2 sm:py-2 rounded-lg sm:rounded-full border border-[var(--border)] shadow-sm text-center text-[10px] sm:text-xs font-medium t-base flex flex-col sm:flex-row items-center justify-center gap-1 cursor-pointer">
-                                            <svg class="w-3.5 h-3.5 text-teal-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+                                        <div onclick="showArchDetail('qportal')" class="interactive-block surface-2 p-2 rounded-lg border border-[var(--border)] text-center text-xs font-medium t-base flex items-center justify-center gap-1 cursor-pointer">
                                             <span class="truncate">Verifier</span>
                                         </div>
-                                        <div onclick="showArchDetail('qportal')" class="interactive-block surface-2 p-1.5 sm:px-2 sm:py-2 rounded-lg sm:rounded-full border border-[var(--border)] shadow-sm text-center text-[10px] sm:text-xs font-medium t-base flex flex-col sm:flex-row items-center justify-center gap-1 cursor-pointer">
-                                            <svg class="w-3.5 h-3.5 text-teal-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/><circle cx="19" cy="11" r="2"/><path d="m19 8.5v1m0 3v1m1.5-3.5h-1m-2 0h-1"/></svg>
-                                            <span class="truncate">IT admin</span>
+                                        <div onclick="showArchDetail('qportal')" class="interactive-block surface-2 p-2 rounded-lg border border-[var(--border)] text-center text-xs font-medium t-base flex items-center justify-center gap-1 cursor-pointer">
+                                            <span class="truncate">IT Admin</span>
                                         </div>
                                     </div>
 
-                                    <!-- Connector Arrows to QPortal -->
-                                    <div class="grid grid-cols-3 gap-1 sm:gap-1.5 my-1 sm:my-1.5 text-center">
-                                        <div class="flex justify-center"><svg class="w-2.5 h-2.5 text-teal-400/60" viewBox="0 0 24 24" fill="currentColor"><path d="M12 18l-6-8h12z"/></svg></div>
-                                        <div class="flex justify-center"><svg class="w-2.5 h-2.5 text-teal-400/60" viewBox="0 0 24 24" fill="currentColor"><path d="M12 18l-6-8h12z"/></svg></div>
-                                        <div class="flex justify-center"><svg class="w-2.5 h-2.5 text-teal-400/60" viewBox="0 0 24 24" fill="currentColor"><path d="M12 18l-6-8h12z"/></svg></div>
+                                    <div class="flex justify-center my-1.5 text-center">
+                                        <span class="font-mono text-xs t-subtle">↓</span>
                                     </div>
 
-                                    <!-- QPortal Card -->
-                                    <div data-arch="qportal" onclick="showArchDetail('qportal')" class="interactive-block surface-2 p-2.5 sm:p-3.5 rounded-xl text-center border border-[var(--border)] flex flex-col justify-center flex-1">
-                                        <div class="font-bold text-xs sm:text-sm t-base flex items-center justify-center gap-1.5">
-                                            <svg class="w-4 h-4 text-teal-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="14" x="2" y="3" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-                                            <span>QPortal</span>
+                                    <div data-arch="qportal" onclick="showArchDetail('qportal')" class="interactive-block surface-2 p-3.5 rounded-xl text-center border border-[var(--border)] flex flex-col justify-center flex-1">
+                                        <div class="font-bold text-sm t-base flex items-center justify-center gap-2">
+                                            <span>QPortal Web Console</span>
                                         </div>
-                                        <div class="flex flex-wrap items-center justify-center gap-1 mt-1.5">
-                                            <span class="px-1.5 py-0.5 rounded text-[8px] sm:text-[9px] font-mono tracking-wider font-semibold bg-slate-500/10 text-teal-400 border border-teal-500/20">ISSUE</span>
-                                            <span class="px-1.5 py-0.5 rounded text-[8px] sm:text-[9px] font-mono tracking-wider font-semibold bg-slate-500/10 text-teal-400 border border-teal-500/20">VERIFY</span>
-                                            <span class="px-1.5 py-0.5 rounded text-[8px] sm:text-[9px] font-mono tracking-wider font-semibold bg-slate-500/10 text-teal-400 border border-teal-500/20">MANAGE</span>
+                                        <div class="flex flex-wrap items-center justify-center gap-1.5 mt-2">
+                                            <span class="chip text-[9px] font-mono">ISSUE</span>
+                                            <span class="chip text-[9px] font-mono">VERIFY</span>
+                                            <span class="chip text-[9px] font-mono">REVOKE</span>
                                         </div>
                                     </div>
 
-                                    <!-- Connector Arrow to Gateway -->
-                                    <div class="flex justify-center mt-1 sm:mt-1.5">
-                                        <svg class="w-2.5 h-2.5 text-teal-400/60" viewBox="0 0 24 24" fill="currentColor"><path d="M12 18l-6-8h12z"/></svg>
+                                    <div class="flex justify-center mt-1.5">
+                                        <span class="font-mono text-xs t-subtle">↓</span>
                                     </div>
                                 </div>
 
-                                <!-- WALLET TRACK: Holder -> QWallet -->
+                                <!-- WALLET TRACK -->
                                 <div class="col-span-5 flex flex-col justify-between">
-                                    <!-- Actor Pill: Holder -->
                                     <div>
-                                        <div onclick="showArchDetail('qwallet')" class="interactive-block surface-2 p-1.5 sm:px-3 sm:py-2 rounded-lg sm:rounded-full border border-[var(--border)] shadow-sm text-center text-[10px] sm:text-xs font-medium t-base flex items-center justify-center gap-1.5 max-w-[130px] sm:max-w-[160px] mx-auto cursor-pointer">
-                                            <svg class="w-3.5 h-3.5 text-teal-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"/><circle cx="12" cy="10" r="3"/><path d="M7 21v-1a4 4 0 0 1 4-4h2a4 4 0 0 1 4 4v1"/></svg>
-                                            <span class="truncate">Holder</span>
+                                        <div onclick="showArchDetail('qwallet')" class="interactive-block surface-2 p-2 rounded-lg border border-[var(--border)] text-center text-xs font-medium t-base flex items-center justify-center gap-1.5 max-w-[150px] mx-auto cursor-pointer">
+                                            <span class="truncate">Holder Client</span>
                                         </div>
                                     </div>
 
-                                    <!-- Connector Arrow to QWallet -->
-                                    <div class="flex justify-center my-1 sm:my-1.5">
-                                        <svg class="w-2.5 h-2.5 text-teal-400/60" viewBox="0 0 24 24" fill="currentColor"><path d="M12 18l-6-8h12z"/></svg>
+                                    <div class="flex justify-center my-1.5">
+                                        <span class="font-mono text-xs t-subtle">↓</span>
                                     </div>
 
-                                    <!-- QWallet Card -->
-                                    <div data-arch="qwallet" onclick="showArchDetail('qwallet')" class="interactive-block surface-2 p-2.5 sm:p-3.5 rounded-xl text-center border border-[var(--border)] flex flex-col justify-center flex-1">
-                                        <div class="font-bold text-xs sm:text-sm t-base flex items-center justify-center gap-1.5">
-                                            <svg class="w-4 h-4 text-teal-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="20" x="5" y="2" rx="2"/><path d="M12 18h.01"/></svg>
-                                            <span>QWallet</span>
+                                    <div data-arch="qwallet" onclick="showArchDetail('qwallet')" class="interactive-block surface-2 p-3.5 rounded-xl text-center border border-[var(--border)] flex flex-col justify-center flex-1">
+                                        <div class="font-bold text-sm t-base flex items-center justify-center gap-2">
+                                            <span>QWallet Mobile</span>
                                         </div>
-                                        <div class="text-[9px] sm:text-[11px] t-muted mt-1.5 flex items-center justify-center gap-1 leading-tight">
-                                            <svg class="w-2.5 h-2.5 text-teal-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
-                                            <span>On-device ML-KEM-768 + ML-DSA-44 keys</span>
+                                        <div class="text-[10px] t-subtle mt-1.5 font-mono">
+                                            On-device ML-KEM + ML-DSA keys
                                         </div>
                                     </div>
 
-                                    <!-- Connector Arrow to Gateway -->
-                                    <div class="flex justify-center mt-1 sm:mt-1.5">
-                                        <svg class="w-2.5 h-2.5 text-teal-400/60" viewBox="0 0 24 24" fill="currentColor"><path d="M12 18l-6-8h12z"/></svg>
+                                    <div class="flex justify-center mt-1.5">
+                                        <span class="font-mono text-xs t-subtle">↓</span>
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- SECURE HTTPS GATEWAY -->
-                            <div data-arch="gateway" onclick="showArchDetail('gateway')" class="interactive-block p-2.5 sm:p-3 rounded-xl text-center border border-indigo-500/25 surface-2 flex items-center justify-center gap-2 shadow-sm" style="background:rgba(99,102,241,0.06)">
-                                <svg class="w-3.5 h-3.5 text-indigo-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-                                <span class="text-xs font-semibold t-base tracking-wide">Secure HTTPS gateway <span class="t-subtle font-normal font-mono text-[10px] sm:text-[11px]">(Nginx + tunnel)</span></span>
+                            <!-- HTTPS GATEWAY -->
+                            <div data-arch="gateway" onclick="showArchDetail('gateway')" class="interactive-block p-3 rounded-xl text-center border border-[var(--border)] surface-2 flex items-center justify-center gap-2">
+                                <span class="text-xs font-semibold t-base font-mono uppercase tracking-wider">Hardened HTTPS Ingress Gateway · Nginx Reverse Proxy</span>
                             </div>
 
-                            <!-- CONNECTOR ARROW TO BACKEND -->
-                            <div class="flex justify-center my-0.5 sm:my-1">
-                                <svg class="w-2.5 h-2.5 text-indigo-400/60" viewBox="0 0 24 24" fill="currentColor"><path d="M12 18l-6-8h12z"/></svg>
+                            <div class="flex justify-center my-1">
+                                <span class="font-mono text-xs t-subtle">↓</span>
                             </div>
 
-                            <!-- QCHAIN API · GO -->
-                            <div data-arch="backend" onclick="showArchDetail('backend')" class="interactive-block p-3.5 sm:p-4 rounded-xl text-center" style="background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.25)">
-                                <div class="font-bold text-xs sm:text-sm mb-2.5 sm:mb-3 flex items-center justify-center gap-1.5" style="color:#3b82f6">
-                                    <svg class="w-4 h-4 text-blue-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="16" height="16" x="4" y="4" rx="2"/><path d="M9 9h6M9 13h6M9 17h4"/></svg>
-                                    <span>QChain API &middot; Go</span>
+                            <!-- CORE GO BACKEND -->
+                            <div data-arch="backend" onclick="showArchDetail('backend')" class="interactive-block p-4 rounded-xl text-center surface border border-[var(--border)]">
+                                <div class="font-bold text-sm t-base mb-3 flex items-center justify-center gap-2 font-mono">
+                                    <span>QChain Core API Engine (Go)</span>
                                 </div>
                                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
-                                    <div class="surface p-2 sm:p-2.5 rounded-lg shadow-sm border border-[var(--border)]">
-                                        <div class="font-bold text-[11px] sm:text-xs t-base flex items-center justify-center gap-1">
-                                            <svg class="w-3 h-3 text-teal-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-                                            <span>Sign</span>
-                                        </div>
-                                        <div class="text-[10px] sm:text-[11px] text-teal-500 dark:text-teal-400 font-mono mt-0.5 font-semibold">ML-DSA-44</div>
+                                    <div class="surface-2 p-2 rounded-lg border border-[var(--border)]">
+                                        <div class="font-bold text-xs t-base">Sign</div>
+                                        <div class="font-mono text-[10px] t-subtle mt-0.5">ML-DSA-44</div>
                                     </div>
-                                    <div class="surface p-2 sm:p-2.5 rounded-lg shadow-sm border border-[var(--border)]">
-                                        <div class="font-bold text-[11px] sm:text-xs t-base flex items-center justify-center gap-1">
-                                            <svg class="w-3 h-3 text-teal-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-                                            <span>Encrypt</span>
-                                        </div>
-                                        <div class="text-[10px] sm:text-[11px] text-teal-500 dark:text-teal-400 font-mono mt-0.5 font-semibold">ML-KEM + AES</div>
+                                    <div class="surface-2 p-2 rounded-lg border border-[var(--border)]">
+                                        <div class="font-bold text-xs t-base">Encrypt</div>
+                                        <div class="font-mono text-[10px] t-subtle mt-0.5">ML-KEM + AES</div>
                                     </div>
-                                    <div class="surface p-2 sm:p-2.5 rounded-lg shadow-sm border border-[var(--border)]">
-                                        <div class="font-bold text-[11px] sm:text-xs t-base flex items-center justify-center gap-1">
-                                            <svg class="w-3 h-3 text-teal-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-                                            <span>Verify</span>
-                                        </div>
-                                        <div class="text-[10px] sm:text-[11px] t-subtle mt-0.5 leading-tight">dual signatures</div>
+                                    <div class="surface-2 p-2 rounded-lg border border-[var(--border)]">
+                                        <div class="font-bold text-xs t-base">Verify</div>
+                                        <div class="font-mono text-[10px] t-subtle mt-0.5">Dual Proof</div>
                                     </div>
-                                    <div class="surface p-2 sm:p-2.5 rounded-lg shadow-sm border border-[var(--border)]">
-                                        <div class="font-bold text-[11px] sm:text-xs t-base">Present</div>
-                                        <div class="text-[10px] sm:text-[11px] t-subtle mt-0.5 leading-tight">QR / OTP single-use</div>
+                                    <div class="surface-2 p-2 rounded-lg border border-[var(--border)]">
+                                        <div class="font-bold text-xs t-base">Disclose</div>
+                                        <div class="font-mono text-[10px] t-subtle mt-0.5">Salted SHA3</div>
                                     </div>
-                                </div>
-                                <div class="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-[10px] sm:text-xs font-mono t-subtle mt-3 pt-2 border-t border-blue-500/15">
-                                    <span>credential lifecycle</span>
-                                    <span class="text-blue-400/40">&bull;</span>
-                                    <span>holders</span>
-                                    <span class="text-blue-400/40">&bull;</span>
-                                    <span>subscriptions</span>
-                                    <span class="text-blue-400/40">&bull;</span>
-                                    <span>audit</span>
                                 </div>
                             </div>
 
-                            <!-- CONNECTOR ARROWS TO STORAGE & LEDGER -->
-                            <!-- On desktop (md+): 3 arrows aligned with the 3 columns. On mobile (< md): 1 centered arrow -->
-                            <div class="hidden md:flex gap-3 my-0.5 sm:my-1">
-                                <div class="flex-[3] flex justify-center">
-                                    <svg class="w-2.5 h-2.5 text-blue-400/60" viewBox="0 0 24 24" fill="currentColor"><path d="M12 18l-6-8h12z"/></svg>
-                                </div>
-                                <div class="flex-[1.4] flex justify-center">
-                                    <svg class="w-2.5 h-2.5 text-blue-400/60" viewBox="0 0 24 24" fill="currentColor"><path d="M12 18l-6-8h12z"/></svg>
-                                </div>
-                                <div class="flex-[1.4] flex justify-center">
-                                    <svg class="w-2.5 h-2.5 text-blue-400/60" viewBox="0 0 24 24" fill="currentColor"><path d="M12 18l-6-8h12z"/></svg>
-                                </div>
-                            </div>
-                            <div class="flex md:hidden justify-center my-0.5 sm:my-1">
-                                <svg class="w-2.5 h-2.5 text-blue-400/60" viewBox="0 0 24 24" fill="currentColor"><path d="M12 18l-6-8h12z"/></svg>
+                            <div class="flex justify-center my-1">
+                                <span class="font-mono text-xs t-subtle">↓</span>
                             </div>
 
-                            <!-- BOTTOM STORAGE & LEDGER TIER -->
-                            <div class="flex flex-col md:flex-row gap-2.5 sm:gap-3 items-stretch">
+                            <!-- STORAGE & CONSENSUS TIER -->
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
                                 <!-- HYPERLEDGER FABRIC -->
-                                <div data-arch="fabric" onclick="showArchDetail('fabric')" class="md:flex-[3] interactive-block p-3 sm:p-4 rounded-xl text-center flex flex-col justify-between" style="background:var(--accent-soft);border:1px solid var(--accent)">
-                                    <div class="font-bold text-xs sm:text-sm mb-2 sm:mb-3 flex items-center justify-center gap-1.5 t-accent">
-                                        <svg class="w-4 h-4 text-teal-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-                                        <span>Hyperledger Fabric</span>
+                                <div data-arch="fabric" onclick="showArchDetail('fabric')" class="md:col-span-2 interactive-block p-4 rounded-xl text-center surface border border-[var(--border)]">
+                                    <div class="font-bold text-sm t-base mb-2 font-mono">Hyperledger Fabric Consortium</div>
+                                    <div class="grid grid-cols-3 gap-2 text-xs font-mono mb-2">
+                                        <div class="surface-2 p-1.5 rounded border border-[var(--border)]">2 Org Peers</div>
+                                        <div class="surface-2 p-1.5 rounded border border-[var(--border)]">Raft Orderer</div>
+                                        <div class="surface-2 p-1.5 rounded border border-[var(--border)]">CouchDB State</div>
                                     </div>
-                                    
-                                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5 sm:gap-2 text-xs mb-2">
-                                        <div class="surface p-1.5 sm:p-2 rounded-lg shadow-sm t-base border border-[var(--border)]">
-                                            <strong class="text-[11px] sm:text-xs block">2 peers</strong>
-                                            <div class="text-[9px] sm:text-[10px] t-subtle mt-0.5">Government &middot; General</div>
-                                        </div>
-                                        <div class="surface p-1.5 sm:p-2 rounded-lg shadow-sm t-base border border-[var(--border)]">
-                                            <strong class="text-[11px] sm:text-xs block">Orderer</strong>
-                                            <div class="text-[9px] sm:text-[10px] t-subtle mt-0.5 font-mono">Raft</div>
-                                        </div>
-                                        <div class="surface p-1.5 sm:p-2 rounded-lg shadow-sm t-base border border-[var(--border)]">
-                                            <strong class="text-[11px] sm:text-xs block">3 Fabric CAs</strong>
-                                            <div class="text-[9px] sm:text-[10px] t-subtle mt-0.5">certificates</div>
-                                        </div>
-                                        <div class="surface p-1.5 sm:p-2 rounded-lg shadow-sm t-base border border-[var(--border)]">
-                                            <strong class="text-[11px] sm:text-xs block">CouchDB</strong>
-                                            <div class="text-[9px] sm:text-[10px] t-subtle mt-0.5">shared state</div>
-                                        </div>
-                                    </div>
-
-                                    <div class="surface py-1.5 sm:py-2 px-2.5 rounded-lg shadow-sm text-xs font-semibold t-base mb-2 border border-[var(--border)] flex items-center justify-center gap-1.5">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-teal-400"></span>
-                                        <span class="text-[11px] sm:text-xs">QChaincode <span class="t-subtle font-normal font-mono text-[10px] sm:text-[11px]">(JavaScript smart contract)</span></span>
-                                    </div>
-
-                                    <div class="surface p-2 sm:p-2.5 rounded-lg shadow-sm text-xs border border-teal-500/25">
-                                        <div class="font-bold t-base flex items-center justify-center gap-1 text-[11px] sm:text-xs text-teal-600 dark:text-teal-300">
-                                            <svg class="w-3.5 h-3.5 text-teal-500 dark:text-teal-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
-                                            <span>Post-quantum MSP: ML-DSA-44 identities</span>
-                                        </div>
-                                        <div class="text-[9px] sm:text-[10px] t-subtle mt-0.5 font-mono">
-                                            peers &middot; orderer &middot; admins &middot; clients &middot; CA roots
-                                        </div>
+                                    <div class="surface-2 py-1 px-2 rounded text-[11px] font-mono t-subtle border border-[var(--border)]">
+                                        Post-Quantum MSP · ML-DSA Identities
                                     </div>
                                 </div>
 
-                                <!-- IPFS & MYSQL (side-by-side on mobile, individual columns on md) -->
-                                <div class="grid grid-cols-2 md:contents gap-2 sm:gap-3">
-                                    <!-- IPFS -->
-                                    <div data-arch="ipfs" onclick="showArchDetail('ipfs')" class="md:flex-[1.4] interactive-block p-3 sm:p-3.5 rounded-xl text-center flex flex-col justify-between" style="background:rgba(168,85,247,0.08);border:1px solid rgba(168,85,247,0.25)">
-                                        <div class="font-bold text-xs sm:text-sm mb-1.5 sm:mb-2 flex items-center justify-center gap-1" style="color:#a855f7">
-                                            <svg class="w-3.5 h-3.5 text-purple-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m21 16-9 5-9-5V8l9-5 9 5v8z"/><path d="m3.27 6.96 8.73 4.9 8.73-4.9M12 22.08V12"/></svg>
-                                            <span>IPFS</span>
-                                        </div>
-                                        <div class="surface p-2 sm:p-2.5 rounded-lg shadow-sm flex-1 flex flex-col justify-center border border-[var(--border)]">
-                                            <div class="text-[11px] sm:text-xs font-semibold t-base leading-tight">encrypted credentials</div>
-                                            <div class="text-[9px] sm:text-[10px] text-purple-400 font-mono mt-1 font-semibold">(by CID)</div>
-                                        </div>
+                                <!-- IPFS & MYSQL -->
+                                <div class="grid grid-cols-2 md:grid-cols-1 gap-2">
+                                    <div data-arch="ipfs" onclick="showArchDetail('ipfs')" class="interactive-block p-2.5 rounded-xl text-center surface border border-[var(--border)]">
+                                        <div class="font-bold text-xs t-base font-mono">IPFS Storage</div>
+                                        <div class="text-[10px] t-subtle mt-0.5 font-mono">Encrypted CID Blobs</div>
                                     </div>
-
-                                    <!-- MYSQL -->
-                                    <div data-arch="mysql" onclick="showArchDetail('mysql')" class="md:flex-[1.4] interactive-block p-3 sm:p-3.5 rounded-xl text-center flex flex-col justify-between" style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.25)">
-                                        <div class="font-bold text-xs sm:text-sm mb-1.5 sm:mb-2 flex items-center justify-center gap-1" style="color:#d97706">
-                                            <svg class="w-3.5 h-3.5 text-amber-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/><path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3"/></svg>
-                                            <span>MySQL</span>
-                                        </div>
-                                        <div class="surface p-2 sm:p-2.5 rounded-lg shadow-sm flex-1 flex flex-col justify-center border border-[var(--border)]">
-                                            <div class="text-[11px] sm:text-xs font-semibold t-base leading-tight">operational data</div>
-                                            <div class="text-[9px] sm:text-[10px] text-amber-500 dark:text-amber-400 font-mono mt-1 font-semibold">only</div>
-                                        </div>
+                                    <div data-arch="mysql" onclick="showArchDetail('mysql')" class="interactive-block p-2.5 rounded-xl text-center surface border border-[var(--border)]">
+                                        <div class="font-bold text-xs t-base font-mono">MySQL Store</div>
+                                        <div class="text-[10px] t-subtle mt-0.5 font-mono">Sessions &amp; Audit Logs</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
+                    <!-- Detail Card Panel -->
                     <div class="lg:col-span-1" data-reveal data-reveal-delay="80">
-                        <div id="arch-detail" class="card card-rail p-6 h-full sticky top-24">
-                            <h3 class="text-xl t-base mb-2" id="detail-title">Interactive Diagram</h3>
-                            <p class="text-sm t-muted mb-4" id="detail-text">Click on the components in the diagram to explore how PQC integration works across the full stack.</p>
-                            <div class="surface-2 p-4 rounded-lg text-xs t-subtle font-mono">Note: Post-quantum MSP utilizes ML-DSA-44 identities across all Fabric entities and CA roots.</div>
+                        <div id="arch-detail" class="card card-rail p-6 h-full sticky top-24 flex flex-col justify-between">
+                            <div>
+                                <h3 class="text-xl font-bold t-base mb-3 tracking-tight" id="detail-title">Architecture Inspector</h3>
+                                <p class="text-sm t-muted leading-relaxed" id="detail-text">
+                                    Click any component or pipeline node on the left to inspect its cryptographic specifications, trust boundary, and data persistence layer.
+                                </p>
+                            </div>
+                            <div class="mt-8 pt-4 border-t border-[var(--border)] surface-2 p-4 rounded-lg text-xs t-subtle font-mono">
+                                Security Guarantee: Verified on-chain hash commitment rebuilt canonically from state; zero trust placed in database caches.
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- LITERATURE -->
-        <section id="references" class="py-20">
+        <!-- LITERATURE REVIEW -->
+        <section id="references" class="py-20 border-b border-[var(--border)]">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 class="text-3xl md:text-4xl t-base mb-6 text-balance" data-reveal>Literature Review Database</h2>
-                <div class="mb-4" data-reveal data-reveal-delay="40">
-                    <input type="text" id="searchInputRef" onkeyup="filterRefTable()" placeholder="Search papers by title, publisher, or keyword..." class="field">
+                <div class="mb-8">
+                    <h2 class="text-3xl md:text-4xl t-base font-bold mb-3 tracking-tight" data-reveal>Literature Review Database</h2>
+                    <p class="t-muted text-sm leading-relaxed" data-reveal data-reveal-delay="40">
+                        A curated bibliography of peer-reviewed research papers and NIST standardization reports informing QChain's design.
+                    </p>
                 </div>
 
-                <div class="overflow-x-auto custom-scrollbar card" data-reveal data-reveal-delay="80">
+                <div class="mb-4" data-reveal data-reveal-delay="60">
+                    <input type="text" id="searchInputRef" onkeyup="filterRefTable()" placeholder="Search references by title, publisher, algorithm, or year…" class="field font-mono text-sm">
+                </div>
+
+                <div class="overflow-x-auto custom-scrollbar card shadow-sm" data-reveal data-reveal-delay="80">
                     <table class="min-w-full" id="refTable">
                         <thead>
                             <tr class="surface-2">
-                                <th class="px-6 py-3 text-left eyebrow t-subtle">Paper Title</th>
-                                <th class="px-6 py-3 text-left eyebrow t-subtle">Year</th>
-                                <th class="px-6 py-3 text-left eyebrow t-subtle">Publisher</th>
-                                <th class="px-6 py-3 text-left eyebrow t-subtle">Type</th>
-                                <th class="px-6 py-3 text-left eyebrow t-subtle">Key Insights</th>
+                                <th class="px-6 py-3.5 text-left eyebrow t-subtle">Paper Title</th>
+                                <th class="px-6 py-3.5 text-left eyebrow t-subtle">Year</th>
+                                <th class="px-6 py-3.5 text-left eyebrow t-subtle">Publisher</th>
+                                <th class="px-6 py-3.5 text-left eyebrow t-subtle">Classification</th>
+                                <th class="px-4 py-3.5 text-left eyebrow t-subtle">Key Insights</th>
                             </tr>
                         </thead>
-                        <tbody class="text-sm" style="border-top:1px solid var(--border)">
-                            <!-- Populated by JS -->
+                        <tbody class="text-sm divide-y divide-[var(--border)]">
+                            <!-- Populated via script.js -->
                         </tbody>
                     </table>
                 </div>
@@ -479,13 +476,21 @@
         </section>
     </main>
 
-    <footer class="hero py-10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4 relative z-10">
-            <div class="flex items-center gap-2">
-                <img src="assets/qchain_logo.jpeg" alt="QChain Logo" loading="lazy" class="w-6 h-6 rounded shadow-sm invert" onerror="this.style.display='none'">
-                <span class="font-mono text-sm tracking-tight" style="color:#93a2b8">QChain Research</span>
+    <!-- FOOTER -->
+    <footer class="py-12 surface">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-3">
+                <img src="assets/qchain_logo.jpeg" alt="QChain Logo" class="w-6 h-6 rounded shadow-sm dark:invert" onerror="this.style.display='none'">
+                <span class="font-mono text-xs font-semibold uppercase tracking-wider t-muted">QChain Research</span>
             </div>
-            <p class="text-sm" style="color:#7c8aa0">&copy; 2026 Team QChain | Capstone Project</p>
+            <div class="flex items-center space-x-6 text-xs t-muted font-medium">
+                <a href="index.html" class="hover:text-[var(--text)] transition-colors">Home</a>
+                <a href="research.html" class="hover:text-[var(--text)] transition-colors">Research</a>
+                <a href="audit.html" class="hover:text-[var(--text)] transition-colors">Audit</a>
+                <a href="about.html" class="hover:text-[var(--text)] transition-colors">About</a>
+                <a href="https://github.com/nihvp/QChain-PQC-blockchain" target="_blank" rel="noopener" class="hover:text-[var(--text)] transition-colors">GitHub</a>
+            </div>
+            <p class="text-xs t-subtle">&copy; 2026 Team QChain · Capstone Initiative</p>
         </div>
     </footer>
 </body>

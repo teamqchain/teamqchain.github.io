@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script>
-        // Set theme + a .js flag synchronously to avoid a flash and to keep
-        // scroll-reveal content visible if scripts are disabled.
         document.documentElement.classList.add('js');
         try {
             if (localStorage.theme === 'dark' ||
@@ -14,7 +12,7 @@
             }
         } catch (e) {}
     </script>
-    <title>QChain - Secure Blockchain</title>
+    <title>QChain — Post-Quantum Credential Infrastructure</title>
     <link rel="icon" href="assets/qchain_logo.ico" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -32,7 +30,7 @@
                 <div class="flex items-center">
                     <a href="index.html" class="flex items-center gap-3 pressable">
                         <img src="assets/qchain_logo.jpeg" alt="QChain Logo" class="w-8 h-8 rounded-lg shadow-sm dark:invert" onerror="this.src='https://via.placeholder.com/32'">
-                        <span class="text-2xl t-base tracking-tight font-f1">QChain</span>
+                        <span class="text-xl t-base font-bold tracking-tight font-f1">QChain</span>
                     </a>
                 </div>
 
@@ -54,10 +52,14 @@
                 <!-- Mobile controls -->
                 <div class="flex items-center md:hidden gap-2">
                     <button class="theme-toggle" type="button" aria-label="Toggle theme" onclick="toggleDarkMode()">
-                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="theme-toggle__inner-moon" fill="currentColor" viewBox="0 0 32 32"><mask id="moon-mask-mobile"><rect x="0" y="0" width="32" height="32" fill="white" /><circle cx="22" cy="10" r="9" fill="black" class="moon-mask-circle" /></mask><path class="sun-rays" d="M27.5 11.5v-7h-7L16 0l-4.5 4.5h-7v7L0 16l4.5 4.5v7h7L16 32l4.5-4.5h7v-7L32 16l-4.5-4.5zM16 25.4a9.39 9.39 0 1 1 0-18.8 9.39 9.39 0 1 1 0 18.8z" /><circle class="sun-core" cx="16" cy="16" r="8.1" mask="url(#moon-mask-mobile)" /></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="theme-toggle__inner-moon" fill="currentColor" viewBox="0 0 32 32">
+                            <mask id="moon-mask-mobile"><rect x="0" y="0" width="32" height="32" fill="white" /><circle cx="22" cy="10" r="9" fill="black" class="moon-mask-circle" /></mask>
+                            <path class="sun-rays" d="M27.5 11.5v-7h-7L16 0l-4.5 4.5h-7v7L0 16l4.5 4.5v7h7L16 32l4.5-4.5h7v-7L32 16l-4.5-4.5zM16 25.4a9.39 9.39 0 1 1 0-18.8 9.39 9.39 0 1 1 0 18.8z" />
+                            <circle class="sun-core" cx="16" cy="16" r="8.1" mask="url(#moon-mask-mobile)" />
+                        </svg>
                     </button>
                     <button onclick="toggleMobileMenu()" aria-label="Menu" class="theme-toggle">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" style="width: 20px; height: 20px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
                         </svg>
                     </button>
@@ -77,122 +79,207 @@
 
     <main class="flex-grow">
         <!-- HERO -->
-        <section class="hero py-20 md:py-28">
-            <div class="hero-glow"></div>
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center relative">
-                <div class="relative z-10">
-                    <span class="chip chip-accent mb-5" data-reveal>A Senior Capstone Initiative</span>
-                    <h1 class="display mb-6 text-balance" data-reveal data-reveal-delay="60">
-                        Quantum-Resistant<br><span style="color:var(--accent-bright)">Credential Management</span>
+        <section class="hero-mesh pt-20 pb-24 md:pt-28 md:pb-32 relative">
+            <div class="hero-radial-glow"></div>
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center relative z-10">
+                <div>
+                    <div class="inline-flex items-center gap-2 chip mb-6" data-reveal>
+                        <span class="pulse-dot"></span>
+                        <span class="font-mono text-xs uppercase tracking-wider">FIPS 204 Standard · Quantum-Resistant</span>
+                    </div>
+
+                    <h1 class="display mb-6 tracking-tight text-balance" data-reveal data-reveal-delay="60">
+                        Quantum-Safe<br>
+                        <span class="text-gradient-mono">Credential Network</span>
                     </h1>
-                    <p class="text-lg mb-9 leading-relaxed max-w-xl" style="color:#c7d2de" data-reveal data-reveal-delay="120">
-                        Bridging academic research with enterprise security. QChain upgrades Hyperledger Fabric with lattice-based cryptography, ensuring university degrees and corporate certificates survive the post-quantum era.
+
+                    <p class="text-base sm:text-lg mb-8 leading-relaxed max-w-xl t-muted" data-reveal data-reveal-delay="120">
+                        Next-generation decentralized trust architecture. QChain upgrades Hyperledger Fabric with lattice-based cryptography, ensuring academic degrees and enterprise credentials remain mathematically secure against quantum cryptanalysis.
                     </p>
+
                     <div class="flex flex-col sm:flex-row flex-wrap items-stretch gap-4 w-full" data-reveal data-reveal-delay="180">
-                        <a href="research.html" class="btn btn-primary w-full sm:w-auto">Read our research</a>
-                        <div class="flex gap-4 w-full sm:w-auto">
-                            <a href="https://github.com/nihvp/QChain-PQC-blockchain" target="_blank" rel="noopener" aria-label="View Source on GitHub" class="btn btn-primary btn-square flex-shrink-0">
-                                <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.418 22 12c0-5.523-4.477-10-10-10z"></path></svg>
-                            </a>
-                            <a href="https://qchain.tail4fff4b.ts.net/" class="btn btn-ghost w-full sm:w-auto flex-grow" style="background:rgba(255,255,255,0.1);color:#eef2f7;border-color:rgba(255,255,255,0.16)">View demo <svg xmlns="http://w3.org" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 opacity-80">
+                        <a href="research.html" class="btn btn-primary w-full sm:w-auto">Read Our Research</a>
+                        
+                        <a href="https://qchain.tail4fff4b.ts.net/" target="_blank" rel="noopener" class="btn btn-ghost w-full sm:w-auto">
+                            <span>View Live Demo</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 opacity-70">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
-                              </svg></a>
-                        </div>
+                            </svg>
+                        </a>
+
+                        <a href="https://github.com/nihvp/QChain-PQC-blockchain" target="_blank" rel="noopener" aria-label="View Source on GitHub" class="btn btn-ghost btn-square flex-shrink-0">
+                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.418 22 12c0-5.523-4.477-10-10-10z"></path>
+                            </svg>
+                        </a>
                     </div>
                 </div>
 
-                <!-- Overlapping device screenshots -->
-                <div class="relative z-10 w-full mt-24 md:mt-32 lg:mt-0 flex justify-end" data-reveal data-reveal-delay="150">
-                    <img src="assets/image_9dd255.png" alt="QPortal Desktop interface" class="device-shot w-[95%] md:w-[85%] object-cover relative z-0">
-                    <img src="assets/image_9dd2b4.png" alt="QWallet Mobile app interface" class="device-shot absolute -bottom-6 md:-bottom-10 left-0 w-[40%] md:w-[35%] z-10">
-                </div>
-            </div>
-        </section>
-
-        <!-- VALUE PROP -->
-        <section class="py-24">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                <h2 class="text-3xl md:text-4xl t-base mb-14 text-balance" data-reveal>Designed for Academia. Built for Enterprise.</h2>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="card card-hover p-7 text-left" data-reveal data-reveal-delay="0">
-                        <img src="assets/3dicons-notebook-dynamic-color.png" alt="Notebook Icon" class="w-10 h-10 mb-4 object-contain">
-                        <h3 class="text-xl t-base mb-3">Immutable Academic Integrity</h3>
-                        <p class="t-muted text-sm leading-relaxed">Universities need guarantees that issued degrees cannot be forged. Our hybrid IPFS model ensures degrees are easily verifiable while maintaining strict cryptographic proof.</p>
-                    </div>
-                    <div class="card card-hover p-7 text-left" data-reveal data-reveal-delay="80">
-                        <img src="assets/3dicons-shield-dynamic-color.png" alt="Shield Icon" class="w-10 h-10 mb-4 object-contain">
-                        <h3 class="text-xl t-base mb-3">Enterprise-Ready Security</h3>
-                        <p class="t-muted text-sm leading-relaxed">By utilizing ML-DSA (Dilithium) standards natively within Fabric, companies can trust that their organizational credentials won't be broken by Shor's algorithm tomorrow.</p>
-                    </div>
-                    <div class="card card-hover p-7 text-left" data-reveal data-reveal-delay="160">
-                        <img src="assets/3dicons-mobile-dynamic-color.png" alt="Mobile Icon" class="w-10 h-10 mb-4 object-contain">
-                        <h3 class="text-xl t-base mb-3">Seamless User Experience</h3>
-                        <p class="t-muted text-sm leading-relaxed">Complex cryptography is completely abstracted. Issuers use a sleek web portal, while students manage and present credentials via an intuitive mobile wallet.</p>
-                    </div>
+                <!-- Device Mockup Showcase -->
+                <div class="relative w-full mt-16 md:mt-24 lg:mt-0 flex justify-end" data-reveal data-reveal-delay="150">
+                    <img src="assets/image_9dd255.png" alt="QPortal Desktop interface" class="device-shot w-[95%] md:w-[85%] object-contain relative z-0">
+                    <img src="assets/image_9dd2b4.png" alt="QWallet Mobile app interface" class="device-shot absolute -bottom-6 md:-bottom-10 left-0 w-[42%] md:w-[36%] z-10">
                 </div>
             </div>
         </section>
 
-        <!-- ============================================================
-             HOW IT WORKS — Tech Stack / Architecture Flow
-             ============================================================ -->
-        <section class="py-24" style="background:var(--bg-tint)">
+        <!-- SPECS / METRICS BAR -->
+        <section class="border-y border-[var(--border)] py-8 surface-2">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 class="text-3xl md:text-4xl t-base mb-4 text-center text-balance" data-reveal>How It Works</h2>
-                <p class="t-muted text-center mb-14 max-w-xl mx-auto" data-reveal data-reveal-delay="60">From issuance to verification: 4 steps to quantum-safe credentials.</p>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+                    <div data-reveal data-reveal-delay="0">
+                        <div class="text-xl md:text-2xl font-bold font-mono t-base">ML-DSA-44</div>
+                        <div class="text-xs t-subtle uppercase tracking-wider mt-1">FIPS 204 Signatures</div>
+                    </div>
+                    <div data-reveal data-reveal-delay="60">
+                        <div class="text-xl md:text-2xl font-bold font-mono t-base">ML-KEM-768</div>
+                        <div class="text-xs t-subtle uppercase tracking-wider mt-1">Hybrid Envelope Encryption</div>
+                    </div>
+                    <div data-reveal data-reveal-delay="120">
+                        <div class="text-xl md:text-2xl font-bold font-mono t-base">Fabric 2.5</div>
+                        <div class="text-xs t-subtle uppercase tracking-wider mt-1">Consortium Ledger</div>
+                    </div>
+                    <div data-reveal data-reveal-delay="180">
+                        <div class="text-xl md:text-2xl font-bold font-mono t-base">Zero-Trust</div>
+                        <div class="text-xs t-subtle uppercase tracking-wider mt-1">Salted Merkle Commitments</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VALUE PROPOSITION -->
+        <section class="py-24">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <h2 class="text-3xl md:text-4xl t-base font-bold mb-4 tracking-tight" data-reveal>Architected for Post-Quantum Resilience</h2>
+                    <p class="t-muted text-base leading-relaxed" data-reveal data-reveal-delay="60">
+                        Conventional PKI relies on RSA and ECC. Shor's algorithm running on fault-tolerant quantum hardware will break these standards. QChain replaces classical primitives with lattice-based mathematics.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Feature 1 -->
+                    <div class="card card-hover p-8" data-reveal data-reveal-delay="0">
+                        <div class="w-12 h-12 rounded-xl flex items-center justify-center surface-2 border border-[var(--border)] mb-6 t-base">
+                            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                <path d="m9 12 2 2 4-4"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold t-base mb-3 tracking-tight">Lattice-Based Authenticity</h3>
+                        <p class="t-muted text-sm leading-relaxed">
+                            Signatures generated with ML-DSA-44 (Dilithium) are anchored on Hyperledger Fabric. Mathematical hardness based on Module Learning With Errors (M-LWE) guarantees degrees cannot be forged.
+                        </p>
+                    </div>
+
+                    <!-- Feature 2 -->
+                    <div class="card card-hover p-8" data-reveal data-reveal-delay="80">
+                        <div class="w-12 h-12 rounded-xl flex items-center justify-center surface-2 border border-[var(--border)] mb-6 t-base">
+                            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                                <rect width="18" height="18" x="3" y="3" rx="2"/>
+                                <circle cx="12" cy="10" r="3"/>
+                                <path d="M7 21v-1a4 4 0 0 1 4-4h2a4 4 0 0 1 4 4v1"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold t-base mb-3 tracking-tight">Zero-Knowledge Disclosure</h3>
+                        <p class="t-muted text-sm leading-relaxed">
+                            Credentials commit to salted per-field SHA3-256 hashes. Holders selectively present only chosen attributes (e.g. GPA or graduation date) without revealing sensitive demographic PII.
+                        </p>
+                    </div>
+
+                    <!-- Feature 3 -->
+                    <div class="card card-hover p-8" data-reveal data-reveal-delay="160">
+                        <div class="w-12 h-12 rounded-xl flex items-center justify-center surface-2 border border-[var(--border)] mb-6 t-base">
+                            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                                <path d="m21 16-9 5-9-5V8l9-5 9 5v8z"/>
+                                <path d="m3.27 6.96 8.73 4.9 8.73-4.9M12 22.08V12"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold t-base mb-3 tracking-tight">Decoupled Off-Chain IPFS</h3>
+                        <p class="t-muted text-sm leading-relaxed">
+                            To avoid ledger bloat from post-quantum signature sizes, full encrypted credential bodies reside off-chain on content-addressed IPFS, keeping the Fabric state lean and scalable.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- HOW IT WORKS -->
+        <section class="py-24 surface-2 border-t border-[var(--border)]">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-2xl mx-auto mb-16">
+                    <h2 class="text-3xl md:text-4xl t-base font-bold mb-4 tracking-tight" data-reveal>Verification Pipeline</h2>
+                    <p class="t-muted text-base leading-relaxed" data-reveal data-reveal-delay="60">From cryptographic issuance to zero-trust verification in four decoupled phases.</p>
+                </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-
                     <!-- Step 01 -->
-                    <div class="card card-hover p-6" data-reveal data-reveal-delay="0">
-                        <span class="font-f1 text-4xl font-bold" style="color:var(--accent);opacity:0.7">01</span>
-                        <h3 class="text-lg t-base mt-3 mb-2 font-semibold">Issue</h3>
-                        <p class="t-muted text-sm leading-relaxed">Organizations issue credentials through a secure web portal with role-based access controls.</p>
+                    <div class="card p-7 flex flex-col justify-between" data-reveal data-reveal-delay="0">
+                        <div>
+                            <span class="font-mono text-3xl font-bold text-neutral-400 dark:text-neutral-600 block mb-4">01</span>
+                            <h3 class="text-lg font-bold t-base mb-2">Canonical Issue</h3>
+                            <p class="t-muted text-sm leading-relaxed">Issuers define credential schemas and generate salted field commitments (SHA3-256) via the authenticated QPortal.</p>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-[var(--border)] text-xs font-mono t-subtle">QPortal · RBAC</div>
                     </div>
 
                     <!-- Step 02 -->
-                    <div class="card card-hover p-6" data-reveal data-reveal-delay="80">
-                        <span class="font-f1 text-4xl font-bold" style="color:var(--accent);opacity:0.7">02</span>
-                        <h3 class="text-lg t-base mt-3 mb-2 font-semibold">Sign</h3>
-                        <p class="t-muted text-sm leading-relaxed">ML-DSA-44 signs credential hashes and anchors them immutably on-chain via Hyperledger Fabric.</p>
+                    <div class="card p-7 flex flex-col justify-between" data-reveal data-reveal-delay="80">
+                        <div>
+                            <span class="font-mono text-3xl font-bold text-neutral-400 dark:text-neutral-600 block mb-4">02</span>
+                            <h3 class="text-lg font-bold t-base mb-2">Quantum Sign</h3>
+                            <p class="t-muted text-sm leading-relaxed">The organization signs the credential commitment hash with ML-DSA-44 and commits state immutably on Hyperledger Fabric.</p>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-[var(--border)] text-xs font-mono t-subtle">ML-DSA-44 · Fabric</div>
                     </div>
 
                     <!-- Step 03 -->
-                    <div class="card card-hover p-6" data-reveal data-reveal-delay="160">
-                        <span class="font-f1 text-4xl font-bold" style="color:var(--accent);opacity:0.7">03</span>
-                        <h3 class="text-lg t-base mt-3 mb-2 font-semibold">Store</h3>
-                        <p class="t-muted text-sm leading-relaxed">Encrypted credential bodies are stored off-chain via IPFS, keeping the ledger lean and private.</p>
+                    <div class="card p-7 flex flex-col justify-between" data-reveal data-reveal-delay="160">
+                        <div>
+                            <span class="font-mono text-3xl font-bold text-neutral-400 dark:text-neutral-600 block mb-4">03</span>
+                            <h3 class="text-lg font-bold t-base mb-2">Hybrid Encrypt</h3>
+                            <p class="t-muted text-sm leading-relaxed">The credential body is wrapped via ML-KEM-768 + AES-256-GCM and stored on IPFS; only the holder holds the decryption key.</p>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-[var(--border)] text-xs font-mono t-subtle">ML-KEM-768 · IPFS</div>
                     </div>
 
                     <!-- Step 04 -->
-                    <div class="card card-hover p-6" data-reveal data-reveal-delay="240">
-                        <span class="font-f1 text-4xl font-bold" style="color:var(--accent);opacity:0.7">04</span>
-                        <h3 class="text-lg t-base mt-3 mb-2 font-semibold">Verify</h3>
-                        <p class="t-muted text-sm leading-relaxed">Instant verification against the immutable ledger.</p>
+                    <div class="card p-7 flex flex-col justify-between" data-reveal data-reveal-delay="240">
+                        <div>
+                            <span class="font-mono text-3xl font-bold text-neutral-400 dark:text-neutral-600 block mb-4">04</span>
+                            <h3 class="text-lg font-bold t-base mb-2">Dual Verify</h3>
+                            <p class="t-muted text-sm leading-relaxed">Verifiers validate both the issuer's signature on-chain and the holder's single-use presentation signature with zero server trust.</p>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-[var(--border)] text-xs font-mono t-subtle">Zero-Trust · QR / OTP</div>
                     </div>
                 </div>
-            </div>
 
-            <div class="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-4 w-full mt-20" data-reveal data-reveal-delay="180">
-                <a href="research.html" class="btn btn-primary w-full sm:w-auto" style="background:rgba(0,0,0,0.06);color:var(--accent);border-color:rgba(0,0,0,0.12)">Read our research</a>
-
-                <a href="https://github.com/nihvp/QChain-PQC-blockchain" target="_blank" rel="noopener" class="btn btn-primary flex items-center gap-2 w-full sm:w-auto" style="background:rgba(0,0,0,0.06);color:var(--accent);border-color:rgba(0,0,0,0.12)">
-                    <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.418 22 12c0-5.523-4.477-10-10-10z"></path></svg>
-                    <span>Explore our codebase</span>
-                </a>
-
-                <a href="about.html" class="btn btn-primary w-full sm:w-auto" style="background:rgba(0,0,0,0.06);color:var(--accent);border-color:rgba(0,0,0,0.12)">About us</a>
+                <!-- Call to action strip -->
+                <div class="mt-16 text-center" data-reveal data-reveal-delay="120">
+                    <div class="inline-flex flex-wrap items-center justify-center gap-4">
+                        <a href="research.html" class="btn btn-primary">Explore Research & Architecture</a>
+                        <a href="audit.html" class="btn btn-ghost">Review Security Audit</a>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
 
-    <footer class="hero mt-auto py-10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4 relative z-10">
-            <div class="flex items-center gap-2">
-                <img src="assets/qchain_logo.jpeg" alt="QChain Logo" loading="lazy" class="w-6 h-6 rounded shadow-sm invert" onerror="this.style.display='none'">
-                <span class="font-mono text-sm tracking-tight" style="color:#93a2b8">QChain Research</span>
+    <!-- FOOTER -->
+    <footer class="border-t border-[var(--border)] py-12 surface">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-3">
+                <img src="assets/qchain_logo.jpeg" alt="QChain Logo" class="w-6 h-6 rounded shadow-sm dark:invert" onerror="this.style.display='none'">
+                <span class="font-mono text-xs font-semibold uppercase tracking-wider t-muted">QChain Research</span>
             </div>
-            <p class="text-sm" style="color:#7c8aa0">&copy; 2026 Team QChain | Capstone Project</p>
+            <div class="flex items-center space-x-6 text-xs t-muted font-medium">
+                <a href="index.html" class="hover:text-[var(--text)] transition-colors">Home</a>
+                <a href="research.html" class="hover:text-[var(--text)] transition-colors">Research</a>
+                <a href="audit.html" class="hover:text-[var(--text)] transition-colors">Audit</a>
+                <a href="about.html" class="hover:text-[var(--text)] transition-colors">About</a>
+                <a href="https://github.com/nihvp/QChain-PQC-blockchain" target="_blank" rel="noopener" class="hover:text-[var(--text)] transition-colors">GitHub</a>
+            </div>
+            <p class="text-xs t-subtle">&copy; 2026 Team QChain · Capstone Initiative</p>
         </div>
     </footer>
 </body>
