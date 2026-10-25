@@ -270,10 +270,43 @@ function showArchDetail(part) {
     const active = document.querySelector(`[data-arch="${part}"]`);
     if (active) active.classList.add('block-selected');
 
-    if (part === 'users') { title.textContent = "Client Applications"; title.style.color = "var(--text)"; text.innerHTML = "Flutter-based interfaces. <b>Issuers</b> issue degrees, <b>Holders</b> manage keys, and <b>Verifiers</b> query the ledger."; }
-    else if (part === 'backend') { title.textContent = "Backend Server (Go)"; title.style.color = "#3b82f6"; text.innerHTML = "The core bridge. Utilizes <code>liboqs-go</code> to execute operations before interacting with the Fabric SDK."; }
-    else if (part === 'fabric') { title.textContent = "Fabric & Custom CSP"; title.style.color = "var(--accent)"; text.innerHTML = "Extended Fabric CSP natively supporting PQC alongside ECDSA. Chaincode handles logic."; }
-    else if (part === 'storage') { title.textContent = "Hybrid Storage"; title.style.color = "#a855f7"; text.innerHTML = "Heavy metadata is stored off-chain via <b>IPFS</b>. The ledger only records the IPFS hashes and PQC signatures."; }
+    if (part === 'qportal' || part === 'portal') {
+        title.textContent = "QPortal";
+        title.style.color = "var(--text)";
+        text.innerHTML = "Web interface for organizational actors: <b>Issuers</b> (issue degrees & credentials), <b>Verifiers</b> (validate proofs & revocation status), and <b>IT Admins</b> (manage Fabric identities, CAs, and network policies).";
+    } else if (part === 'qwallet' || part === 'wallet' || part === 'holder') {
+        title.textContent = "QWallet";
+        title.style.color = "var(--accent)";
+        text.innerHTML = "Mobile holder wallet application. Features on-device post-quantum key generation using <b>ML-KEM-768</b> for hybrid credential decryption and <b>ML-DSA-44</b> for signing single-use presentation proofs.";
+    } else if (part === 'gateway') {
+        title.textContent = "Secure HTTPS Gateway";
+        title.style.color = "#6366f1";
+        text.innerHTML = "Hardened edge reverse proxy combining <b>Nginx</b> and secure tunneling. Enforces TLS termination, rate limiting, and secure packet routing between public clients and backend services.";
+    } else if (part === 'backend' || part === 'api') {
+        title.textContent = "QChain API · Go";
+        title.style.color = "#3b82f6";
+        text.innerHTML = "High-performance Go backend service orchestrating cryptographic operations: <b>ML-DSA-44</b> signing, <b>ML-KEM-768 + AES-GCM</b> hybrid envelope encryption, dual-signature validation (issuer + holder), single-use QR / OTP tokens, credential lifecycle management, and audit logging.";
+    } else if (part === 'fabric') {
+        title.textContent = "Hyperledger Fabric Network";
+        title.style.color = "var(--accent)";
+        text.innerHTML = "Permissioned consortium ledger with <b>2 peers</b> (Government & General), Raft consensus orderer, <b>3 Fabric CAs</b>, and CouchDB state storage. Executes JavaScript <b>QChaincode</b> and enforces a <b>Post-Quantum MSP</b> with ML-DSA-44 identities across all network entities.";
+    } else if (part === 'ipfs') {
+        title.textContent = "IPFS (Off-Chain Storage)";
+        title.style.color = "#a855f7";
+        text.innerHTML = "Decentralized content-addressed storage layer holding full encrypted credential payloads referenced by cryptographic Content Identifiers (CID). Offloads heavy quantum-safe signatures and payloads from the Fabric ledger to prevent blockchain bloat.";
+    } else if (part === 'mysql') {
+        title.textContent = "MySQL Database";
+        title.style.color = "#d97706";
+        text.innerHTML = "Dedicated operational relational store holding non-ledger metadata: user accounts, sessions, subscription tiers, and operational audit trails, cleanly decoupled from consensus state.";
+    } else if (part === 'users') {
+        title.textContent = "Client Applications";
+        title.style.color = "var(--text)";
+        text.innerHTML = "Client interfaces: <b>QPortal</b> (Issuer, Verifier, IT Admin) and <b>QWallet</b> (Holder with on-device post-quantum keys).";
+    } else if (part === 'storage') {
+        title.textContent = "Hybrid Storage Layer";
+        title.style.color = "#a855f7";
+        text.innerHTML = "Tri-tier storage model: immutable consensus on <b>Fabric</b>, encrypted credential payloads on <b>IPFS</b>, and operational data in <b>MySQL</b>.";
+    }
 }
 
 function filterRefTable() {

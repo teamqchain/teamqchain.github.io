@@ -205,42 +205,190 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="mb-14 text-center">
                     <h2 class="text-3xl md:text-4xl t-base mb-4 text-balance" data-reveal>Proposed System Architecture</h2>
-                    <p class="t-muted max-w-2xl mx-auto leading-relaxed" data-reveal data-reveal-delay="60">A full-stack, crypto-agile credentialing system featuring a custom Hyperledger Fabric Crypto Service Provider (CSP) backed by <strong class="t-base">liboqs</strong>.</p>
+                    <p class="t-muted max-w-2xl mx-auto leading-relaxed" data-reveal data-reveal-delay="60">A full-stack, crypto-agile credentialing architecture featuring post-quantum <strong class="t-base">ML-DSA-44</strong> and <strong class="t-base">ML-KEM-768</strong> cryptography, Hyperledger Fabric, and hybrid off-chain IPFS storage.</p>
                 </div>
 
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    <div class="lg:col-span-2 card p-8 relative overflow-hidden" data-reveal>
+                    <div class="lg:col-span-2 card p-6 sm:p-8 relative overflow-hidden" data-reveal>
                         <div class="absolute top-0 left-0 w-full h-1" style="background:var(--accent)"></div>
                         <h3 class="eyebrow t-subtle mb-6">System Flow Topology</h3>
 
-                        <div class="flex flex-col space-y-4 w-full">
-                            <div data-arch="users" onclick="showArchDetail('users')" class="interactive-block surface-2 p-4 text-center" style="border:1px solid var(--border)">
-                                <span class="text-xl mb-1 block">📱</span><span class="font-bold t-base text-sm mb-2 block">Client Applications (Flutter)</span>
-                                <div class="grid grid-cols-3 gap-2 text-xs">
-                                    <div class="surface p-2 rounded-lg shadow-sm t-base"><strong>Issuer</strong><br>Organization</div>
-                                    <div class="surface p-2 rounded-lg shadow-sm t-base"><strong>Holder</strong><br>User Wallet</div>
-                                    <div class="surface p-2 rounded-lg shadow-sm t-base"><strong>Verifier</strong><br>Organization</div>
+                        <div class="flex flex-col space-y-3 w-full">
+                            <!-- ACTORS ROW -->
+                            <div class="grid grid-cols-1 md:grid-cols-12 gap-3 items-end">
+                                <!-- Issuer, Verifier, IT Admin -->
+                                <div class="md:col-span-7">
+                                    <div class="grid grid-cols-3 gap-2">
+                                        <div onclick="showArchDetail('qportal')" class="interactive-block surface-2 px-2 py-1.5 rounded-full border border-[var(--border)] shadow-sm text-center text-xs font-medium t-base flex items-center justify-center gap-1">
+                                            <span>🏛️</span><span>Issuer</span>
+                                        </div>
+                                        <div onclick="showArchDetail('qportal')" class="interactive-block surface-2 px-2 py-1.5 rounded-full border border-[var(--border)] shadow-sm text-center text-xs font-medium t-base flex items-center justify-center gap-1">
+                                            <span>🛡️</span><span>Verifier</span>
+                                        </div>
+                                        <div onclick="showArchDetail('qportal')" class="interactive-block surface-2 px-2 py-1.5 rounded-full border border-[var(--border)] shadow-sm text-center text-xs font-medium t-base flex items-center justify-center gap-1">
+                                            <span>👤⚙️</span><span>IT admin</span>
+                                        </div>
+                                    </div>
+                                    <div class="grid grid-cols-3 gap-2 mt-1.5">
+                                        <span class="flow-arrow text-[11px] leading-none">▼</span>
+                                        <span class="flow-arrow text-[11px] leading-none">▼</span>
+                                        <span class="flow-arrow text-[11px] leading-none">▼</span>
+                                    </div>
+                                </div>
+                                <!-- Holder -->
+                                <div class="md:col-span-5">
+                                    <div class="max-w-[180px] mx-auto">
+                                        <div onclick="showArchDetail('qwallet')" class="interactive-block surface-2 px-3 py-1.5 rounded-full border border-[var(--border)] shadow-sm text-center text-xs font-medium t-base flex items-center justify-center gap-1.5">
+                                            <span>🪪</span><span>Holder</span>
+                                        </div>
+                                        <div class="mt-1.5 text-center">
+                                            <span class="flow-arrow text-[11px] leading-none">▼</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <span class="flow-arrow">↓</span>
-                            <div data-arch="backend" onclick="showArchDetail('backend')" class="interactive-block p-4 text-center" style="background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.25)">
-                                <span class="text-xl mb-1 block">⚙️</span><span class="font-bold text-sm mb-2 block" style="color:#3b82f6">Backend Server (Go)</span>
-                                <div class="text-xs t-muted surface p-2 rounded-lg shadow-sm inline-block w-full"><span class="font-semibold" style="color:#3b82f6">PQC Library Stack:</span><br>Go Code ⟷ <code>liboqs-go</code> ⟷ Open Quantum Safe (C) ⟷ ML-DSA</div>
-                            </div>
-                            <span class="flow-arrow">↓</span>
-                            <div data-arch="fabric" onclick="showArchDetail('fabric')" class="interactive-block p-4 text-center" style="background:var(--accent-soft);border:1px solid var(--accent)">
-                                <span class="text-xl mb-1 block">⛓️</span><span class="font-bold text-sm mb-2 block t-accent">Hyperledger Fabric Network</span>
-                                <div class="grid grid-cols-2 gap-2 text-xs t-base">
-                                    <div class="surface p-2 rounded-lg shadow-sm"><strong>Custom CSP</strong><br>ML-DSA + ML-KEM</div>
-                                    <div class="surface p-2 rounded-lg shadow-sm"><strong>Chaincode</strong><br>Issue / Verify / Revoke</div>
+
+                            <!-- CLIENT APPS (QPortal & QWallet) -->
+                            <div class="grid grid-cols-1 md:grid-cols-12 gap-3 items-stretch">
+                                <div data-arch="qportal" onclick="showArchDetail('qportal')" class="md:col-span-7 interactive-block surface-2 p-3.5 rounded-xl text-center border border-[var(--border)] flex flex-col justify-center">
+                                    <div class="font-bold text-sm t-base flex items-center justify-center gap-1.5">
+                                        <span class="text-base">🖥️</span> QPortal
+                                    </div>
+                                    <div class="text-[11px] font-mono tracking-wider t-muted mt-1 uppercase">
+                                        ISSUE · VERIFY · MANAGE
+                                    </div>
+                                </div>
+                                <div data-arch="qwallet" onclick="showArchDetail('qwallet')" class="md:col-span-5 interactive-block surface-2 p-3.5 rounded-xl text-center border border-[var(--border)] flex flex-col justify-center">
+                                    <div class="font-bold text-sm t-base flex items-center justify-center gap-1.5">
+                                        <span class="text-base">📱</span> QWallet
+                                    </div>
+                                    <div class="text-[11px] t-muted mt-1 flex items-center justify-center gap-1">
+                                        <span class="text-teal-500 text-xs">🛡️</span> On-device ML-KEM-768 + ML-DSA-44 keys
+                                    </div>
                                 </div>
                             </div>
-                            <span class="flow-arrow">↓</span>
-                            <div data-arch="storage" onclick="showArchDetail('storage')" class="interactive-block p-4 text-center" style="background:rgba(168,85,247,0.08);border:1px solid rgba(168,85,247,0.25)">
-                                <span class="text-xl mb-1 block">🗄️</span><span class="font-bold text-sm mb-2 block" style="color:#a855f7">Storage Layer</span>
-                                <div class="grid grid-cols-2 gap-2 text-xs t-base">
-                                    <div class="surface p-2 rounded-lg shadow-sm"><strong>On-Chain (Fabric)</strong><br>Hashes & PQC Signatures</div>
-                                    <div class="surface p-2 rounded-lg shadow-sm"><strong>Off-Chain (IPFS)</strong><br>Full Credentials</div>
+
+                            <!-- ARROWS TO GATEWAY -->
+                            <div class="grid grid-cols-1 md:grid-cols-12 gap-3 py-0.5">
+                                <div class="md:col-span-7 flex justify-center">
+                                    <span class="flow-arrow text-[11px] leading-none">▼</span>
+                                </div>
+                                <div class="md:col-span-5 flex justify-center">
+                                    <span class="flow-arrow text-[11px] leading-none">▼</span>
+                                </div>
+                            </div>
+
+                            <!-- SECURE HTTPS GATEWAY -->
+                            <div data-arch="gateway" onclick="showArchDetail('gateway')" class="interactive-block p-2.5 rounded-xl text-center border border-[var(--border)] surface-2 flex items-center justify-center gap-2">
+                                <span class="text-xs">🔒</span>
+                                <span class="text-xs font-semibold t-base tracking-wide">Secure HTTPS gateway (Nginx + tunnel)</span>
+                            </div>
+
+                            <!-- ARROW TO BACKEND -->
+                            <div class="flex justify-center py-0.5">
+                                <span class="flow-arrow text-[11px] leading-none">▼</span>
+                            </div>
+
+                            <!-- QCHAIN API · GO -->
+                            <div data-arch="backend" onclick="showArchDetail('backend')" class="interactive-block p-4 rounded-xl text-center" style="background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.25)">
+                                <span class="font-bold text-sm mb-3 block" style="color:#3b82f6">QChain API · Go</span>
+                                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+                                    <div class="surface p-2.5 rounded-lg shadow-sm">
+                                        <div class="font-bold t-base flex items-center justify-center gap-1">
+                                            <span class="text-teal-500 font-bold">✔</span> Sign
+                                        </div>
+                                        <div class="text-[11px] t-subtle font-mono mt-0.5">ML-DSA-44</div>
+                                    </div>
+                                    <div class="surface p-2.5 rounded-lg shadow-sm">
+                                        <div class="font-bold t-base flex items-center justify-center gap-1">
+                                            <span class="text-teal-500 font-bold">✔</span> Encrypt
+                                        </div>
+                                        <div class="text-[11px] t-subtle font-mono mt-0.5">ML-KEM-768 + AES-GCM</div>
+                                    </div>
+                                    <div class="surface p-2.5 rounded-lg shadow-sm">
+                                        <div class="font-bold t-base flex items-center justify-center gap-1">
+                                            <span class="text-teal-500 font-bold">✔</span> Verify
+                                        </div>
+                                        <div class="text-[11px] t-subtle mt-0.5">issuer + holder signatures</div>
+                                    </div>
+                                    <div class="surface p-2.5 rounded-lg shadow-sm">
+                                        <div class="font-bold t-base">Present</div>
+                                        <div class="text-[11px] t-subtle mt-0.5">QR / OTP, single-use</div>
+                                    </div>
+                                </div>
+                                <div class="text-[11px] t-subtle font-mono tracking-tight mt-3 text-center">
+                                    credential lifecycle · holders · subscriptions · audit
+                                </div>
+                            </div>
+
+                            <!-- ARROWS TO STORAGE & LEDGER -->
+                            <div class="flex flex-col md:flex-row gap-3 py-0.5">
+                                <div class="md:flex-[3] flex justify-center">
+                                    <span class="flow-arrow text-[11px] leading-none">▼</span>
+                                </div>
+                                <div class="md:flex-[1.4] flex justify-center">
+                                    <span class="flow-arrow text-[11px] leading-none">▼</span>
+                                </div>
+                                <div class="md:flex-[1.4] flex justify-center">
+                                    <span class="flow-arrow text-[11px] leading-none">▼</span>
+                                </div>
+                            </div>
+
+                            <!-- BOTTOM LAYER: FABRIC, IPFS, MYSQL -->
+                            <div class="flex flex-col md:flex-row gap-3 items-stretch">
+                                <!-- HYPERLEDGER FABRIC -->
+                                <div data-arch="fabric" onclick="showArchDetail('fabric')" class="md:flex-[3] interactive-block p-4 rounded-xl text-center flex flex-col justify-between" style="background:var(--accent-soft);border:1px solid var(--accent)">
+                                    <span class="font-bold text-sm mb-3 block t-accent">Hyperledger Fabric</span>
+                                    
+                                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs mb-2.5">
+                                        <div class="surface p-2 rounded-lg shadow-sm t-base">
+                                            <strong>2 peers</strong>
+                                            <div class="text-[10px] t-subtle mt-0.5">Government · General</div>
+                                        </div>
+                                        <div class="surface p-2 rounded-lg shadow-sm t-base">
+                                            <strong>Orderer</strong>
+                                            <div class="text-[10px] t-subtle mt-0.5">Raft</div>
+                                        </div>
+                                        <div class="surface p-2 rounded-lg shadow-sm t-base">
+                                            <strong>3 Fabric CAs</strong>
+                                            <div class="text-[10px] t-subtle mt-0.5">certificates</div>
+                                        </div>
+                                        <div class="surface p-2 rounded-lg shadow-sm t-base">
+                                            <strong>CouchDB</strong>
+                                            <div class="text-[10px] t-subtle mt-0.5">shared state</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="surface p-2 rounded-lg shadow-sm text-xs font-semibold t-base mb-2.5">
+                                        QChaincode (JavaScript smart contract)
+                                    </div>
+
+                                    <div class="surface p-2 rounded-lg shadow-sm text-xs">
+                                        <div class="font-bold t-base flex items-center justify-center gap-1.5">
+                                            <span class="text-teal-500">🛡️</span> Post-quantum MSP: ML-DSA-44 identities
+                                        </div>
+                                        <div class="text-[11px] t-subtle mt-0.5 font-mono">
+                                            peers · orderer · admins · clients · CA roots
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- IPFS -->
+                                <div data-arch="ipfs" onclick="showArchDetail('ipfs')" class="md:flex-[1.4] interactive-block p-4 rounded-xl text-center flex flex-col justify-between" style="background:rgba(168,85,247,0.08);border:1px solid rgba(168,85,247,0.25)">
+                                    <span class="font-bold text-sm mb-2 block" style="color:#a855f7">IPFS</span>
+                                    <div class="surface p-3 rounded-lg shadow-sm flex-1 flex flex-col justify-center">
+                                        <div class="text-xs font-bold t-base">encrypted credentials</div>
+                                        <div class="text-[11px] t-subtle font-mono mt-1">(by CID)</div>
+                                    </div>
+                                </div>
+
+                                <!-- MYSQL -->
+                                <div data-arch="mysql" onclick="showArchDetail('mysql')" class="md:flex-[1.4] interactive-block p-4 rounded-xl text-center flex flex-col justify-between" style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.25)">
+                                    <span class="font-bold text-sm mb-2 block" style="color:#d97706">MySQL</span>
+                                    <div class="surface p-3 rounded-lg shadow-sm flex-1 flex flex-col justify-center">
+                                        <div class="text-xs font-bold t-base">operational data</div>
+                                        <div class="text-[11px] t-subtle font-mono mt-1">only</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -250,7 +398,7 @@
                         <div id="arch-detail" class="card card-rail p-6 h-full sticky top-24">
                             <h3 class="text-xl t-base mb-2" id="detail-title">Interactive Diagram</h3>
                             <p class="text-sm t-muted mb-4" id="detail-text">Click on the components in the diagram to explore how PQC integration works across the full stack.</p>
-                            <div class="surface-2 p-4 rounded-lg text-xs t-subtle font-mono">Note: Implementation of a Custom CSP requires modifications to Fabric core components.</div>
+                            <div class="surface-2 p-4 rounded-lg text-xs t-subtle font-mono">Note: Post-quantum MSP utilizes ML-DSA-44 identities across all Fabric entities and CA roots.</div>
                         </div>
                     </div>
                 </div>
