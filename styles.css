@@ -795,6 +795,10 @@ code {
     border-radius: var(--r-xs);
 }
 
+#qportal, #qwallet, #architecture, #algorithms, #threat, #findings, #roadmap {
+    scroll-margin-top: 5.5rem;
+}
+
 /* ----------------------------------------------------------
    17. ACCESSIBILITY
    ---------------------------------------------------------- */

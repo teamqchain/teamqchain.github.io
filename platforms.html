@@ -90,8 +90,8 @@
                 </div>
 
                 <h1 class="display mb-6 tracking-tight text-balance max-w-4xl mx-auto" data-reveal data-reveal-delay="60">
-                    Enterprise Power Meets <br>
-                    <span class="text-gradient-mono">Sovereign Identity.</span>
+                    From Enterprise Console <br>
+                    <span class="text-gradient-mono">to Personal Wallet.</span>
                 </h1>
 
                 <p class="text-base sm:text-lg mb-8 leading-relaxed max-w-2xl mx-auto t-muted" data-reveal data-reveal-delay="120">
@@ -159,7 +159,6 @@
                         </div>
                         <div class="flex items-center justify-between text-xs t-subtle mt-3 font-mono px-1">
                             <span id="portal-screen-caption">Screen 2A: The Issuer Studio (Batch Issuance &amp; Schemas)</span>
-                            <span class="chip text-[10px] py-0.5 px-2">Interactive Preview</span>
                         </div>
                     </div>
 
@@ -261,7 +260,6 @@
                         </div>
                         <div class="flex items-center justify-between w-full max-w-xs text-xs t-subtle mt-3 font-mono px-1">
                             <span id="wallet-screen-caption">Screen 3A: The Credential Stack (Home / Wallet)</span>
-                            <span class="chip text-[10px] py-0.5 px-2">Mobile Deck</span>
                         </div>
                     </div>
 
@@ -474,7 +472,7 @@
                             </a>
                         </div>
                     </div>
-
+<!-- --
                     <div class="space-y-4 font-mono text-xs" data-reveal data-reveal-delay="80">
                         <div class="card p-5 surface">
                             <div class="flex justify-between items-center text-xs t-subtle mb-2">
@@ -495,6 +493,7 @@ docker compose --profile web up -d
 docker compose --profile mobile-dev run --rm mobile-dev \
   flutter build apk --release</code></pre>
                         </div>
+-->
                     </div>
                 </div>
             </div>
@@ -591,11 +590,25 @@ docker compose --profile mobile-dev run --rm mobile-dev \
             checkScroll();
         }
 
+        function handleHashNavigation() {
+            const hash = window.location.hash.replace('#', '');
+            if (hash === 'qportal' || hash === 'qwallet') {
+                setTimeout(() => {
+                    scrollToPlatform(hash);
+                }, 120);
+            }
+        }
+
         if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initPlatformScrollSpy);
+            document.addEventListener('DOMContentLoaded', () => {
+                initPlatformScrollSpy();
+                handleHashNavigation();
+            });
         } else {
             initPlatformScrollSpy();
+            handleHashNavigation();
         }
+        window.addEventListener('hashchange', handleHashNavigation);
 
         /* =========================================================================
            📸 SCREENSHOT REGISTRY & CONFIGURATION GUIDE

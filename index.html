@@ -119,8 +119,27 @@
 
                 <!-- Device Mockup Showcase -->
                 <div class="relative w-full mt-16 md:mt-24 lg:mt-0 flex justify-end" data-reveal data-reveal-delay="150">
-                    <img src="assets/image_9dd255.png" alt="QPortal Desktop interface" class="device-shot w-[95%] md:w-[85%] object-contain relative z-0">
-                    <img src="assets/image_9dd2b4.png" alt="QWallet Mobile app interface" class="device-shot absolute -bottom-6 md:-bottom-10 left-0 w-[42%] md:w-[36%] z-10">
+                    <!-- Laptop -> QPortal -->
+                    <a href="platforms.html#qportal" class="relative group block w-[95%] md:w-[85%] z-0 cursor-pointer" aria-label="View QPortal Platform">
+                        <img src="assets/image_9dd255.png" alt="QPortal Desktop interface" class="device-shot w-full object-contain transition-transform duration-300 group-hover:scale-[1.01]">
+                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 bg-black/40 backdrop-blur-[2px] rounded-xl pointer-events-none">
+                            <span class="chip bg-white text-black font-semibold text-xs py-2 px-4 shadow-xl flex items-center gap-1.5 transform translate-y-1 group-hover:translate-y-0 transition-transform">
+                                <span>View Platform</span>
+                                <span class="font-mono text-[11px]">→</span>
+                            </span>
+                        </div>
+                    </a>
+
+                    <!-- Mobile -> QWallet -->
+                    <a href="platforms.html#qwallet" class="absolute -bottom-6 md:-bottom-10 left-0 w-[42%] md:w-[36%] z-10 group block cursor-pointer" aria-label="View QWallet Platform">
+                        <img src="assets/image_9dd2b4.png" alt="QWallet Mobile app interface" class="device-shot w-full object-contain transition-transform duration-300 group-hover:scale-[1.02]">
+                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 bg-black/40 backdrop-blur-[2px] rounded-[2.2rem] pointer-events-none">
+                            <span class="chip bg-white text-black font-semibold text-xs py-2 px-3.5 shadow-xl flex items-center gap-1.5 transform translate-y-1 group-hover:translate-y-0 transition-transform whitespace-nowrap">
+                                <span>View Platform</span>
+                                <span class="font-mono text-[11px]">→</span>
+                            </span>
+                        </div>
+                    </a>
                 </div>
             </div>
         </section>
