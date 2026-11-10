@@ -265,8 +265,8 @@
                             </div>
 
                             <div class="pt-2 font-mono text-[11px] t-subtle border-t border-[var(--border)] flex items-center justify-between">
-                                <span>Source: <code>UI_WebApp/lib/screens/</code></span>
-                                <a href="https://github.com/teamqchain/tree/main/UI_WebApp" target="_blank" rel="noopener" class="link-subtle hover:underline">View Source →</a>
+                                <span>Source: <code>qchain-portal: lib/screens/</code></span>
+                                <a href="https://github.com/teamqchain/qchain-portal" target="_blank" rel="noopener" class="link-subtle hover:underline">View Source →</a>
                             </div>
                         </div>
                     </div>
@@ -365,8 +365,8 @@
                             </div>
 
                             <div class="pt-2 font-mono text-[11px] t-subtle border-t border-[var(--border)] flex items-center justify-between">
-                                <span>Source: <code>UI_App/lib/screens/</code></span>
-                                <a href="https://github.com/teamqchain/tree/main/UI_App" target="_blank" rel="noopener" class="link-subtle hover:underline">View Source →</a>
+                                <span>Source: <code>qchain-wallet: lib/screens/</code></span>
+                                <a href="https://github.com/teamqchain/qchain-wallet" target="_blank" rel="noopener" class="link-subtle hover:underline">View Source →</a>
                             </div>
                         </div>
                     </div>
@@ -527,10 +527,10 @@
                             Both platforms are completely open source and packaged with containerized build scripts for immediate deployment and academic evaluation.
                         </p>
                         <div class="flex flex-wrap gap-4">
-                            <a href="https://github.com/teamqchain/tree/main/UI_WebApp" target="_blank" rel="noopener" class="btn btn-primary">
+                            <a href="https://github.com/teamqchain/qchain-portal" target="_blank" rel="noopener" class="btn btn-primary">
                                 <span>Explore QPortal Code</span>
                             </a>
-                            <a href="https://github.com/teamqchain/tree/main/UI_App" target="_blank" rel="noopener" class="btn btn-ghost">
+                            <a href="https://github.com/teamqchain/qchain-wallet" target="_blank" rel="noopener" class="btn btn-ghost">
                                 <span>Explore QWallet Code</span>
                             </a>
                             <a href="research.html#architecture" class="btn btn-outline">
@@ -699,7 +699,7 @@ docker compose --profile mobile-dev run --rm mobile-dev \
                     { title: "Real-Time Revocation & Suspension", desc: "Immediate revocation registered directly on Hyperledger Fabric ledger; verifiers reflect status instantly." },
                     { title: "Cryptographic Salt Generation", desc: "Computes canonical SHA3-256 salted hashes for each attribute to enable zero-knowledge selective disclosure." }
                 ],
-                src: "UI_WebApp/lib/screens/issuer/"
+                src: "qchain-portal: lib/screens/issuer/"
             },
             verifier: {
                 tag: "The Verifier Suite",
@@ -713,7 +713,7 @@ docker compose --profile mobile-dev run --rm mobile-dev \
                     { title: "Tamper-Evident Ledger Integrity", desc: "Strict fail-closed architecture: invalid hashes or altered signatures fail immediately with clear audit logs." },
                     { title: "Revocation Subscription Alerts", desc: "Verifiers can subscribe to status changes and receive webhook alerts if an issued credential is revoked." }
                 ],
-                src: "UI_WebApp/lib/screens/verifier/"
+                src: "qchain-portal: lib/screens/verifier/"
             },
             admin: {
                 tag: "IT Admin & Cryptography Console",
@@ -727,7 +727,7 @@ docker compose --profile mobile-dev run --rm mobile-dev \
                     { title: "Immutable Event Log", desc: "Cryptographically verifiable operational audit log recording issuance timestamps and policy changes." },
                     { title: "Node & Cluster Monitoring", desc: "Real-time health telemetry across the 2-peer consortium, Raft consensus orderer, and IPFS cluster." }
                 ],
-                src: "UI_WebApp/lib/screens/IT Admin/"
+                src: "qchain-portal: lib/screens/IT Admin/"
             }
         };
 
