@@ -340,12 +340,19 @@
             this.view.scrollTop = 0;
 
             const hit = target && this.qp.querySelector(`[data-t="${target}"]`);
+
+            /* on narrow windows the menu is a scrolling strip: centre the item that matters */
+            const pin = hit && this.nav.contains(hit) ? hit : this.nav.querySelector('.is-on');
+            if (pin && this.nav.scrollWidth > this.nav.clientWidth) {
+                const a = pin.getBoundingClientRect(), b = this.nav.getBoundingClientRect();
+                this.nav.scrollLeft += a.left - b.left - (b.width - a.width) / 2;
+            }
+
             if (hit) {
                 hit.classList.add('qp-target');
                 if (user) {
                     /* keep the highlighted control in view inside the window, never scrolling the page */
-                    if (this.nav.contains(hit)) this.nav.scrollLeft = hit.offsetLeft - this.nav.clientWidth / 2 + hit.offsetWidth / 2;
-                    else {
+                    if (!this.nav.contains(hit)) {
                         const d = hit.getBoundingClientRect().bottom - this.view.getBoundingClientRect().bottom;
                         if (d > 0) this.view.scrollTop = d + 16;
                     }
