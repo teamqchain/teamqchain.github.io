@@ -74,6 +74,7 @@
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <script src="phone.js" defer></script>
+    <script src="portal.js" defer></script>
     <script src="script.js" defer></script>
 </head>
 <body>
@@ -186,11 +187,8 @@
                     <h2 data-reveal="1">Issued in QPortal. Carried in QWallet.</h2>
                 </header>
 
-                <div class="window-stage" data-reveal>
-                    <a class="window" data-tilt href="platforms.html#qportal" aria-label="QPortal, the web console">
-                        <div class="window__bar"><i></i><i></i><i></i><span class="window__url">qportal.vercel.app</span></div>
-                        <img src="assets/qportal-dashboard.webp" width="2000" height="1133" alt="QPortal dashboard for an IT admin at a university: staff counts, crypto algorithm set to Dilithium, recent audit activity." loading="lazy">
-                    </a>
+                <div class="portal" data-portal data-reveal>
+                    <noscript><img src="assets/qportal-dashboard.webp" width="2000" height="1133" alt="QPortal dashboard as an IT admin sees it."></noscript>
                 </div>
 
                 <div class="cols" style="--n:2; margin-top: clamp(2.5rem, 5vw, 4rem)">

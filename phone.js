@@ -27,17 +27,17 @@
     };
 
     const FIELDS = [
-        ['Full name', 'Khalid Hassan', '4be1…a09c', true],
-        ['Degree', 'BSc Computer Engineering', '71d0…f3e2', true],
+        ['Full name', 'Tariq Al Nuaimi', '4be1…a09c', true],
+        ['Degree', 'BSc Computer Science', '71d0…f3e2', true],
         ['Graduated', 'June 2026', 'c5a8…1d47', true],
         ['GPA', '3.74 / 4.00', '9f2c…41e7', false],
-        ['Emirates ID', '784-2003-•••••••-1', '03ab…c9d2', false],
-        ['Date of birth', '14 Mar 2003', 'e77a…5b10', false]
+        ['Emirates ID', '784-1990-•••••••-1', '03ab…c9d2', false],
+        ['Date of birth', '14 Mar 1990', 'e77a…5b10', false]
     ];
 
     const LOG = [
         ['ok', '✓', 'Presented to a verifier', '3 of 6 fields · BSc degree', '14:22'],
-        ['in', '↓', 'Credential received', 'BSc Computer Engineering', '09:14'],
+        ['in', '↓', 'Credential received', 'BSc Computer Science', '09:14'],
         ['ok', '✓', 'Presented to a verifier', '1 of 5 fields · Health certificate', '2 Mar'],
         ['up', '↻', 'Issuer renewed a credential', 'Health certificate', '10 Jan']
     ];
@@ -98,7 +98,7 @@
                 <div class="sc sc-share">
                     <div class="sc-top">
                         <div class="sc-top__bar"><span class="sc-circ">${ICON.back}</span><span class="sp"></span></div>
-                        <div class="sc-title"><span class="sc-title__ic">${ICON.cap}</span><div><b>Choose what to share</b><span>BSc Computer Engineering</span></div></div>
+                        <div class="sc-title"><span class="sc-title__ic">${ICON.cap}</span><div><b>Choose what to share</b><span>BSc Computer Science</span></div></div>
                     </div>
                     <div class="sc-share__note" style="top:456px">Hidden fields stay on this phone as salted hashes.</div>
                     <div class="sc-cta" data-cta>Present 3 of 6 fields</div>
@@ -106,7 +106,7 @@
 
                 <div class="sc sc-present">
                     <div class="sc-present__title">Show this to the verifier</div>
-                    <div class="sc-present__sub" data-sub>BSc Computer Engineering · 3 fields</div>
+                    <div class="sc-present__sub" data-sub>BSc Computer Science · 3 fields</div>
                     <div class="sc-present__foot">HOLDER SIG · ML-DSA-44</div>
                 </div>
 
@@ -124,16 +124,16 @@
         </div>
 
         <div class="ph-float">
-            ${cred('cred--c', ICON.car, 'Driving Licence', 'Roads and Transport Authority', 'CRED-0003', 'Valid', '02 Feb 2025')}
+            ${cred('cred--c', ICON.car, 'Driving Licence', 'Roads and Transport Authority', 'CRED-0005', 'Valid', '02 Feb 2025')}
             ${cred('cred--b', ICON.cross, 'Health Certificate', 'Ministry of Health and Prevention', 'CRED-0002', 'Valid', '10 Jan 2026')}
-            ${cred('cred--a', ICON.cap, 'BSc Computer Engineering', 'University of Sharjah', 'CRED-0001', 'Valid', '12 Jun 2026')}
+            ${cred('cred--a', ICON.cap, 'BSc Computer Science', 'University of Sharjah', 'CRED-0003', 'Valid', '16 Nov 2026')}
 
             <div class="fl toast"><i>${ICON.tick}</i><div>Decrypted on this phone<small>ML-KEM-768 → AES-256-GCM</small></div></div>
 
             <div class="fl for-lock notif">
                 <div class="notif__h"><img src="assets/qchain-mark.webp" alt="" width="18" height="18"><span>QWALLET</span><span>now</span></div>
                 <b>New credential</b>
-                <p>University of Sharjah issued your BSc Computer Engineering.</p>
+                <p>University of Sharjah issued your BSc Computer Science.</p>
                 <div class="notif__f"><span>ML-DSA-44 signed</span><span>anchored on Fabric</span></div>
             </div>
 
@@ -356,7 +356,7 @@
         count() {
             const on = this.el.querySelectorAll('.field.is-on').length, all = FIELDS.length;
             this.el.querySelector('[data-cta]').textContent = on ? `Present ${on} of ${all} fields` : 'Pick at least one field';
-            this.el.querySelector('[data-sub]').textContent = `BSc Computer Engineering · ${on} field${on === 1 ? '' : 's'}`;
+            this.el.querySelector('[data-sub]').textContent = `BSc Computer Science · ${on} field${on === 1 ? '' : 's'}`;
             this.el.querySelector('[data-seen]').textContent = `Saw ${on} of ${all} fields. Nothing else left the phone.`;
         }
 

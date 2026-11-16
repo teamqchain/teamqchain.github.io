@@ -85,6 +85,7 @@
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <script src="phone.js" defer></script>
+    <script src="portal.js" defer></script>
     <script src="script.js" defer></script>
 </head>
 <body>
@@ -137,15 +138,12 @@
                 <header class="sec__head">
                     <p class="kicker" data-reveal>QPortal &middot; Flutter web</p>
                     <h2 data-reveal="1">One console, three desks.</h2>
-                    <p class="lede" data-reveal="2">Issuers, verifiers and IT admins sign in to the same place and see only their part of it.</p>
+                    <p class="lede" data-reveal="2">Issuers, verifiers and IT admins sign in to the same place and see only their part of it. Try each desk below: click what is highlighted.</p>
                 </header>
 
-                <figure class="window-stage" data-reveal>
-                    <div class="window" data-tilt>
-                        <div class="window__bar"><i></i><i></i><i></i><span class="window__url">qportal.vercel.app</span></div>
-                        <img src="assets/qportal-dashboard.webp" width="2000" height="1133" alt="QPortal dashboard as an IT admin sees it: staff counts, the active signature algorithm, organisation profile and recent audit activity.">
-                    </div>
-                </figure>
+                <div class="portal" data-portal data-reveal>
+                    <noscript><img src="assets/qportal-dashboard.webp" width="2000" height="1133" alt="QPortal dashboard as an IT admin sees it."></noscript>
+                </div>
 
                 <div class="cols" style="margin-top: clamp(2.5rem, 5vw, 4rem)">
                     <div data-reveal>
