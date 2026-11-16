@@ -117,8 +117,8 @@
     const CRED_H = [['Credential ID'], ['Holder name'], ['Credential type', 1], ['Issued by', 1], ['Issue date', 1], ['Status']];
     const credRows = st => [
         ...(st.issued ? [tr(['<b class="qp-id">CRED-0003</b>', '<b>Tariq Al Nuaimi</b>', 'BSc Computer Science', 'Mohammed Al Issuer', 'Today', chip('Valid', 'ok')], CRED_H, 'is-new')] : []),
-        tr(['<b class="qp-id">CRED-0002</b>', '<b>Tariq Al Nuaimi</b>', 'Bachelor of Science in Computer Science', 'Mohammed Al Issuer', '10 Nov 2026', chip('Valid', 'ok')], CRED_H),
-        tr(['<b class="qp-id">CRED-0001</b>', '<b>Tariq Al Nuaimi</b>', 'BSc Computer Science', 'Mohammed Al Issuer', '10 Nov 2026', chip('Revoked', 'bad')], CRED_H)
+        tr(['<b class="qp-id">CRED-0002</b>', '<b>Khalid Hassan</b>', 'MSc Computer Science', 'Mohammed Al Issuer', '10 Nov 2026', chip('Valid', 'ok')], CRED_H),
+        tr(['<b class="qp-id">CRED-0001</b>', '<b>Tariq Al Nuaimi</b>', 'BSc Computer Engineering', 'Mohammed Al Issuer', '10 Nov 2026', chip('Revoked', 'bad')], CRED_H)
     ];
 
     /* ---------- screens ---------- */
