@@ -71,484 +71,248 @@
     <link rel="icon" href="assets/qchain_logo.ico" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <script src="data.js" defer></script>
     <script src="script.js" defer></script>
 </head>
-<body class="flex flex-col min-h-screen">
+<body>
 
-    <!-- GLOBAL NAVIGATION -->
-    <nav class="glass-nav">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <div class="flex items-center">
-                    <a href="index.html" class="flex items-center gap-3 pressable">
-                        <img src="assets/qchain_logo.jpeg" alt="QChain Logo" class="w-8 h-8 rounded-lg shadow-sm dark:invert" onerror="this.src='https://via.placeholder.com/32'">
-                        <span class="text-xl t-base font-bold tracking-tight font-f1">QChain</span>
-                    </a>
-                </div>
-                <div class="hidden md:flex space-x-8 items-center">
-                    <a href="index.html" class="nav-link">Home</a>
-                    <a href="platforms.html" class="nav-link">Platforms</a>
-                    <a href="research.html" class="nav-link is-active">Our Research</a>
-                    <!-- <a href="audit.html" class="nav-link">Security Audit</a> -->
-                    <a href="about.html" class="nav-link">About Us</a>
-                    <button class="theme-toggle" type="button" aria-label="Toggle theme" onclick="toggleDarkMode()">
-                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="theme-toggle__inner-moon" fill="currentColor" viewBox="0 0 32 32">
-                            <mask id="moon-mask-desktop"><rect x="0" y="0" width="32" height="32" fill="white" /><circle cx="22" cy="10" r="9" fill="black" class="moon-mask-circle" /></mask>
-                            <path class="sun-rays" d="M27.5 11.5v-7h-7L16 0l-4.5 4.5h-7v7L0 16l4.5 4.5v7h7L16 32l4.5-4.5h7v-7L32 16l-4.5-4.5zM16 25.4a9.39 9.39 0 1 1 0-18.8 9.39 9.39 0 1 1 0 18.8z" />
-                            <circle class="sun-core" cx="16" cy="16" r="8.1" mask="url(#moon-mask-desktop)" />
-                        </svg>
-                    </button>
-                </div>
-                <div class="flex items-center md:hidden gap-2">
-                    <button class="theme-toggle" type="button" aria-label="Toggle theme" onclick="toggleDarkMode()">
-                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="theme-toggle__inner-moon" fill="currentColor" viewBox="0 0 32 32">
-                            <mask id="moon-mask-mobile"><rect x="0" y="0" width="32" height="32" fill="white" /><circle cx="22" cy="10" r="9" fill="black" class="moon-mask-circle" /></mask>
-                            <path class="sun-rays" d="M27.5 11.5v-7h-7L16 0l-4.5 4.5h-7v7L0 16l4.5 4.5v7h7L16 32l4.5-4.5h7v-7L32 16l-4.5-4.5zM16 25.4a9.39 9.39 0 1 1 0-18.8 9.39 9.39 0 1 1 0 18.8z" />
-                            <circle class="sun-core" cx="16" cy="16" r="8.1" mask="url(#moon-mask-mobile)" />
-                        </svg>
-                    </button>
-                    <button onclick="toggleMobileMenu()" aria-label="Menu" class="theme-toggle">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-                        </svg>
-                    </button>
-                </div>
+    <header class="nav">
+        <div class="wrap nav__in">
+            <a class="brand" href="index.html"><img src="assets/qchain-mark.webp" alt="" width="28" height="28"><span>QChain</span></a>
+            <nav class="nav__links" aria-label="Primary">
+                <a href="platforms.html">Platforms</a>
+                <a href="research.html" aria-current="page">Research</a>
+                <a href="about.html">About</a>
+            </nav>
+            <div class="nav__end">
+                <button class="theme-toggle" id="themeBtn" type="button" aria-label="Toggle theme">
+                    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="theme-toggle__inner-moon" fill="currentColor" viewBox="0 0 32 32">
+                        <mask id="moon-mask"><rect x="0" y="0" width="32" height="32" fill="white" /><circle cx="22" cy="10" r="9" fill="black" class="moon-mask-circle" /></mask>
+                        <path class="sun-rays" d="M27.5 11.5v-7h-7L16 0l-4.5 4.5h-7v7L0 16l4.5 4.5v7h7L16 32l4.5-4.5h7v-7L32 16l-4.5-4.5zM16 25.4a9.39 9.39 0 1 1 0-18.8 9.39 9.39 0 1 1 0 18.8z" />
+                        <circle class="sun-core" cx="16" cy="16" r="8.1" mask="url(#moon-mask)" />
+                    </svg>
+                </button>
+                <a class="btn btn--sm nav__demo" href="https://qportal.vercel.app/" target="_blank" rel="noopener">Live demo <span class="arr">↗</span></a>
+                <button class="icon-btn nav__burger" id="navBurger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="navSheet">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M4 8h16M4 16h16"/></svg>
+                </button>
             </div>
         </div>
-        <div id="mobile-menu" class="mobile-sheet is-closed md:hidden">
-            <div class="px-4 py-3 space-y-1 max-w-7xl mx-auto">
-                <a href="index.html" class="mobile-link">Home</a>
-                <a href="platforms.html" class="mobile-link">Platforms</a>
-                <a href="research.html" class="mobile-link is-active">Our Research</a>
-                <a href="audit.html" class="mobile-link">Security Audit</a>
-                <a href="about.html" class="mobile-link">About Us</a>
-            </div>
+        <div class="nav__sheet" id="navSheet">
+            <a href="platforms.html">Platforms</a>
+            <a href="research.html" aria-current="page">Research</a>
+            <a href="audit.html">Security audit</a>
+            <a href="about.html">About</a>
+            <a href="https://qportal.vercel.app/" target="_blank" rel="noopener">Live demo</a>
         </div>
-    </nav>
+    </header>
 
-    <main class="flex-grow">
-        <!-- HERO -->
-        <header class="hero-mesh py-20 border-b border-[var(--border)] relative">
-            <div class="hero-radial-glow"></div>
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-12 items-center relative z-10">
-                <div>
-                    <div class="chip mb-4" data-reveal>
-                        <!-- <span class="pulse-dot"></span> -->
-                        <span class="font-mono text-xs uppercase">Cryptographic Research & Architecture</span>
-                    </div>
-                    <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-5 text-balance" data-reveal data-reveal-delay="60">
-                        Securing the Ledger Against <br><span class="text-gradient-mono">Quantum Supremacy</span>
-                    </h1>
-                    <p class="text-base sm:text-lg mb-8 max-w-lg leading-relaxed t-muted" data-reveal data-reveal-delay="120">
-                        A rigorous architectural exploration of integrating lattice-based Post-Quantum Cryptography (PQC) into Hyperledger Fabric. Transitioning from vulnerable ECDSA and RSA to NIST-finalized FIPS standards.
-                    </p>
-                    <div class="flex flex-col sm:flex-row gap-4 max-w-md w-full" data-reveal data-reveal-delay="160">
-                        <a href="#architecture" class="btn btn-primary w-full sm:w-auto">System Flow Topology</a>
-                        <a href="#algorithms" class="btn btn-ghost w-full sm:w-auto">Algorithm Benchmark</a>
+    <main>
+        <header class="wrap phead">
+            <div class="split">
+                <div class="col-7">
+                    <p class="kicker" data-reveal>Research</p>
+                    <h1 class="h-page" data-reveal="1">Why lattice signatures, and what they cost a blockchain.</h1>
+                    <div class="jump" data-reveal="2">
+                        <a class="btn btn--line" href="#algorithms">The algorithms <span class="arr arr--d">↓</span></a>
+                        <a class="btn btn--line" href="#architecture">The architecture <span class="arr arr--d">↓</span></a>
                     </div>
                 </div>
-
-                <div class="card p-7 shadow-lg" data-reveal data-reveal-delay="120">
-                    <h3 class="eyebrow mb-4 t-subtle">Core Findings & Thesis</h3>
-                    <ul class="space-y-3.5 text-sm t-muted">
-                        <li class="flex items-start gap-2.5">
-                            <span class="t-base font-bold text-xs mt-0.5">■</span>
-                            <span><strong class="t-base">The Threat:</strong> Shor's algorithm renders classical ECDSA and RSA breakable on quantum computers, allowing forgery of blockchain identity MSPs.</span>
-                        </li>
-                        <li class="flex items-start gap-2.5">
-                            <span class="t-base font-bold text-xs mt-0.5">■</span>
-                            <span><strong class="t-base">The Standard:</strong> Migration to NIST finalists: <em>ML-DSA (Dilithium)</em> for signatures and <em>ML-KEM (Kyber)</em> for envelope encryption.</span>
-                        </li>
-                        <li class="flex items-start gap-2.5">
-                            <span class="t-base font-bold text-xs mt-0.5">■</span>
-                            <span><strong class="t-base">The Tradeoff:</strong> PQC signatures are ~40x–100x larger than ECDSA, introducing potential consensus serialization bottlenecks.</span>
-                        </li>
-                        <li class="flex items-start gap-2.5">
-                            <span class="t-base font-bold text-xs mt-0.5">■</span>
-                            <span><strong class="t-base">The Solution:</strong> Hybrid architecture storing minimal salted hash commitments on-chain while encrypted payloads reside on IPFS.</span>
-                        </li>
-                    </ul>
-                </div>
+                <dl class="col-5 dl" data-reveal="2">
+                    <div><dt>Threat</dt><dd>Shor&rsquo;s algorithm breaks <b>ECDSA and RSA</b>. On Fabric that means forged identities and forged transactions.</dd></div>
+                    <div><dt>Standard</dt><dd><b>ML-DSA</b> (Dilithium) for signatures, <b>ML-KEM</b> (Kyber) for encryption. NIST FIPS 204 and 203.</dd></div>
+                    <div><dt>Trade-off</dt><dd>An ML-DSA-44 signature is <b>2,420 bytes</b>, about 38 times an ECDSA one.</dd></div>
+                    <div><dt>Design</dt><dd>Keep only salted hash commitments on-chain. Put the encrypted credential on <b>IPFS</b>.</dd></div>
+                </dl>
             </div>
         </header>
 
-        <!-- THREAT HORIZON -->
-        <section id="threat" class="py-20 border-b border-[var(--border)]">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="mb-14 text-center max-w-3xl mx-auto">
-                    <h2 class="text-3xl md:text-4xl t-base font-bold mb-4 tracking-tight" data-reveal>The Quantum Threat Horizon</h2>
-                    <p class="t-muted text-base leading-relaxed" data-reveal data-reveal-delay="60">
-                        Blockchain immutability is permanent: encrypted transactions captured today can be decrypted tomorrow. While symmetric hashing (SHA3-256) remains resistant, the asymmetric foundation of Fabric identities is critically exposed.
-                    </p>
-                </div>
+        <!-- THREAT -->
+        <section class="sec" id="threat">
+            <div class="wrap">
+                <header class="sec__head">
+                    <p class="kicker" data-reveal>The threat</p>
+                    <h2 data-reveal="1">The ledger is permanent. The cryptography under it isn&rsquo;t.</h2>
+                    <p class="lede" data-reveal="2">Anything recorded today can be attacked later. Hashes survive a quantum computer; the signatures that prove who wrote them do not.</p>
+                </header>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                    <div class="card p-6 shadow-sm" data-reveal>
-                        <h3 class="text-sm font-bold font-mono uppercase t-subtle mb-3 text-center">Projected Logical Qubits vs. Cryptanalysis Threshold</h3>
-                        <div class="chart-container"><canvas id="timelineChart"></canvas></div>
-                        <p class="text-xs text-center t-subtle mt-3 font-mono">Projection based on IBM Quantum Roadmaps & Google Quantum AI Research</p>
-                    </div>
+                <div class="split">
+                    <figure class="col-7 stack" data-reveal>
+                        <svg class="chart" viewBox="0 0 560 310" role="img" aria-label="Projected logical qubits: 48 in 2023, 100 in 2026, 200 in 2029 and 2,000 in 2033, crossing the roughly 1,000 needed to attack RSA-2048 in the early 2030s.">
+                            <g class="grid">
+                                <line x1="50" x2="540" y1="20" y2="20"/><line x1="50" x2="540" y1="103.3" y2="103.3" opacity="0"/><line x1="50" x2="540" y1="186.7" y2="186.7"/>
+                            </g>
+                            <line class="axis" x1="50" x2="540" y1="270" y2="270"/>
+                            <g text-anchor="end"><text x="42" y="24">10k</text><text x="42" y="107">1k</text><text x="42" y="190">100</text><text x="42" y="274">10</text></g>
+                            <g text-anchor="middle"><text x="50" y="292">2023</text><text x="197" y="292">2026</text><text x="344" y="292">2029</text><text x="540" y="292">2033</text></g>
 
-                    <div data-reveal data-reveal-delay="80">
-                        <h3 class="text-xl font-bold t-base mb-4 tracking-tight">Cryptographic Vulnerability Matrix</h3>
-                        <div class="grid grid-cols-1 gap-4">
-                            <div class="card p-5" style="border-left: 3px solid #ef4444">
-                                <div class="flex justify-between items-center">
-                                    <h4 class="font-bold text-red-500">ECDSA / RSA-2048</h4>
-                                    <span class="chip font-mono text-[10px] bg-red-500/10 text-red-500 border-red-500/20">CRITICAL RISK</span>
-                                </div>
-                                <p class="text-sm t-muted mt-2 leading-relaxed">
-                                    Polynomial-time factorization via Shor's algorithm. Allows total forgery of MSP admin certificates and Fabric gateway transaction signatures.
-                                </p>
-                            </div>
+                            <line class="thr" x1="50" x2="540" y1="103.3" y2="103.3"/>
+                            <text class="thr-t" x="50" y="96">RSA-2048 within reach &middot; ~1,000 logical qubits</text>
 
-                            <div class="card p-5" style="border-left: 3px solid #eab308">
-                                <div class="flex justify-between items-center">
-                                    <h4 class="font-bold text-amber-500">SHA-256 / SHA3-256</h4>
-                                    <span class="chip font-mono text-[10px] bg-amber-500/10 text-amber-500 border-amber-500/20">MODERATE (SECURE AT 256-BIT)</span>
-                                </div>
-                                <p class="text-sm t-muted mt-2 leading-relaxed">
-                                    Square-root speedup via Grover's algorithm effectively halves entropy. 256-bit hashes provide a full 128 bits of post-quantum security, remaining resilient.
-                                </p>
-                            </div>
+                            <path class="area" d="M50 213.2 L197 186.7 L344 161.6 L540 78.2 L540 270 L50 270 Z"/>
+                            <path class="line" pathLength="1" d="M50 213.2 L197 186.7 L344 161.6 L540 78.2"/>
+                            <g>
+                                <circle class="dot" cx="50" cy="213.2" r="4"/><circle class="dot" cx="197" cy="186.7" r="4"/><circle class="dot" cx="344" cy="161.6" r="4"/><circle class="dot" cx="540" cy="78.2" r="4"/>
+                            </g>
+                            <g class="val" text-anchor="middle">
+                                <text class="val" x="58" y="234">48</text><text class="val" x="197" y="208">100</text><text class="val" x="344" y="183">200</text><text class="val" x="524" y="66">2,000</text>
+                            </g>
+                        </svg>
+                        <figcaption class="small faint">Projected logical qubits, log scale. From IBM Quantum roadmaps and Google Quantum AI research.</figcaption>
+                    </figure>
 
-                            <div class="card p-5" style="border-left: 3px solid #10b981">
-                                <div class="flex justify-between items-center">
-                                    <h4 class="font-bold text-emerald-500">Lattice-Based (ML-DSA / ML-KEM)</h4>
-                                    <span class="chip font-mono text-[10px] bg-emerald-500/10 text-emerald-500 border-emerald-500/20">POST-QUANTUM SECURE</span>
-                                </div>
-                                <p class="text-sm t-muted mt-2 leading-relaxed">
-                                    NIST finalized standards (FIPS 204 & 203). Hardness proven on shortest vector problems (SVP) in high-dimensional lattices with no known sub-exponential quantum attacks.
-                                </p>
-                            </div>
+                    <div class="col-5 risk" data-reveal="1">
+                        <div>
+                            <div class="risk__h"><h4>ECDSA &middot; RSA-2048</h4><span class="tag tag--bad">Broken</span></div>
+                            <p>Shor&rsquo;s algorithm solves them in polynomial time. MSP admin certificates and transaction signatures can be forged.</p>
+                        </div>
+                        <div>
+                            <div class="risk__h"><h4>SHA-256 &middot; SHA3-256</h4><span class="tag tag--warn">Holds at 256 bits</span></div>
+                            <p>Grover&rsquo;s algorithm halves the effective strength. A 256-bit hash still leaves 128 bits.</p>
+                        </div>
+                        <div>
+                            <div class="risk__h"><h4>ML-DSA &middot; ML-KEM</h4><span class="tag tag--ok">Post-quantum</span></div>
+                            <p>Built on lattice problems with no known efficient quantum attack. Standardised as FIPS 204 and 203.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- ALGORITHMS BENCHMARK -->
-        <section id="algorithms" class="py-20 surface-2 border-b border-[var(--border)]">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="mb-14">
-                    <h2 class="text-3xl md:text-4xl t-base font-bold mb-4 tracking-tight" data-reveal>NIST PQC Standards Comparison</h2>
-                    <p class="t-muted max-w-3xl leading-relaxed" data-reveal data-reveal-delay="60">
-                        Blockchain validator nodes require fast verification and constrained memory overhead. We benchmarked the three primary NIST finalists across size, speed, and implementation security.
-                    </p>
-                </div>
+        <!-- ALGORITHMS -->
+        <section class="sec sec--tint" id="algorithms">
+            <div class="wrap">
+                <header class="sec__head">
+                    <p class="kicker" data-reveal>The algorithms</p>
+                    <h2 data-reveal="1">Three candidates. One fits a ledger.</h2>
+                    <p class="lede" data-reveal="2">Validators verify far more often than anyone signs, and every byte of signature is stored forever. That decides it.</p>
+                </header>
 
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    <div class="lg:col-span-1" data-reveal>
-                        <div class="card p-6 h-full flex flex-col justify-between">
-                            <div>
-                                <h3 class="font-bold text-sm font-mono uppercase t-subtle mb-4">Algorithm Profiles</h3>
-                                <div class="space-y-3">
-                                    <button onclick="updateAlgoInfo('dilithium')" class="pressable w-full text-left p-4 rounded-xl card card-hover">
-                                        <div class="flex justify-between items-center">
-                                            <span class="font-bold t-base text-sm">ML-DSA (Dilithium)</span>
-                                            <span class="chip font-mono text-[10px]">FIPS 204</span>
-                                        </div>
-                                        <p class="text-xs t-subtle mt-1.5">Recommended standard. Optimal size/speed balance.</p>
-                                    </button>
-                                    <button onclick="updateAlgoInfo('falcon')" class="pressable w-full text-left p-4 rounded-xl card card-hover">
-                                        <div class="flex justify-between items-center">
-                                            <span class="font-bold t-base text-sm">FN-DSA (Falcon)</span>
-                                            <span class="chip font-mono text-[10px]">FIPS 206</span>
-                                        </div>
-                                        <p class="text-xs t-subtle mt-1.5">Fastest verification, but requires constant-time FPU.</p>
-                                    </button>
-                                    <button onclick="updateAlgoInfo('sphincs')" class="pressable w-full text-left p-4 rounded-xl card card-hover">
-                                        <div class="flex justify-between items-center">
-                                            <span class="font-bold t-base text-sm">SLH-DSA (SPHINCS+)</span>
-                                            <span class="chip font-mono text-[10px]">FIPS 205</span>
-                                        </div>
-                                        <p class="text-xs t-subtle mt-1.5">Stateless hash-based fallback. High signature bloat.</p>
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div id="algo-verdict" class="mt-6 p-4 surface-2 rounded-xl text-sm border border-[var(--border)]">
-                                <strong class="block t-base font-bold mb-1">Recommendation:</strong>
-                                <span class="t-muted text-xs leading-relaxed">ML-DSA is recommended for Hyperledger Fabric MSP identity and credential signature signing.</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="lg:col-span-2 card p-6 shadow-sm" data-reveal data-reveal-delay="80">
-                        <h3 class="text-sm font-bold font-mono uppercase t-subtle mb-2 text-center">Multi-Attribute Radar Evaluation</h3>
-                        <div class="chart-container"><canvas id="radarChart"></canvas></div>
-                    </div>
+                <div class="tbl-wrap" data-reveal>
+                    <table class="tbl" style="min-width: 760px">
+                        <thead>
+                            <tr><th>Scheme</th><th>Standard</th><th>Public key</th><th>Signature</th><th>Sign</th><th>Verify</th><th>The catch</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr class="is-pick">
+                                <td>ML-DSA-44 <span class="faint">Dilithium</span></td><td class="num">FIPS 204</td><td class="num">1,312 B</td><td class="num">2,420 B</td><td class="num">~0.5 ms</td><td class="num">~0.1 ms</td>
+                                <td>Bigger than Falcon. Our pick.</td>
+                            </tr>
+                            <tr>
+                                <td>FN-DSA <span class="faint">Falcon</span></td><td class="num">FIPS 206</td><td class="num">897 B</td><td class="num">666 B</td><td class="num">~1 ms</td><td class="num">~0.05 ms</td>
+                                <td>Needs constant-time floating point. Easy to leak keys through side channels.</td>
+                            </tr>
+                            <tr>
+                                <td>SLH-DSA <span class="faint">SPHINCS+</span></td><td class="num">FIPS 205</td><td class="num">32 B</td><td class="num">17,088 B</td><td class="num">~200 ms</td><td class="num">~10 ms</td>
+                                <td>No lattice assumptions, but 17 KB per signature.</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </section>
 
-        <!-- PERFORMANCE & SIGNATURE SIZE -->
-        <section id="performance" class="py-20 border-b border-[var(--border)]">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                    <div data-reveal>
-                        <h2 class="text-3xl md:text-4xl t-base font-bold mb-4 tracking-tight">The Ledger Bloat Dilemma</h2>
-                        <p class="t-muted mb-6 leading-relaxed">
-                            Post-quantum security involves an inherent performance and storage cost. The primary challenges are <strong class="t-base">Public Key & Signature Sizes</strong> and <strong class="t-base">Throughput Overhead</strong>.
-                        </p>
+        <!-- COST -->
+        <section class="sec" id="performance">
+            <div class="wrap">
+                <header class="sec__head">
+                    <p class="kicker" data-reveal>The cost</p>
+                    <h2 data-reveal="1">Bigger signatures, slower blocks.</h2>
+                </header>
 
-                        <div class="card p-6" style="border-left: 3px solid var(--text)">
-                            <h4 class="font-bold text-sm t-base mb-2">Throughput Impact (TPS Reduction)</h4>
-                            <p class="text-sm t-muted mb-4 leading-relaxed">
-                                Due to cryptographic key verification overhead and network packet serialization, transitioning from classical ECDSA to hybrid PQC results in an estimated <strong class="t-base">50–60% throughput drop</strong> without hardware acceleration.
-                            </p>
-
-                            <div class="space-y-3 font-mono text-xs">
-                                <div>
-                                    <div class="flex justify-between t-subtle mb-1">
-                                        <span>Classic Fabric (ECDSA-secp256r1)</span>
-                                        <span>~3,000 TPS</span>
-                                    </div>
-                                    <div class="w-full surface-2 rounded-full h-2.5 overflow-hidden border border-[var(--border)]">
-                                        <div style="width: 100%" class="h-full bg-neutral-400 dark:bg-neutral-600"></div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="flex justify-between t-subtle mb-1">
-                                        <span>Post-Quantum Fabric (ML-DSA-44)</span>
-                                        <span>~1,250 TPS</span>
-                                    </div>
-                                    <div class="w-full surface-2 rounded-full h-2.5 overflow-hidden border border-[var(--border)]">
-                                        <div style="width: 42%" class="h-full bg-neutral-800 dark:bg-neutral-200"></div>
-                                    </div>
-                                </div>
-                            </div>
+                <div class="split">
+                    <div class="col-6 stack-lg" data-reveal>
+                        <h3>Signature size, to scale</h3>
+                        <div class="bars">
+                            <div class="bar" style="--d:0"><div class="bar__l"><span>ECDSA <span class="faint">today</span></span><span>64 B</span></div><div class="bar__t"><div class="bar__f" style="--v:0.4%"></div></div></div>
+                            <div class="bar" style="--d:1"><div class="bar__l"><span>FN-DSA</span><span>666 B</span></div><div class="bar__t"><div class="bar__f" style="--v:3.9%"></div></div></div>
+                            <div class="bar bar--pick" style="--d:2"><div class="bar__l"><span>ML-DSA-44</span><span>2,420 B</span></div><div class="bar__t"><div class="bar__f" style="--v:14.2%"></div></div></div>
+                            <div class="bar" style="--d:3"><div class="bar__l"><span>SLH-DSA</span><span>17,088 B</span></div><div class="bar__t"><div class="bar__f" style="--v:100%"></div></div></div>
                         </div>
+                        <p class="small faint">Sizes from the NIST PQC specifications.</p>
                     </div>
 
-                    <div class="card p-6 shadow-sm" data-reveal data-reveal-delay="80">
-                        <h3 class="text-sm font-bold font-mono uppercase t-subtle mb-3 text-center">Data Bloat: Signature Size Comparison (Log Scale)</h3>
-                        <div class="chart-container"><canvas id="barChart"></canvas></div>
-                        <p class="text-xs text-center t-subtle mt-3 font-mono">Benchmark data compiled from NIST PQC Round 4 specifications</p>
+                    <div class="col-6 stack-lg" data-reveal="1">
+                        <h3>Fabric throughput</h3>
+                        <div class="bars">
+                            <div class="bar bar--ink" style="--d:0"><div class="bar__l"><span>ECDSA secp256r1</span><span>~3,000 TPS</span></div><div class="bar__t"><div class="bar__f" style="--v:100%"></div></div></div>
+                            <div class="bar bar--pick" style="--d:1"><div class="bar__l"><span>ML-DSA-44</span><span>~1,250 TPS</span></div><div class="bar__t"><div class="bar__f" style="--v:42%"></div></div></div>
+                        </div>
+                        <p class="muted">An estimated 50&ndash;60% drop without hardware acceleration, from verification time and larger packets. It is the reason credential bodies live on IPFS and only commitments go on-chain.</p>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- ARCHITECTURE -->
-        <section id="architecture" class="py-20 surface-2 border-b border-[var(--border)]">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="mb-14 text-center">
-                    <h2 class="text-3xl md:text-4xl t-base font-bold mb-4 tracking-tight" data-reveal>Proposed System Architecture</h2>
-                    <p class="t-muted max-w-2xl mx-auto leading-relaxed" data-reveal data-reveal-delay="60">
-                        A full-stack, crypto-agile credentialing infrastructure featuring post-quantum <strong class="t-base">ML-DSA-44</strong>, <strong class="t-base">ML-KEM-768</strong>, Hyperledger Fabric consortium consensus, and hybrid off-chain IPFS storage.
-                    </p>
-                </div>
+        <section class="sec sec--tint" id="architecture">
+            <div class="wrap">
+                <header class="sec__head">
+                    <p class="kicker" data-reveal>The architecture</p>
+                    <h2 data-reveal="1">How the pieces connect.</h2>
+                    <p class="lede" data-reveal="2">Pick a component to see what it does.</p>
+                </header>
 
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    <!-- Interactive Architecture Flow -->
-                    <div class="lg:col-span-2 card p-5 sm:p-7 relative overflow-hidden" data-reveal>
-                        <h3 class="eyebrow t-subtle mb-6">Interactive System Flow Topology (Click Nodes Below)</h3>
-
-                        <div class="flex flex-col space-y-3 w-full">
-                            <!-- TOP ACTORS & CLIENTS -->
-                            <div class="grid grid-cols-12 gap-3 items-stretch">
-                                <!-- PORTAL TRACK -->
-                                <div class="col-span-7 flex flex-col justify-between">
-                                    <div class="grid grid-cols-3 gap-1.5">
-                                        <div onclick="showArchDetail('qportal')" class="interactive-block surface-2 p-2 rounded-lg border border-[var(--border)] text-center text-xs font-medium t-base flex items-center justify-center gap-1 cursor-pointer">
-                                            <span class="truncate">Issuer</span>
-                                        </div>
-                                        <div onclick="showArchDetail('qportal')" class="interactive-block surface-2 p-2 rounded-lg border border-[var(--border)] text-center text-xs font-medium t-base flex items-center justify-center gap-1 cursor-pointer">
-                                            <span class="truncate">Verifier</span>
-                                        </div>
-                                        <div onclick="showArchDetail('qportal')" class="interactive-block surface-2 p-2 rounded-lg border border-[var(--border)] text-center text-xs font-medium t-base flex items-center justify-center gap-1 cursor-pointer">
-                                            <span class="truncate">IT Admin</span>
-                                        </div>
-                                    </div>
-
-                                    <div class="flex justify-center my-1.5 text-center">
-                                        <span class="font-mono text-xs t-subtle">↓</span>
-                                    </div>
-
-                                    <div data-arch="qportal" onclick="showArchDetail('qportal')" class="interactive-block surface-2 p-3.5 rounded-xl text-center border border-[var(--border)] flex flex-col justify-center flex-1">
-                                        <div class="font-bold text-sm t-base flex items-center justify-center gap-2">
-                                            <span>QPortal Web Console</span>
-                                        </div>
-                                        <div class="flex flex-wrap items-center justify-center gap-1.5 mt-2">
-                                            <span class="chip text-[9px] font-mono">ISSUE</span>
-                                            <span class="chip text-[9px] font-mono">VERIFY</span>
-                                            <span class="chip text-[9px] font-mono">REVOKE</span>
-                                        </div>
-                                    </div>
-
-                                    <div class="flex justify-center mt-1.5">
-                                        <span class="font-mono text-xs t-subtle">↓</span>
-                                    </div>
-                                </div>
-
-                                <!-- WALLET TRACK -->
-                                <div class="col-span-5 flex flex-col justify-between">
-                                    <div>
-                                        <div onclick="showArchDetail('qwallet')" class="interactive-block surface-2 p-2 rounded-lg border border-[var(--border)] text-center text-xs font-medium t-base flex items-center justify-center gap-1.5 max-w-[150px] mx-auto cursor-pointer">
-                                            <span class="truncate">Holder Client</span>
-                                        </div>
-                                    </div>
-
-                                    <div class="flex justify-center my-1.5">
-                                        <span class="font-mono text-xs t-subtle">↓</span>
-                                    </div>
-
-                                    <div data-arch="qwallet" onclick="showArchDetail('qwallet')" class="interactive-block surface-2 p-3.5 rounded-xl text-center border border-[var(--border)] flex flex-col justify-center flex-1">
-                                        <div class="font-bold text-sm t-base flex items-center justify-center gap-2">
-                                            <span>QWallet Mobile</span>
-                                        </div>
-                                        <div class="text-[10px] t-subtle mt-1.5 font-mono">
-                                            On-device ML-KEM + ML-DSA keys
-                                        </div>
-                                    </div>
-
-                                    <div class="flex justify-center mt-1.5">
-                                        <span class="font-mono text-xs t-subtle">↓</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- HTTPS GATEWAY -->
-                            <div data-arch="gateway" onclick="showArchDetail('gateway')" class="interactive-block p-3 rounded-xl text-center border border-[var(--border)] surface-2 flex items-center justify-center gap-2">
-                                <span class="text-xs font-semibold t-base font-mono uppercase tracking-wider">Hardened HTTPS Ingress Gateway · Nginx Reverse Proxy</span>
-                            </div>
-
-                            <div class="flex justify-center my-1">
-                                <span class="font-mono text-xs t-subtle">↓</span>
-                            </div>
-
-                            <!-- CORE GO BACKEND -->
-                            <div data-arch="backend" onclick="showArchDetail('backend')" class="interactive-block p-4 rounded-xl text-center surface border border-[var(--border)]">
-                                <div class="font-bold text-sm t-base mb-3 flex items-center justify-center gap-2 font-mono">
-                                    <span>QChain Core API Engine (Go)</span>
-                                </div>
-                                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
-                                    <div class="surface-2 p-2 rounded-lg border border-[var(--border)]">
-                                        <div class="font-bold text-xs t-base">Sign</div>
-                                        <div class="font-mono text-[10px] t-subtle mt-0.5">ML-DSA-44</div>
-                                    </div>
-                                    <div class="surface-2 p-2 rounded-lg border border-[var(--border)]">
-                                        <div class="font-bold text-xs t-base">Encrypt</div>
-                                        <div class="font-mono text-[10px] t-subtle mt-0.5">ML-KEM + AES</div>
-                                    </div>
-                                    <div class="surface-2 p-2 rounded-lg border border-[var(--border)]">
-                                        <div class="font-bold text-xs t-base">Verify</div>
-                                        <div class="font-mono text-[10px] t-subtle mt-0.5">Dual Proof</div>
-                                    </div>
-                                    <div class="surface-2 p-2 rounded-lg border border-[var(--border)]">
-                                        <div class="font-bold text-xs t-base">Disclose</div>
-                                        <div class="font-mono text-[10px] t-subtle mt-0.5">Salted SHA3</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="flex justify-center my-1">
-                                <span class="font-mono text-xs t-subtle">↓</span>
-                            </div>
-
-                            <!-- STORAGE & CONSENSUS TIER -->
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-                                <!-- HYPERLEDGER FABRIC -->
-                                <div data-arch="fabric" onclick="showArchDetail('fabric')" class="md:col-span-2 interactive-block p-4 rounded-xl text-center surface border border-[var(--border)]">
-                                    <div class="font-bold text-sm t-base mb-2 font-mono">Hyperledger Fabric Consortium</div>
-                                    <div class="grid grid-cols-3 gap-2 text-xs font-mono mb-2">
-                                        <div class="surface-2 p-1.5 rounded border border-[var(--border)]">2 Org Peers</div>
-                                        <div class="surface-2 p-1.5 rounded border border-[var(--border)]">Raft Orderer</div>
-                                        <div class="surface-2 p-1.5 rounded border border-[var(--border)]">CouchDB State</div>
-                                    </div>
-                                    <div class="surface-2 py-1 px-2 rounded text-[11px] font-mono t-subtle border border-[var(--border)]">
-                                        Post-Quantum MSP · ML-DSA Identities
-                                    </div>
-                                </div>
-
-                                <!-- IPFS & MYSQL -->
-                                <div class="grid grid-cols-2 md:grid-cols-1 gap-2">
-                                    <div data-arch="ipfs" onclick="showArchDetail('ipfs')" class="interactive-block p-2.5 rounded-xl text-center surface border border-[var(--border)]">
-                                        <div class="font-bold text-xs t-base font-mono">IPFS Storage</div>
-                                        <div class="text-[10px] t-subtle mt-0.5 font-mono">Encrypted CID Blobs</div>
-                                    </div>
-                                    <div data-arch="mysql" onclick="showArchDetail('mysql')" class="interactive-block p-2.5 rounded-xl text-center surface border border-[var(--border)]">
-                                        <div class="font-bold text-xs t-base font-mono">MySQL Store</div>
-                                        <div class="text-[10px] t-subtle mt-0.5 font-mono">Sessions &amp; Audit Logs</div>
-                                    </div>
-                                </div>
-                            </div>
+                <div class="split">
+                    <div class="col-8 arch" data-reveal>
+                        <div class="arch__row" style="--n:2">
+                            <button class="node" type="button" data-arch="qportal" aria-pressed="false"><b>QPortal</b><span>issuer &middot; verifier &middot; IT admin</span></button>
+                            <button class="node" type="button" data-arch="qwallet" aria-pressed="false"><b>QWallet</b><span>on-device ML-KEM + ML-DSA keys</span></button>
+                        </div>
+                        <div class="arch__arrow">↓</div>
+                        <div class="arch__row">
+                            <button class="node" type="button" data-arch="gateway" aria-pressed="false"><b>HTTPS gateway</b><span>Nginx reverse proxy</span></button>
+                        </div>
+                        <div class="arch__arrow">↓</div>
+                        <div class="arch__row">
+                            <button class="node" type="button" data-arch="backend" aria-pressed="true"><b>Core API, Go</b><span>sign &middot; encrypt &middot; verify &middot; disclose</span></button>
+                        </div>
+                        <div class="arch__arrow">↓</div>
+                        <div class="arch__row" style="--n:3">
+                            <button class="node" type="button" data-arch="fabric" aria-pressed="false"><b>Hyperledger Fabric</b><span>2 peers &middot; Raft &middot; CouchDB</span></button>
+                            <button class="node" type="button" data-arch="ipfs" aria-pressed="false"><b>IPFS</b><span>encrypted credentials</span></button>
+                            <button class="node" type="button" data-arch="mysql" aria-pressed="false"><b>MySQL</b><span>sessions &middot; audit log</span></button>
                         </div>
                     </div>
 
-                    <!-- Detail Card Panel -->
-                    <div class="lg:col-span-1" data-reveal data-reveal-delay="80">
-                        <div id="arch-detail" class="card card-rail p-6 h-full sticky top-24 flex flex-col justify-between">
-                            <div>
-                                <h3 class="text-xl font-bold t-base mb-3 tracking-tight" id="detail-title">Architecture Inspector</h3>
-                                <p class="text-sm t-muted leading-relaxed" id="detail-text">
-                                    Click any component or pipeline node on the left to inspect its cryptographic specifications, trust boundary, and data persistence layer.
-                                </p>
-                            </div>
-                            <div class="mt-8 pt-4 border-t border-[var(--border)] surface-2 p-4 rounded-lg text-xs t-subtle font-mono">
-                                Security Guarantee: Verified on-chain hash commitment rebuilt canonically from state; zero trust placed in database caches.
-                            </div>
-                        </div>
-                    </div>
+                    <aside class="col-4 inspector" data-reveal="1" aria-live="polite">
+                        <h3 id="archTitle">Core API (Go)</h3>
+                        <p id="archText">Does the cryptographic work: <b>ML-DSA-44</b> signing, <b>ML-KEM-768 + AES-256-GCM</b> envelope encryption, dual-signature verification, single-use QR and OTP tokens, credential lifecycle.</p>
+                        <p class="small faint mono">Verification rebuilds the commitment from ledger state.</p>
+                    </aside>
                 </div>
             </div>
         </section>
 
-        <!-- LITERATURE REVIEW -->
-        <section id="references" class="py-20 border-b border-[var(--border)]">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="mb-8">
-                    <h2 class="text-3xl md:text-4xl t-base font-bold mb-3 tracking-tight" data-reveal>Literature Review Database</h2>
-                    <p class="t-muted text-sm leading-relaxed" data-reveal data-reveal-delay="40">
-                        A curated bibliography of peer-reviewed research papers and NIST standardization reports informing QChain's design.
-                    </p>
+        <!-- READING LIST -->
+        <section class="sec" id="references">
+            <div class="wrap">
+                <header class="sec__head">
+                    <p class="kicker" data-reveal>Reading list</p>
+                    <h2 data-reveal="1">The papers behind the design.</h2>
+                </header>
+                <div style="margin-bottom: 1.25rem; max-width: 30rem" data-reveal>
+                    <input class="input" id="refSearch" type="search" placeholder="Search by title, publisher or year" aria-label="Search the reading list">
                 </div>
-
-                <div class="mb-4" data-reveal data-reveal-delay="60">
-                    <input type="text" id="searchInputRef" onkeyup="filterRefTable()" placeholder="Search references by title, publisher, algorithm, or year…" class="field font-mono text-sm">
-                </div>
-
-                <div class="overflow-x-auto custom-scrollbar card shadow-sm" data-reveal data-reveal-delay="80">
-                    <table class="min-w-full" id="refTable">
-                        <thead>
-                            <tr class="surface-2">
-                                <th class="px-6 py-3.5 text-left eyebrow t-subtle">Paper Title</th>
-                                <th class="px-6 py-3.5 text-left eyebrow t-subtle">Year</th>
-                                <th class="px-6 py-3.5 text-left eyebrow t-subtle">Publisher</th>
-                                <th class="px-6 py-3.5 text-left eyebrow t-subtle">Classification</th>
-                                <th class="px-4 py-3.5 text-left eyebrow t-subtle">Key Insights</th>
-                            </tr>
-                        </thead>
-                        <tbody class="text-sm divide-y divide-[var(--border)]">
-                            <!-- Populated via script.js -->
-                        </tbody>
-                    </table>
-                </div>
+                <div class="refs" id="refs" data-reveal></div>
+                <p class="muted" id="refNone" hidden style="padding-top: 1.5rem">Nothing matches that search.</p>
             </div>
         </section>
     </main>
 
-    <!-- FOOTER -->
-    <footer class="py-12 surface">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
-            <div class="flex items-center gap-3">
-                <img src="assets/qchain_logo.jpeg" alt="QChain Logo" class="w-6 h-6 rounded shadow-sm dark:invert" onerror="this.style.display='none'">
-                <span class="font-mono text-xs font-semibold uppercase tracking-wider t-muted">QChain Research</span>
-            </div>
-            <div class="flex items-center space-x-6 text-xs t-muted font-medium">
-                <a href="index.html" class="hover:text-[var(--text)] transition-colors">Home</a>
-                <a href="platforms.html" class="hover:text-[var(--text)] transition-colors">Platforms</a>
-                <a href="research.html" class="hover:text-[var(--text)] transition-colors">Research</a>
-                <a href="audit.html" class="hover:text-[var(--text)] transition-colors">Audit</a>
-                <a href="about.html" class="hover:text-[var(--text)] transition-colors">About</a>
-                <a href="https://github.com/teamqchain" target="_blank" rel="noopener" class="hover:text-[var(--text)] transition-colors">GitHub</a>
-            </div>
-            <p class="text-xs t-subtle">&copy; 2026 Team QChain · Capstone Initiative</p>
+    <footer class="foot">
+        <div class="wrap foot__in">
+            <a class="brand" href="index.html"><img src="assets/qchain-mark.webp" alt="" width="22" height="22"><span>QChain</span></a>
+            <nav aria-label="Footer">
+                <a href="platforms.html">Platforms</a>
+                <a href="research.html">Research</a>
+                <a href="audit.html">Audit</a>
+                <a href="about.html">About</a>
+                <a href="https://github.com/teamqchain" target="_blank" rel="noopener">GitHub</a>
+            </nav>
+            <p>&copy; 2026 Team QChain &middot; Senior capstone project</p>
         </div>
     </footer>
 </body>

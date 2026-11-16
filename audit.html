@@ -69,366 +69,235 @@
     <link rel="icon" href="assets/qchain_logo.ico" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <script src="data.js" defer></script>
     <script src="script.js" defer></script>
 </head>
-<body class="flex flex-col min-h-screen">
+<body>
 
-    <!-- GLOBAL NAVIGATION -->
-    <nav class="glass-nav">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <div class="flex items-center">
-                    <a href="index.html" class="flex items-center gap-3 pressable">
-                        <img src="assets/qchain_logo.jpeg" alt="QChain Logo" class="w-8 h-8 rounded-lg shadow-sm dark:invert" onerror="this.src='https://via.placeholder.com/32'">
-                        <span class="text-xl t-base font-bold tracking-tight font-f1">QChain</span>
-                    </a>
-                </div>
-                <div class="hidden md:flex space-x-8 items-center">
-                    <a href="index.html" class="nav-link">Home</a>
-                    <a href="platforms.html" class="nav-link">Platforms</a>
-                    <a href="research.html" class="nav-link">Our Research</a>
-                    <!-- <a href="audit.html" class="nav-link">Security Audit</a> -->
-                    <a href="about.html" class="nav-link">About Us</a>
-                    <button class="theme-toggle" type="button" aria-label="Toggle theme" onclick="toggleDarkMode()">
-                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="theme-toggle__inner-moon" fill="currentColor" viewBox="0 0 32 32">
-                            <mask id="moon-mask-desktop"><rect x="0" y="0" width="32" height="32" fill="white" /><circle cx="22" cy="10" r="9" fill="black" class="moon-mask-circle" /></mask>
-                            <path class="sun-rays" d="M27.5 11.5v-7h-7L16 0l-4.5 4.5h-7v7L0 16l4.5 4.5v7h7L16 32l4.5-4.5h7v-7L32 16l-4.5-4.5zM16 25.4a9.39 9.39 0 1 1 0-18.8 9.39 9.39 0 1 1 0 18.8z" />
-                            <circle class="sun-core" cx="16" cy="16" r="8.1" mask="url(#moon-mask-desktop)" />
-                        </svg>
-                    </button>
-                </div>
-                <div class="flex items-center md:hidden gap-2">
-                    <button class="theme-toggle" type="button" aria-label="Toggle theme" onclick="toggleDarkMode()">
-                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="theme-toggle__inner-moon" fill="currentColor" viewBox="0 0 32 32">
-                            <mask id="moon-mask-mobile"><rect x="0" y="0" width="32" height="32" fill="white" /><circle cx="22" cy="10" r="9" fill="black" class="moon-mask-circle" /></mask>
-                            <path class="sun-rays" d="M27.5 11.5v-7h-7L16 0l-4.5 4.5h-7v7L0 16l4.5 4.5v7h7L16 32l4.5-4.5h7v-7L32 16l-4.5-4.5zM16 25.4a9.39 9.39 0 1 1 0-18.8 9.39 9.39 0 1 1 0 18.8z" />
-                            <circle class="sun-core" cx="16" cy="16" r="8.1" mask="url(#moon-mask-mobile)" />
-                        </svg>
-                    </button>
-                    <button onclick="toggleMobileMenu()" aria-label="Menu" class="theme-toggle">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-                        </svg>
-                    </button>
-                </div>
+    <header class="nav">
+        <div class="wrap nav__in">
+            <a class="brand" href="index.html"><img src="assets/qchain-mark.webp" alt="" width="28" height="28"><span>QChain</span></a>
+            <nav class="nav__links" aria-label="Primary">
+                <a href="platforms.html">Platforms</a>
+                <a href="research.html">Research</a>
+                <a href="about.html">About</a>
+            </nav>
+            <div class="nav__end">
+                <button class="theme-toggle" id="themeBtn" type="button" aria-label="Toggle theme">
+                    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="theme-toggle__inner-moon" fill="currentColor" viewBox="0 0 32 32">
+                        <mask id="moon-mask"><rect x="0" y="0" width="32" height="32" fill="white" /><circle cx="22" cy="10" r="9" fill="black" class="moon-mask-circle" /></mask>
+                        <path class="sun-rays" d="M27.5 11.5v-7h-7L16 0l-4.5 4.5h-7v7L0 16l4.5 4.5v7h7L16 32l4.5-4.5h7v-7L32 16l-4.5-4.5zM16 25.4a9.39 9.39 0 1 1 0-18.8 9.39 9.39 0 1 1 0 18.8z" />
+                        <circle class="sun-core" cx="16" cy="16" r="8.1" mask="url(#moon-mask)" />
+                    </svg>
+                </button>
+                <a class="btn btn--sm nav__demo" href="https://qportal.vercel.app/" target="_blank" rel="noopener">Live demo <span class="arr">↗</span></a>
+                <button class="icon-btn nav__burger" id="navBurger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="navSheet">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M4 8h16M4 16h16"/></svg>
+                </button>
             </div>
         </div>
-        <div id="mobile-menu" class="mobile-sheet is-closed md:hidden">
-            <div class="px-4 py-3 space-y-1 max-w-7xl mx-auto">
-                <a href="index.html" class="mobile-link">Home</a>
-                <a href="platforms.html" class="mobile-link">Platforms</a>
-                <a href="research.html" class="mobile-link">Our Research</a>
-                <a href="audit.html" class="mobile-link is-active">Security Audit</a>
-                <a href="about.html" class="mobile-link">About Us</a>
-            </div>
+        <div class="nav__sheet" id="navSheet">
+            <a href="platforms.html">Platforms</a>
+            <a href="research.html">Research</a>
+            <a href="audit.html" aria-current="page">Security audit</a>
+            <a href="about.html">About</a>
+            <a href="https://qportal.vercel.app/" target="_blank" rel="noopener">Live demo</a>
         </div>
-    </nav>
+    </header>
 
-    <main class="flex-grow">
-        <!-- HERO -->
-        <header class="hero-mesh py-20 border-b border-[var(--border)] relative">
-            <div class="hero-radial-glow"></div>
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-12 items-center relative z-10">
-                <div>
-                    <div class="chip mb-4" data-reveal>
-                        <!-- <span class="pulse-dot"></span> -->
-                        <span class="font-mono text-xs uppercase">Comprehensive Source-Code Security Audit</span>
-                    </div>
-                    <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-5 text-balance" data-reveal data-reveal-delay="60">
-                        Where QChain Is <span class="text-gradient-mono">Strong</span>,<br>
-                        and Where It Isn't <span class="text-neutral-400 dark:text-neutral-500">Yet</span>
-                    </h1>
-                    <p class="text-base sm:text-lg mb-6 max-w-lg leading-relaxed t-muted" data-reveal data-reveal-delay="120">
-                        A rigorous source-code audit covering the Go backend, Hyperledger Fabric chaincode, Nginx gateway, MySQL schema, and Flutter clients, mapped against the classical security properties.
-                    </p>
-                    <div class="flex flex-wrap gap-2.5 text-xs font-mono" data-reveal data-reveal-delay="160">
-                        <span class="chip">Track H Assessment</span>
-                        <span class="chip">25 Findings Logged</span>
-                        <span class="chip text-emerald-500 border-emerald-500/20">4 Critical Gaps Resolved</span>
-                    </div>
+    <main>
+        <header class="wrap phead">
+            <div class="split">
+                <div class="col-7">
+                    <p class="kicker" data-reveal>Security audit &middot; source-code review</p>
+                    <h1 class="h-page" data-reveal="1">Where QChain is strong, and where it isn&rsquo;t yet.</h1>
+                    <p class="lede" data-reveal="2">We reviewed the Go backend, the Fabric chaincode, the Nginx gateway, the MySQL schema and both Flutter clients. All 25 findings are below.</p>
                 </div>
-
-                <div class="card p-7 shadow-lg" data-reveal data-reveal-delay="120">
-                    <h3 class="eyebrow mb-4 t-subtle">Audit Verdict at a Glance</h3>
-                    <ul class="space-y-3.5 text-sm t-muted">
-                        <li class="flex items-start gap-2.5">
-                            <span class="t-base font-bold text-xs mt-0.5">■</span>
-                            <span><strong class="t-base">Cryptographic core is post-quantum and robust:</strong> ML-DSA-44 issuance signatures, holder presentation proofs, cryptographic selective disclosure with salted field commitments, and ML-KEM-768 envelope encryption are mathematically sound.</span>
-                        </li>
-                        <li class="flex items-start gap-2.5">
-                            <span class="text-emerald-500 font-bold text-xs mt-0.5">✓</span>
-                            <span><strong class="t-base">Key vulnerabilities resolved:</strong> Expiry enforcement, cryptographic selective disclosure, holder presentation signing, and fail-fast IPFS validation are implemented and passing tests.</span>
-                        </li>
-                        <li class="flex items-start gap-2.5">
-                            <span class="text-red-500 font-bold text-xs mt-0.5">!</span>
-                            <span><strong class="t-base">Conventional API authentication remains open:</strong> Privileged routes require JWT / session authentication middleware, rate limiting, and CORS lockdown before production readiness.</span>
-                        </li>
-                    </ul>
-                </div>
+                <dl class="col-5 dl" data-reveal="2">
+                    <div><dt class="c-ok">Sound</dt><dd>The post-quantum core: <b>ML-DSA-44</b> signatures on issuance and presentation, salted selective disclosure, <b>ML-KEM-768</b> envelopes.</dd></div>
+                    <div><dt class="c-ok">Fixed</dt><dd>Expiry enforcement, real selective disclosure, holder-signed presentations, fail-fast IPFS validation.</dd></div>
+                    <div><dt class="c-bad">Open</dt><dd><b>API authentication.</b> Privileged routes need auth middleware, rate limiting and a CORS lockdown before production.</dd></div>
+                </dl>
             </div>
         </header>
 
-        <!-- EXECUTIVE SUMMARY + SCORE TILES -->
-        <section id="summary" class="py-20 border-b border-[var(--border)]">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="mb-14 text-center max-w-3xl mx-auto">
-                    <h2 class="text-3xl md:text-4xl t-base font-bold mb-4 tracking-tight" data-reveal>Executive Summary</h2>
-                    <p class="t-muted text-base leading-relaxed" data-reveal data-reveal-delay="60">
-                        QChain has made significant architectural strides: four major vulnerabilities have been resolved, including on-chain expiry enforcement, true cryptographic selective disclosure via salted commitments, and holder presentation signing with ML-DSA-44. Conventional web-service authorization remains the critical attack surface—none of these flaws stem from cryptographic weaknesses; all are remediable with standard application-security patterns.
-                    </p>
+        <!-- SUMMARY -->
+        <section class="sec" id="summary">
+            <div class="wrap stack-lg">
+                <div class="tiles" data-reveal>
+                    <div class="tile"><b class="c-bad" data-n="critical">2</b><span>Critical, open</span></div>
+                    <div class="tile"><b class="c-hot" data-n="high">6</b><span>High, open</span></div>
+                    <div class="tile"><b class="c-warn" data-n="medium">8</b><span>Medium, open</span></div>
+                    <div class="tile"><b class="c-info" data-n="low">5</b><span>Low, open</span></div>
+                    <div class="tile"><b class="c-ok" data-n="resolved">4</b><span>Resolved</span></div>
+                    <div class="tile"><b data-n="strengths">10</b><span>Strengths</span></div>
                 </div>
 
-                <!-- Score Tiles -->
-                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 mb-16">
-                    <div class="card p-5 text-center" style="border-left: 3px solid #ef4444" data-reveal data-reveal-delay="0">
-                        <div class="text-3xl font-bold font-mono text-red-500">2</div>
-                        <div class="eyebrow t-subtle mt-1">Critical (Active)</div>
+                <div data-reveal>
+                    <div class="sevbar" role="img" aria-label="Findings by severity">
+                        <i class="bg-bad" data-flex="critical" style="--n:2;--d:0"></i>
+                        <i class="bg-hot" data-flex="high" style="--n:6;--d:1"></i>
+                        <i class="bg-warn" data-flex="medium" style="--n:8;--d:2"></i>
+                        <i class="bg-info" data-flex="low" style="--n:5;--d:3"></i>
+                        <i class="bg-ok" data-flex="resolved" style="--n:4;--d:4"></i>
                     </div>
-                    <div class="card p-5 text-center" style="border-left: 3px solid #f97316" data-reveal data-reveal-delay="40">
-                        <div class="text-3xl font-bold font-mono text-orange-500">5</div>
-                        <div class="eyebrow t-subtle mt-1">High (Active)</div>
-                    </div>
-                    <div class="card p-5 text-center" style="border-left: 3px solid #eab308" data-reveal data-reveal-delay="80">
-                        <div class="text-3xl font-bold font-mono text-amber-500">7</div>
-                        <div class="eyebrow t-subtle mt-1">Medium (Active)</div>
-                    </div>
-                    <div class="card p-5 text-center" style="border-left: 3px solid #3b82f6" data-reveal data-reveal-delay="120">
-                        <div class="text-3xl font-bold font-mono text-blue-500">5</div>
-                        <div class="eyebrow t-subtle mt-1">Low (Active)</div>
-                    </div>
-                    <div class="card p-5 text-center" style="border-left: 3px solid #10b981" data-reveal data-reveal-delay="160">
-                        <div class="text-3xl font-bold font-mono text-emerald-500">4</div>
-                        <div class="eyebrow t-subtle mt-1">Resolved</div>
-                    </div>
-                    <div class="card p-5 text-center" style="border-left: 3px solid var(--text)" data-reveal data-reveal-delay="200">
-                        <div class="text-3xl font-bold font-mono t-base">10</div>
-                        <div class="eyebrow t-subtle mt-1">Strengths</div>
+                    <div class="legend">
+                        <span><i class="bg-bad"></i>Critical</span><span><i class="bg-hot"></i>High</span><span><i class="bg-warn"></i>Medium</span><span><i class="bg-info"></i>Low</span><span><i class="bg-ok"></i>Resolved</span>
+                        <span class="faint">Open counts include <span data-n="partial">2</span> partially resolved.</span>
                     </div>
                 </div>
 
-                <!-- Charts -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                    <div class="card p-6 shadow-sm" data-reveal>
-                        <h3 class="text-sm font-bold font-mono uppercase t-subtle mb-4 text-center">Active Findings by Severity</h3>
-                        <div class="chart-container"><canvas id="sevChart"></canvas></div>
+                <p class="lede" data-reveal style="max-width: 44em">None of the open findings is a weakness in the cryptography. They are ordinary web-service problems with ordinary fixes, and the two critical ones are first in line.</p>
+            </div>
+        </section>
+
+        <!-- POSTURE -->
+        <section class="sec sec--tint">
+            <div class="wrap">
+                <header class="sec__head">
+                    <p class="kicker" data-reveal>Posture</p>
+                    <h2 data-reveal="1">Against the six classic properties.</h2>
+                </header>
+
+                <div class="props">
+                    <div data-reveal>
+                        <div class="props__h"><h4>Integrity</h4><span class="tag tag--ok">Strong</span></div>
+                        <p>SHA3-256 commitments are rebuilt from ledger state. Verification fails closed. IPFS CIDs are part of what is signed.</p>
                     </div>
-                    <div class="card p-6 shadow-sm" data-reveal data-reveal-delay="80">
-                        <h3 class="text-sm font-bold font-mono uppercase t-subtle mb-4 text-center">Findings by Architecture Category</h3>
-                        <div class="chart-container"><canvas id="catChart"></canvas></div>
+                    <div data-reveal="1">
+                        <div class="props__h"><h4>Confidentiality</h4><span class="tag tag--ok">Strong</span></div>
+                        <p>Off-chain bodies are encrypted with ML-KEM-768. Selective disclosure is cryptographic, not cosmetic.</p>
+                    </div>
+                    <div data-reveal="2">
+                        <div class="props__h"><h4>Authenticity</h4><span class="tag tag--warn">Improving</span></div>
+                        <p>Issuer and holder signatures are ML-DSA-44. Fabric node certificates are still classical ECDSA.</p>
+                    </div>
+                    <div data-reveal>
+                        <div class="props__h"><h4>Authentication</h4><span class="tag tag--bad">Critical gap</span></div>
+                        <p>The backend API has no session or JWT middleware and no CORS restrictions. Staff routes are exposed.</p>
+                    </div>
+                    <div data-reveal="1">
+                        <div class="props__h"><h4>Non-repudiation</h4><span class="tag tag--ok">Substantial</span></div>
+                        <p>Both issuance and presentation are signed. A holder cannot deny having presented.</p>
+                    </div>
+                    <div data-reveal="2">
+                        <div class="props__h"><h4>Availability</h4><span class="tag tag--warn">Demo-grade</span></div>
+                        <p>One VM, one orderer, one peer per organisation, one IPFS node. Production needs a cluster.</p>
                     </div>
                 </div>
 
-                <!-- Security Properties Matrix -->
-                <div class="mt-20">
-                    <h3 class="text-xl font-bold t-base mb-6 text-center tracking-tight" data-reveal>Posture Against Classical Security Properties</h3>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                        <div class="card p-5" style="border-left: 3px solid #10b981" data-reveal data-reveal-delay="0">
-                            <div class="flex justify-between items-center">
-                                <h4 class="font-bold text-emerald-500">Integrity</h4>
-                                <span class="chip font-mono text-[10px] bg-emerald-500/10 text-emerald-500 border-emerald-500/20">STRONG</span>
-                            </div>
-                            <p class="text-xs t-muted mt-2 leading-relaxed">
-                                Canonical SHA3-256 commitments reconstructed directly from ledger state; fail-closed verification; IPFS CIDs strictly committed.
-                            </p>
-                        </div>
-                        <div class="card p-5" style="border-left: 3px solid #10b981" data-reveal data-reveal-delay="60">
-                            <div class="flex justify-between items-center">
-                                <h4 class="font-bold text-emerald-500">Confidentiality</h4>
-                                <span class="chip font-mono text-[10px] bg-emerald-500/10 text-emerald-500 border-emerald-500/20">STRONG</span>
-                            </div>
-                            <p class="text-xs t-muted mt-2 leading-relaxed">
-                                Off-chain bodies encrypted with ML-KEM-768. True cryptographic selective disclosure using salted per-field hashes.
-                            </p>
-                        </div>
-                        <div class="card p-5" style="border-left: 3px solid #eab308" data-reveal data-reveal-delay="120">
-                            <div class="flex justify-between items-center">
-                                <h4 class="font-bold text-amber-500">Authenticity</h4>
-                                <span class="chip font-mono text-[10px] bg-amber-500/10 text-amber-500 border-amber-500/20">IMPROVING</span>
-                            </div>
-                            <p class="text-xs t-muted mt-2 leading-relaxed">
-                                Issuer &amp; holder presentation signatures are ML-DSA-44 post-quantum. Fabric MSP node certs remain classical ECDSA (Track A scope).
-                            </p>
-                        </div>
-                        <div class="card p-5" style="border-left: 3px solid #ef4444" data-reveal data-reveal-delay="0">
-                            <div class="flex justify-between items-center">
-                                <h4 class="font-bold text-red-500">Authentication</h4>
-                                <span class="chip font-mono text-[10px] bg-red-500/10 text-red-500 border-red-500/20">CRITICAL GAP</span>
-                            </div>
-                            <p class="text-xs t-muted mt-2 leading-relaxed">
-                                Backend API lacks JWT / session auth middleware and CORS restrictions; unauthenticated staff routes present exposure.
-                            </p>
-                        </div>
-                        <div class="card p-5" style="border-left: 3px solid #10b981" data-reveal data-reveal-delay="60">
-                            <div class="flex justify-between items-center">
-                                <h4 class="font-bold text-emerald-500">Non-Repudiation</h4>
-                                <span class="chip font-mono text-[10px] bg-emerald-500/10 text-emerald-500 border-emerald-500/20">SUBSTANTIAL</span>
-                            </div>
-                            <p class="text-xs t-muted mt-2 leading-relaxed">
-                                Both credential issuance and holder presentations are cryptographically signed with ML-DSA-44; holders cannot repudiate presentations.
-                            </p>
-                        </div>
-                        <div class="card p-5" style="border-left: 3px solid #eab308" data-reveal data-reveal-delay="120">
-                            <div class="flex justify-between items-center">
-                                <h4 class="font-bold text-amber-500">Availability</h4>
-                                <span class="chip font-mono text-[10px] bg-amber-500/10 text-amber-500 border-amber-500/20">DEMO-GRADE</span>
-                            </div>
-                            <p class="text-xs t-muted mt-2 leading-relaxed">
-                                Single-VM demonstration topology (1 Raft orderer, 1 peer/org, 1 IPFS node). Requires multi-node cluster for enterprise production.
-                            </p>
-                        </div>
+                <div class="split" style="margin-top: clamp(3rem, 6vw, 5rem)">
+                    <div class="col-5 stack" data-reveal>
+                        <h3>Where the findings are</h3>
+                        <p class="muted">Counted by area of the system, all 25.</p>
                     </div>
+                    <div class="col-7 bars bars--2" id="catBars" data-reveal="1"></div>
                 </div>
             </div>
         </section>
 
-        <!-- FINDINGS TABLE & FILTER -->
-        <section id="findings" class="py-20 surface-2 border-b border-[var(--border)]">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="mb-8">
-                    <h2 class="text-3xl md:text-4xl t-base font-bold mb-2 tracking-tight" data-reveal>Source-Code Vulnerability Registry</h2>
-                    <p class="t-muted text-sm leading-relaxed" data-reveal data-reveal-delay="60">
-                        Twenty-five total findings tracked across the codebase lifecycle. Filter by severity or resolution status. Click any finding to inspect code locations, exploit paths, and recommendations.
-                    </p>
-                </div>
+        <!-- FINDINGS -->
+        <section class="sec" id="findings">
+            <div class="wrap">
+                <header class="sec__head">
+                    <p class="kicker" data-reveal>Findings</p>
+                    <h2 data-reveal="1">All 25, with file and fix.</h2>
+                    <p class="lede" data-reveal="2">Open a row for the impact and what to do about it.</p>
+                </header>
 
-                <div class="flex flex-col sm:flex-row gap-3 mb-4" data-reveal>
-                    <input type="text" id="searchInputAudit" onkeyup="filterFindings()" placeholder="Search findings by ID, title, file, category, or status…" class="field flex-grow font-mono text-sm">
-                    <select id="sevFilter" onchange="filterFindings()" class="field sm:w-44 font-mono text-sm">
-                        <option value="">All Severities</option>
-                        <option value="Critical">Critical</option>
-                        <option value="High">High</option>
-                        <option value="Medium">Medium</option>
-                        <option value="Low">Low</option>
+                <div class="filters" data-reveal>
+                    <input class="input" id="findSearch" type="search" placeholder="Search by ID, title, file or category" aria-label="Search findings">
+                    <select class="input" id="findSev" aria-label="Filter by severity">
+                        <option value="">All severities</option>
+                        <option>Critical</option><option>High</option><option>Medium</option><option>Low</option>
                     </select>
-                    <select id="statusFilter" onchange="filterFindings()" class="field sm:w-44 font-mono text-sm">
-                        <option value="">All Statuses</option>
-                        <option value="Active">Active Only</option>
-                        <option value="Resolved">Resolved Only</option>
-                        <option value="Partially Resolved">Partially Resolved</option>
+                    <select class="input" id="findStatus" aria-label="Filter by status">
+                        <option value="">All statuses</option>
+                        <option value="Active">Active</option>
+                        <option value="Partially Resolved">Partially resolved</option>
+                        <option value="Resolved">Resolved</option>
                     </select>
                 </div>
 
-                <div class="overflow-x-auto custom-scrollbar card shadow-sm" data-reveal data-reveal-delay="60">
-                    <table class="min-w-full" id="findTable">
+                <div class="tbl-wrap" data-reveal>
+                    <table class="tbl" style="min-width: 900px">
                         <thead>
-                            <tr class="surface-2">
-                                <th class="px-4 py-3.5 text-left eyebrow t-subtle">ID</th>
-                                <th class="px-4 py-3.5 text-left eyebrow t-subtle">Severity</th>
-                                <th class="px-4 py-3.5 text-left eyebrow t-subtle">Status</th>
-                                <th class="px-4 py-3.5 text-left eyebrow t-subtle">Finding</th>
-                                <th class="px-4 py-3.5 text-left eyebrow t-subtle">Category</th>
-                                <th class="px-4 py-3.5 text-left eyebrow t-subtle">Location</th>
-                            </tr>
+                            <tr><th>ID</th><th>Severity</th><th>Status</th><th>Finding</th><th>Area</th><th>Location</th></tr>
                         </thead>
-                        <tbody id="findBody" class="text-sm divide-y divide-[var(--border)]">
-                            <!-- Populated via script.js -->
-                        </tbody>
+                        <tbody id="findBody"></tbody>
                     </table>
                 </div>
-                <p id="noResults" class="hidden text-center t-subtle mt-6 text-sm font-mono">No findings match your filter.</p>
+                <p class="muted" id="findNone" hidden style="padding-top: 1.5rem">No findings match those filters.</p>
             </div>
         </section>
 
-        <!-- WHAT THE SYSTEM GETS RIGHT (STRENGTHS) -->
-        <section id="strengths" class="py-20 border-b border-[var(--border)]">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="mb-12">
-                    <h2 class="text-3xl md:text-4xl t-base font-bold mb-3 tracking-tight" data-reveal>Verified Cryptographic Strengths</h2>
-                    <p class="t-muted text-sm leading-relaxed max-w-3xl" data-reveal data-reveal-delay="60">
-                        Ten core architectural engineering achievements verified in the codebase. These form QChain's solid cryptographic foundation.
-                    </p>
-                </div>
-
-                <div id="strengthGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                    <!-- Populated via script.js -->
-                </div>
+        <!-- STRENGTHS -->
+        <section class="sec sec--tint" id="strengths-section">
+            <div class="wrap">
+                <header class="sec__head">
+                    <p class="kicker" data-reveal>Strengths</p>
+                    <h2 data-reveal="1">What held up.</h2>
+                </header>
+                <div class="strengths" id="strengths" data-reveal></div>
             </div>
         </section>
 
-        <!-- REMEDIATION ROADMAP -->
-        <section id="roadmap" class="py-20 surface-2 border-b border-[var(--border)]">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="mb-12">
-                    <h2 class="text-3xl md:text-4xl t-base font-bold mb-3 tracking-tight" data-reveal>Prioritized Remediation Roadmap</h2>
-                    <p class="t-muted text-sm leading-relaxed max-w-3xl" data-reveal data-reveal-delay="60">
-                        Sequenced by risk reduction versus engineering effort to guide immediate hardening.
-                    </p>
-                </div>
+        <!-- ROADMAP -->
+        <section class="sec" id="roadmap">
+            <div class="wrap">
+                <header class="sec__head">
+                    <p class="kicker" data-reveal>Roadmap</p>
+                    <h2 data-reveal="1">The order we fix things in.</h2>
+                </header>
 
-                <div class="space-y-4">
-                    <!-- Tier 1 -->
-                    <div class="card p-6" data-reveal>
-                        <div class="flex items-center gap-3 mb-3">
-                            <span class="text-xs font-mono font-bold text-white px-2.5 py-1 rounded bg-red-600">TIER 1: IMMEDIATE</span>
-                            <h3 class="font-bold t-base text-base">Eliminate critical authentication holes &amp; unauthenticated cleanup</h3>
-                        </div>
-                        <ul class="text-sm t-muted space-y-2 list-disc list-inside">
-                            <li><strong>Remove <code>POST /dev/cleanupTest</code>:</strong> Ensure test cleanup code is removed from the production router. <span class="font-mono text-red-500 font-semibold">(F21)</span></li>
-                            <li><strong>Lock down <code>bindHolderKeys</code>:</strong> Reject public key overwrites once keys are registered. <span class="font-mono text-orange-500 font-semibold">(F22)</span></li>
-                            <li><strong>Introduce API Authentication:</strong> Add JWT middleware and role-based access control (RBAC) across all privileged routes. <span class="font-mono text-red-500 font-semibold">(F01)</span></li>
-                            <li><strong>Rate-Limit &amp; Lockout OTP Tokens:</strong> Add IP rate limiting on <code>/resolveSession</code>. <span class="font-mono text-orange-500 font-semibold">(F03)</span></li>
-                            <li><strong>Protect Demographic Endpoints:</strong> Require authenticated staff sessions for holder lookups. <span class="font-mono text-amber-500 font-semibold">(F23, F24)</span></li>
+                <div>
+                    <div class="tier" data-reveal>
+                        <div class="tier__k"><b class="c-bad">Now</b><span class="small faint">Close the authentication holes</span></div>
+                        <ul>
+                            <li><span><b>Remove <code>POST /dev/cleanupTest</code></b> from the production router.</span><span>F21</span></li>
+                            <li><span><b>Lock <code>bindHolderKeys</code>.</b> Reject overwrites once keys are registered.</span><span>F22</span></li>
+                            <li><span><b>Authenticate the API.</b> JWT middleware and role checks on every privileged route.</span><span>F01</span></li>
+                            <li><span><b>Rate-limit OTP redemption</b> on <code>/resolveSession</code>, with lockout.</span><span>F03</span></li>
+                            <li><span><b>Protect holder and staff endpoints</b> behind authenticated sessions.</span><span>F23 &middot; F24</span></li>
                         </ul>
                     </div>
-
-                    <!-- Tier 2 -->
-                    <div class="card p-6" data-reveal data-reveal-delay="60">
-                        <div class="flex items-center gap-3 mb-3">
-                            <span class="text-xs font-mono font-bold text-white px-2.5 py-1 rounded bg-orange-600">TIER 2: SHORT-TERM</span>
-                            <h3 class="font-bold t-base text-base">Key custody, concurrency &amp; operational hardening</h3>
-                        </div>
-                        <ul class="text-sm t-muted space-y-2 list-disc list-inside">
-                            <li><strong>Protect Org Signing Key:</strong> Migrate <code>ISSUER_PRIVATE_KEY_HEX</code> from plaintext <code>.env</code> to an HSM or cloud KMS (PKCS#11). <span class="font-mono text-orange-500 font-semibold">(F06)</span></li>
-                            <li><strong>Atomic Session Redemption:</strong> Enforce atomic mark-and-delete on <code>mobile_sessions</code> to eliminate token replay race conditions. <span class="font-mono text-amber-500 font-semibold">(F12)</span></li>
-                            <li><strong>Request Body Caps:</strong> Wrap request bodies in <code>http.MaxBytesReader</code> to prevent memory exhaustion DoS. <span class="font-mono text-amber-500 font-semibold">(F10)</span></li>
-                            <li><strong>Gateway Hardening &amp; PII Encryption:</strong> Add HSTS, CSP, and rate limiting in Nginx; apply Track C field encryption to MySQL columns. <span class="font-mono text-amber-500 font-semibold">(F07, F14)</span></li>
+                    <div class="tier" data-reveal>
+                        <div class="tier__k"><b class="c-hot">Next</b><span class="small faint">Key custody and hardening</span></div>
+                        <ul>
+                            <li><span><b>Move the issuer signing key</b> out of <code>.env</code> into an HSM or cloud KMS.</span><span>F06</span></li>
+                            <li><span><b>Make session redemption atomic</b> to close the replay race.</span><span>F12</span></li>
+                            <li><span><b>Cap request bodies</b> with <code>http.MaxBytesReader</code>.</span><span>F10</span></li>
+                            <li><span><b>Harden the gateway and encrypt PII.</b> HSTS, CSP, rate limits; column encryption in MySQL.</span><span>F07 &middot; F14</span></li>
                         </ul>
                     </div>
-
-                    <!-- Tier 3 -->
-                    <div class="card p-6" data-reveal data-reveal-delay="120">
-                        <div class="flex items-center gap-3 mb-3">
-                            <span class="text-xs font-mono font-bold text-white px-2.5 py-1 rounded bg-neutral-800 dark:bg-neutral-200 dark:text-neutral-900">TIER 3: STRATEGIC</span>
-                            <h3 class="font-bold t-base text-base">End-to-end quantum-safe identity &amp; high availability</h3>
-                        </div>
-                        <ul class="text-sm t-muted space-y-2 list-disc list-inside">
-                            <li><strong>Track A Implementation:</strong> Replace ECDSA in Fabric BCCSP, peer MSP certificates, and TLS with ML-DSA for end-to-end quantum resistance. <span class="font-mono text-orange-500 font-semibold">(F04)</span></li>
-                            <li><strong>High Availability Topology:</strong> Deploy multi-consenter Raft ordering, redundant peers, and an IPFS cluster. <span class="font-mono text-amber-500 font-semibold">(F18)</span></li>
-                            <li><strong>Blockchain Audit Checkpoints:</strong> Cryptographically anchor off-chain operational audit logs to ledger state. <span class="font-mono text-amber-500 font-semibold">(F13)</span></li>
+                    <div class="tier" data-reveal>
+                        <div class="tier__k"><b>Later</b><span class="small faint">Quantum-safe end to end</span></div>
+                        <ul>
+                            <li><span><b>ML-DSA for Fabric itself.</b> Replace ECDSA in BCCSP, peer MSP certificates and TLS.</span><span>F04</span></li>
+                            <li><span><b>High availability.</b> Multi-node Raft ordering, redundant peers, an IPFS cluster.</span><span>F18</span></li>
+                            <li><span><b>Anchor audit logs on-chain</b> so they are tamper-evident.</span><span>F13</span></li>
                         </ul>
                     </div>
                 </div>
 
-                <div class="mt-8 card p-6" style="border-left: 3px solid var(--text)" data-reveal>
-                    <h4 class="font-bold mb-2 t-base text-sm">Transparency &amp; Research Integrity Statement</h4>
-                    <p class="text-xs t-muted leading-relaxed">
-                        Publishing this comprehensive internal source-code audit reinforces credibility and transparency: while the core post-quantum credential architecture, envelope cryptography, and holder-signed presentations are robustly implemented, addressing conventional access control and operational hygiene remains essential before enterprise production readiness.
-                    </p>
-                </div>
+                <p class="lede" data-reveal style="margin-top: 3rem; max-width: 40em">A credential system asks to be trusted. Publishing what is still broken is part of earning that.</p>
             </div>
         </section>
     </main>
 
-    <!-- FOOTER -->
-    <footer class="py-12 surface">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
-            <div class="flex items-center gap-3">
-                <img src="assets/qchain_logo.jpeg" alt="QChain Logo" class="w-6 h-6 rounded shadow-sm dark:invert" onerror="this.style.display='none'">
-                <span class="font-mono text-xs font-semibold uppercase tracking-wider t-muted">QChain Research</span>
-            </div>
-            <div class="flex items-center space-x-6 text-xs t-muted font-medium">
-                <a href="index.html" class="hover:text-[var(--text)] transition-colors">Home</a>
-                <a href="platforms.html" class="hover:text-[var(--text)] transition-colors">Platforms</a>
-                <a href="research.html" class="hover:text-[var(--text)] transition-colors">Research</a>
-                <a href="audit.html" class="hover:text-[var(--text)] transition-colors">Audit</a>
-                <a href="about.html" class="hover:text-[var(--text)] transition-colors">About</a>
-                <a href="https://github.com/teamqchain" target="_blank" rel="noopener" class="hover:text-[var(--text)] transition-colors">GitHub</a>
-            </div>
-            <p class="text-xs t-subtle">&copy; 2026 Team QChain · Internal Security Audit</p>
+    <footer class="foot">
+        <div class="wrap foot__in">
+            <a class="brand" href="index.html"><img src="assets/qchain-mark.webp" alt="" width="22" height="22"><span>QChain</span></a>
+            <nav aria-label="Footer">
+                <a href="platforms.html">Platforms</a>
+                <a href="research.html">Research</a>
+                <a href="audit.html">Audit</a>
+                <a href="about.html">About</a>
+                <a href="https://github.com/teamqchain" target="_blank" rel="noopener">GitHub</a>
+            </nav>
+            <p>&copy; 2026 Team QChain &middot; Senior capstone project</p>
         </div>
     </footer>
 </body>
