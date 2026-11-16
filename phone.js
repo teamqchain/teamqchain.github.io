@@ -12,6 +12,7 @@
     'use strict';
 
     const W = 300, H = 624, T = 24, R = 54, CORNER_STEPS = 9;
+    const QR_LIFE = 60;   // seconds, as in the app
     const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     /* screen = which UI is on the glass, fx = what leaves the glass, rx/ry = resting pose */
@@ -43,6 +44,9 @@
     ];
 
     const ICON = {
+        timer: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="8" cy="9" r="5.5"/><path d="M8 6.5V9l1.6 1M6.5 1.8h3"/></svg>',
+        refresh: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 8a5 5 0 1 1-1.5-3.5M13 2.5V5h-2.5"/></svg>',
+        info: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="8" cy="8" r="6"/><path d="M8 7.5v3.5M8 5h.01"/></svg>',
         back: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3 5 8l5 5"/></svg>',
         filter: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 4h12M4.5 8h7M7 12h2"/></svg>',
         rows: '<svg viewBox="0 0 16 16" fill="currentColor"><rect x="2" y="2.5" width="12" height="4.5" rx="1.5"/><rect x="2" y="9" width="12" height="4.5" rx="1.5"/></svg>',
@@ -105,9 +109,18 @@
                 </div>
 
                 <div class="sc sc-present">
-                    <div class="sc-present__title">Show this to the verifier</div>
-                    <div class="sc-present__sub" data-sub>BSc Computer Science · 3 fields</div>
-                    <div class="sc-present__foot">HOLDER SIG · ML-DSA-44</div>
+                    <div class="pr-top">
+                        <span class="sc-circ pr-back">${ICON.back}</span>
+                        <div class="pr-head"><small>Present Document</small><b>Bachelor of Science in Computer Science</b></div>
+                        <div class="pr-org"><b>University of Sharjah</b><small>ID: CRED-0003</small></div>
+                    </div>
+                    <div class="pr-timer">
+                        <div class="pr-timer__row">${ICON.timer}<span>QR Code expires in</span><b data-clock>01:00</b></div>
+                        <div class="pr-timer__bar"><i data-bar></i></div>
+                    </div>
+                    <div class="pr-btn pr-btn--off">${ICON.refresh} Refresh QR Code</div>
+                    <div class="pr-btn"><span class="pr-stars">***</span> Share via OTP Instead</div>
+                    <div class="pr-note">${ICON.info}<span>Show this QR code to a verifier. It carries <span data-sub>3 of 6 fields</span>, is single-use and expires shortly.</span></div>
                 </div>
 
                 <div class="sc sc-log">
@@ -146,11 +159,6 @@
             <div class="fl for-present qr">
                 <div data-qr></div>
                 <div class="qr__scan"></div>
-                <div class="qr__t">
-                    <svg class="qr__ring" viewBox="0 0 20 20"><circle class="trk" cx="10" cy="10" r="8"/><circle class="val" cx="10" cy="10" r="8"/></svg>
-                    <span data-clock>2:00</span>
-                </div>
-                <small>Single use · expires after 120 s</small>
             </div>
 
             <div class="fl verdict">
@@ -252,7 +260,7 @@
             this.dragging = false; this.coast = false; this.moved = false;
             this.s = 1; this.litAt = [999, 999]; this.visible = false; this.raf = 0; this.last = 0;
 
-            this.clock = 120; this.seed = 7;
+            this.clock = QR_LIFE; this.seed = 7;
             this.qr = this.el.querySelector('[data-qr]');
             this.qr.innerHTML = qrSvg(this.seed);
 
@@ -347,16 +355,17 @@
             setInterval(() => {
                 if (!this.visible || this.el.dataset.screen !== 'present') return;
                 this.clock -= 1;
-                if (this.clock < 0) { this.clock = 120; this.qr.innerHTML = qrSvg(++this.seed); }
-                this.el.querySelector('[data-clock]').textContent = `${Math.floor(this.clock / 60)}:${String(this.clock % 60).padStart(2, '0')}`;
-                this.el.querySelector('.qr__ring .val').style.strokeDashoffset = (50.3 * (1 - this.clock / 120)).toFixed(1);
+                if (this.clock < 0) { this.clock = QR_LIFE; this.qr.innerHTML = qrSvg(++this.seed); }
+                const pad = n => String(n).padStart(2, '0');
+                this.el.querySelector('[data-clock]').textContent = `${pad(Math.floor(this.clock / 60))}:${pad(this.clock % 60)}`;
+                this.el.querySelector('[data-bar]').style.setProperty('--t', (this.clock / QR_LIFE).toFixed(3));
             }, 1000);
         }
 
         count() {
             const on = this.el.querySelectorAll('.field.is-on').length, all = FIELDS.length;
             this.el.querySelector('[data-cta]').textContent = on ? `Present ${on} of ${all} fields` : 'Pick at least one field';
-            this.el.querySelector('[data-sub]').textContent = `BSc Computer Science · ${on} field${on === 1 ? '' : 's'}`;
+            this.el.querySelector('[data-sub]').textContent = `${on} of ${all} fields`;
             this.el.querySelector('[data-seen]').textContent = `Saw ${on} of ${all} fields. Nothing else left the phone.`;
         }
 
